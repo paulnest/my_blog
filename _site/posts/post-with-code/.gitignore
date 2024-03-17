@@ -1,9 +1,0 @@
-# Ignorer les fichiers indésirables
-.Rhistory
-.DS_Store
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-
-/.quarto/
