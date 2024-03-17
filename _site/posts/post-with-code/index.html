@@ -184,8 +184,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="librairie-olympicsweather"><strong>Librairie olympicsWeather</strong></h2>
 <p>La librairie olympicsWeather fournit des fonctionnalités pour accéder aux données de prévisions météorologiques en fonction des coordonnées géographiques ou des adresses. Avant d’utiliser la librairie, vous devez l’installer. Voici les étapes pour installer la librairie en utilisant le package remotes depuis GitHub.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installer le package remotes s'il n'est pas déjà installé</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The following package(s) will be installed:
 - remotes [2.4.2.1]
@@ -193,22 +191,58 @@ These packages will be installed into "~/Documents/my_blog/renv/library/R-4.3/x8
 
 # Installing packages --------------------------------------------------------
 - Installing remotes ...                        OK [linked from cache]
-Successfully installed 1 package in 13 milliseconds.</code></pre>
+Successfully installed 1 package in 35 milliseconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger le package remotes</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Installer le package olympicsWeather depuis GitHub</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"paulnest/olympicsWeather"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Skipping install of 'olympicsWeather' from a github remote, the SHA1 (9f365a42) has not changed since last install.
-  Use `force = TRUE` to force installation</code></pre>
+<pre><code>Downloading GitHub repo paulnest/olympicsWeather@HEAD</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger la librairie</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(olympicsWeather)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Voici la liste des packages nécessaires au fonctionnement de olympicsWeather (à installer si le chargement du package seul ne le fait pas)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stringi   (1.7.12 -&gt; 1.8.3 ) [CRAN]
+vctrs     (0.6.4  -&gt; 0.6.5 ) [CRAN]
+rlang     (1.1.2  -&gt; 1.1.3 ) [CRAN]
+lifecycle (1.0.3  -&gt; 1.0.4 ) [CRAN]
+glue      (1.6.2  -&gt; 1.7.0 ) [CRAN]
+cli       (3.6.1  -&gt; 3.6.2 ) [CRAN]
+digest    (0.6.33 -&gt; 0.6.35) [CRAN]
+sass      (0.4.7  -&gt; 0.4.9 ) [CRAN]
+tinytex   (0.48   -&gt; 0.50  ) [CRAN]
+yaml      (2.3.7  -&gt; 2.3.8 ) [CRAN]
+xfun      (0.41   -&gt; 0.42  ) [CRAN]
+processx  (3.8.3  -&gt; 3.8.4 ) [CRAN]
+rmarkdown (2.25   -&gt; 2.26  ) [CRAN]</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Installing 13 packages: stringi, vctrs, rlang, lifecycle, glue, cli, digest, sass, tinytex, yaml, xfun, processx, rmarkdown</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Installing packages into '/Users/paul/Documents/my_blog/renv/library/R-4.3/x86_64-apple-darwin20'
+(as 'lib' is unspecified)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Package which is only available in source form, and may need
+  compilation of C/C++/Fortran: 'processx'</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/4_/qxjsjkb97v17180rn975ktmh0000gn/T//RtmpyKwlUZ/downloaded_packages</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>installing the source packages 'tinytex', 'processx'</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>── R CMD build ─────────────────────────────────────────────────────────────────
+* checking for file ‘/private/var/folders/4_/qxjsjkb97v17180rn975ktmh0000gn/T/RtmpyKwlUZ/remotes1b111318d1de/paulnest-olympicsWeather-69957dc/DESCRIPTION’ ... OK
+* preparing ‘olympicsWeather’:
+* checking DESCRIPTION meta-information ... OK
+* checking for LF line-endings in source and make files and shell scripts
+* checking for empty or unneeded directories
+* building ‘olympicsWeather_0.0.0.9000.tar.gz’</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Installing package into '/Users/paul/Documents/my_blog/renv/library/R-4.3/x86_64-apple-darwin20'
+(as 'lib' is unspecified)</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'dplyr'</code></pre>
@@ -223,34 +257,25 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidygeocoder)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ forcats   1.0.0     ✔ readr     2.1.5
 ✔ ggplot2   3.5.0     ✔ stringr   1.5.1
 ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter()  masks stats::filter()
 ✖ purrr::flatten() masks jsonlite::flatten()
 ✖ dplyr::lag()     masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(opencage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="quelques-exemples-de-prévisions-météo" class="level2">
 <h2 class="anchored" data-anchor-id="quelques-exemples-de-prévisions-météo">Quelques exemples de prévisions Météo</h2>
 <p>Quelles sont les prévisions météo à 7 jours pour le stade de France ?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_forecast</span>(<span class="st">"Stade de France"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_forecast</span>(<span class="st">"Stade de France"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Passing 1 address to the Nominatim single address geocoder</code></pre>
 </div>
@@ -278,7 +303,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>Pour Tahiti ?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_forecast</span>(<span class="st">"Tahiti"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_forecast</span>(<span class="st">"Tahiti"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Passing 1 address to the Nominatim single address geocoder</code></pre>
 </div>
@@ -306,7 +331,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>Pour les coordonnées gps 43.276703, 5.334791 ?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_forecast</span>(<span class="fu">c</span>(<span class="fl">43.276703</span>, <span class="fl">5.334791</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_forecast</span>(<span class="fu">c</span>(<span class="fl">43.276703</span>, <span class="fl">5.334791</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 168 × 5
    date_heure       temperature_celsius temperature_ressenti…¹ precipation_proba
