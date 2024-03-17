@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
+<meta name="author" content="Paul Nestour">
 <meta name="dcterms.date" content="2024-03-16">
 
-<title>my_blog - Post With Code</title>
+<title>my_blog - olympicsWeather</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+ <span class="menu-text">À propos de moi</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/" rel="" target=""><i class="bi bi-github" role="img">
@@ -142,11 +142,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">olympicsWeather</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">package R</div>
               </div>
                   </div>
   </div>
@@ -157,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Paul Nestour </p>
             </div>
     </div>
       
@@ -182,15 +180,155 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>This is a post with executable code.</p>
+<section id="librairie-olympicsweather" class="level2">
+<h2 class="anchored" data-anchor-id="librairie-olympicsweather"><strong>Librairie olympicsWeather</strong></h2>
+<p>La librairie olympicsWeather fournit des fonctionnalités pour accéder aux données de prévisions météorologiques en fonction des coordonnées géographiques ou des adresses. Avant d’utiliser la librairie, vous devez l’installer. Voici les étapes pour installer la librairie en utilisant le package remotes depuis GitHub.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installer le package remotes s'il n'est pas déjà installé</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>The following package(s) will be installed:
+- remotes [2.4.2.1]
+These packages will be installed into "~/Documents/my_blog/renv/library/R-4.3/x86_64-apple-darwin20".
+
+# Installing packages --------------------------------------------------------
+- Installing remotes ...                        OK [linked from cache]
+Successfully installed 1 package in 13 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger le package remotes</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Installer le package olympicsWeather depuis GitHub</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"paulnest/olympicsWeather"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Skipping install of 'olympicsWeather' from a github remote, the SHA1 (9f365a42) has not changed since last install.
+  Use `force = TRUE` to force installation</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger la librairie</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(olympicsWeather)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Voici la liste des packages nécessaires au fonctionnement de olympicsWeather (à installer si le chargement du package seul ne le fait pas)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidygeocoder)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ forcats   1.0.0     ✔ readr     2.1.5
+✔ ggplot2   3.5.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter()  masks stats::filter()
+✖ purrr::flatten() masks jsonlite::flatten()
+✖ dplyr::lag()     masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(opencage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="quelques-exemples-de-prévisions-météo" class="level2">
+<h2 class="anchored" data-anchor-id="quelques-exemples-de-prévisions-météo">Quelques exemples de prévisions Météo</h2>
+<p>Quelles sont les prévisions météo à 7 jours pour le stade de France ?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_forecast</span>(<span class="st">"Stade de France"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Passing 1 address to the Nominatim single address geocoder</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Query completed in: 1 seconds</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 168 × 5
+   date_heure       temperature_celsius temperature_ressenti…¹ precipation_proba
+   &lt;chr&gt;                          &lt;dbl&gt;                  &lt;dbl&gt;             &lt;int&gt;
+ 1 2024-03-17T00:00                11.2                    9.9                 0
+ 2 2024-03-17T01:00                10.8                    9.7                 1
+ 3 2024-03-17T02:00                10.6                    9.4                 2
+ 4 2024-03-17T03:00                10.5                    9                   3
+ 5 2024-03-17T04:00                10.5                    8.9                14
+ 6 2024-03-17T05:00                10.4                    8.8                24
+ 7 2024-03-17T06:00                10.5                    9.2                35
+ 8 2024-03-17T07:00                10.6                    9.4                34
+ 9 2024-03-17T08:00                10.9                    9.5                33
+10 2024-03-17T09:00                11.6                    9.8                32
+# ℹ 158 more rows
+# ℹ abbreviated name: ¹​temperature_ressentie_celsius
+# ℹ 1 more variable: precipitation &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Pour Tahiti ?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_forecast</span>(<span class="st">"Tahiti"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Passing 1 address to the Nominatim single address geocoder</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Query completed in: 1 seconds</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 168 × 5
+   date_heure       temperature_celsius temperature_ressenti…¹ precipation_proba
+   &lt;chr&gt;                          &lt;dbl&gt;                  &lt;dbl&gt;             &lt;int&gt;
+ 1 2024-03-17T00:00                17.6                   21                  35
+ 2 2024-03-17T01:00                17.6                   19.8                25
+ 3 2024-03-17T02:00                17.6                   19                  16
+ 4 2024-03-17T03:00                17.6                   19.2                 6
+ 5 2024-03-17T04:00                17.6                   19.2                 7
+ 6 2024-03-17T05:00                17.7                   19.2                 9
+ 7 2024-03-17T06:00                17.6                   19                  10
+ 8 2024-03-17T07:00                17.6                   18.9                22
+ 9 2024-03-17T08:00                17.5                   18.9                33
+10 2024-03-17T09:00                17.3                   18.8                45
+# ℹ 158 more rows
+# ℹ abbreviated name: ¹​temperature_ressentie_celsius
+# ℹ 1 more variable: precipitation &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Pour les coordonnées gps 43.276703, 5.334791 ?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_forecast</span>(<span class="fu">c</span>(<span class="fl">43.276703</span>, <span class="fl">5.334791</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 168 × 5
+   date_heure       temperature_celsius temperature_ressenti…¹ precipation_proba
+   &lt;chr&gt;                          &lt;dbl&gt;                  &lt;dbl&gt;             &lt;int&gt;
+ 1 2024-03-17T00:00                14.9                   11.6                 0
+ 2 2024-03-17T01:00                13.9                    9.5                 0
+ 3 2024-03-17T02:00                14.9                   13.3                 0
+ 4 2024-03-17T03:00                11.5                   10.5                 0
+ 5 2024-03-17T04:00                11.4                   10.3                 0
+ 6 2024-03-17T05:00                11.8                   10.6                 0
+ 7 2024-03-17T06:00                11.8                   10.3                 0
+ 8 2024-03-17T07:00                11.9                   10.8                 0
+ 9 2024-03-17T08:00                11.7                   11.1                 0
+10 2024-03-17T09:00                12.6                   12                   0
+# ℹ 158 more rows
+# ℹ abbreviated name: ¹​temperature_ressentie_celsius
+# ℹ 1 more variable: precipitation &lt;dbl&gt;</code></pre>
 </div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
