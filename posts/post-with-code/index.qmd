@@ -37,17 +37,19 @@ library(opencage)
 ## Quelques exemples de prévisions Météo
 
 Quelles sont les prévisions météo à 7 jours pour le stade de France ?
+
 ```{r}
 get_forecast("Stade de France")
 ```
 
 Pour Tahiti ?
+
 ```{r}
 get_forecast("Tahiti")
 ```
 
 Pour les coordonnées gps 43.276703, 5.334791 ?
+
 ```{r}
 get_forecast(c(43.276703, 5.334791))
 ```
-
