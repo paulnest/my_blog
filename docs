@@ -1,1 +1,55 @@
+---
+title: "olympicsWeather"
+author: "Paul Nestour"
+date: "2024-03-16"
+categories: [package R]
+image: "image.jpg"
+---
 
+## **Librairie olympicsWeather**
+
+La librairie olympicsWeather fournit des fonctionnalités pour accéder aux données de prévisions météorologiques en fonction des coordonnées géographiques ou des adresses. Avant d'utiliser la librairie, vous devez l'installer. Voici les étapes pour installer la librairie en utilisant le package remotes depuis GitHub.
+
+```{r, echo=FALSE}
+# Installer le package remotes s'il n'est pas déjà installé
+install.packages("remotes")
+
+# Charger le package remotes
+library(remotes)
+
+# Installer le package olympicsWeather depuis GitHub
+remotes::install_github("paulnest/olympicsWeather")
+
+# Charger la librairie
+library(olympicsWeather)
+
+# Voici la liste des packages nécessaires au fonctionnement de olympicsWeather (à installer si le chargement du package seul ne le fait pas)
+library(dplyr)
+library(httr)
+library(httr2)
+library(jsonlite)
+library(tibble)
+library(tidygeocoder)
+library(tidyverse)
+library(opencage)
+```
+
+## Quelques exemples de prévisions Météo
+
+Quelles sont les prévisions météo à 7 jours pour le stade de France ?
+
+```{r}
+get_forecast("Stade de France")
+```
+
+Pour Tahiti ?
+
+```{r}
+get_forecast("Tahiti")
+```
+
+Pour les coordonnées gps 43.276703, 5.334791 ?
+
+```{r}
+get_forecast(c(43.276703, 5.334791))
+```
