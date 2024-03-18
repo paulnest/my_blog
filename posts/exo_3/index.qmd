@@ -1,4 +1,6 @@
 ---
+
+---
 title: "Exercice 3"
 format: html
 editor: visual
