@@ -26,7 +26,8 @@ if (!file.exists("data")) {
 unzip(zipfile = fichier_zip, exdir = "data")
 ```
 
-1. Listez les fichiers présents dans le dossier data. Quelles sont les extensions des différents fichiers ?
+1.  Listez les fichiers présents dans le dossier data. Quelles sont les extensions des différents fichiers ?
+
 ```{r}
 fichiers_data <- list.files("data")
 
@@ -36,21 +37,21 @@ for (fichier in fichiers_data) {
 }
 ```
 
-2. Lisez le fichier .parquet en utilisant la librairie arrow. Quelles sont les dimensions de la table ? Quelles sont les colonnes présentes ?
+2.  Lisez le fichier .parquet en utilisant la librairie arrow. Quelles sont les dimensions de la table ? Quelles sont les colonnes présentes ?
 
 ```{r}
 tokyo_athletes <- read_parquet("data/tokyo_athletes.parquet")
 summary(tokyo_athletes)
 ```
 
-3. Lisez le fichier .json en utilisant la librairie jsonlite. Quelles sont les dimensions de la table ? Quelles sont les colonnes présentes ?
+3.  Lisez le fichier .json en utilisant la librairie jsonlite. Quelles sont les dimensions de la table ? Quelles sont les colonnes présentes ?
 
 ```{r}
 olympics_df <- fromJSON("data/olympics_athletes.json")
 str(olympics_df)
 ```
 
-4. Importez la librairie RSQLite, et ouvrez une connexion à la base de données sqlite en utilisant la fonction dbConnect. Le driver à utiliser sera SQLite(). Quelles sont les tables présentes dans la table ? Vous pourrez utiliser la fonction dbListTables.
+4.  Importez la librairie RSQLite, et ouvrez une connexion à la base de données sqlite en utilisant la fonction dbConnect. Le driver à utiliser sera SQLite(). Quelles sont les tables présentes dans la table ? Vous pourrez utiliser la fonction dbListTables.
 
 ```{r}
 con <- dbConnect(SQLite(), "data/data.sqlite")
@@ -60,7 +61,7 @@ tokyo_medals <- dbReadTable(con, "tokyo_medals")
 tokyo_teams <- dbReadTable(con, "tokyo_teams")
 ```
 
-5. Créez deux nouvelles tables dans la base de données à l’aide de la fonction dbWriteTable. Les tables s’appeleront respectivement olympics_athletes et tokyo_athletes pour les fichiers olympics_athletes.json et tokyo_athletes.parquet.
+5.  Créez deux nouvelles tables dans la base de données à l’aide de la fonction dbWriteTable. Les tables s’appeleront respectivement olympics_athletes et tokyo_athletes pour les fichiers olympics_athletes.json et tokyo_athletes.parquet.
 
 ```{r}
 dbWriteTable(con, "olympics_athletes", olympics_df)
@@ -68,7 +69,7 @@ dbWriteTable(con, "tokyo_athletes", tokyo_athletes)
 dbDisconnect(con)
 ```
 
-6. Inspectez la table olympics_athletes en utilisant la fonction dbListFields. Quelles sont les colonnes de la table ?
+6.  Inspectez la table olympics_athletes en utilisant la fonction dbListFields. Quelles sont les colonnes de la table ?
 
 ```{r}
 con <- dbConnect(SQLite(), "data/data.sqlite")
@@ -84,14 +85,14 @@ olympics_athletes <- dbReadTable(con, "olympics_athletes")
 olympics_athletes <- as_tibble(olympics_athletes)
 ```
 
-8. Convertissez la colonne Sex en variable catégorielle avec la fonction mutate.
+8.  Convertissez la colonne Sex en variable catégorielle avec la fonction mutate.
 
 ```{r}
 olympics_athletes <- olympics_athletes %>%
   mutate(Sex = as.factor(Sex))
 ```
 
-9. Créez deux colonnes à partir de la colonne Games. La première colonne Year sera une colonne de type integer contenant l’année des jeux. La deuxième colonne isSummer sera une colonne booléenne qui indiquera si les jeux sont des jeux d’été ou d’hiver. Vous pourrez utiliser la fonction separate_wider_delim de tidyr notamment.
+9.  Créez deux colonnes à partir de la colonne Games. La première colonne Year sera une colonne de type integer contenant l’année des jeux. La deuxième colonne isSummer sera une colonne booléenne qui indiquera si les jeux sont des jeux d’été ou d’hiver. Vous pourrez utiliser la fonction separate_wider_delim de tidyr notamment.
 
 ```{r}
 olympics_athletes$Year <- as.integer(substr(olympics_athletes$Games, 1, 4))
@@ -100,6 +101,7 @@ olympics_athletes$Summer <- grepl("Summer", olympics_athletes$Games)
 
 print(olympics_athletes)
 ```
+
 # Je n'ai pas réussi avec le package **tidyr** et sa fonction `separate_wider_delim`.
 
 # 10. Calculez la moyenne d’age des athletes pour chacune des éditions des JO d’été. Quelle édition a compté les athlètes les plus jeunes ? Les plus vieux ?
@@ -149,4 +151,3 @@ nombre_max_taille_par_discipline <- olympics_athletes %>%
 print("Nombre de fois où chaque discipline est la discipline avec les plus grandes athlètes :")
 print(nombre_max_taille_par_discipline)
 ```
-

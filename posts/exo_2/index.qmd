@@ -14,7 +14,7 @@ library(stringr)
 
 ## Exercice
 
-1.  Lancez la commande suivante : list_tables <- session("https://fr.wikipedia.org/wiki/Liste_des_m%C3%A9daill%C3%A9s_olympiques") \|\> html_elements(".wikitable") \|\> html_table()
+1.  Lancez la commande suivante : list_tables \<- session("https://fr.wikipedia.org/wiki/Liste_des_m%C3%A9daill%C3%A9s_olympiques") \|\> html_elements(".wikitable") \|\> html_table()
 
 ```{r}
 list_tables <-
@@ -125,6 +125,7 @@ calcul_nb_editions <- function(depuis) {
 
 calcul_nb_editions("1904–1924, depuis 1948")
 ```
+
 Le résultat devrait être 23 : 6 éditions entre 1904 et 1924 et 17 depuis 1948. Le résultat n'est pas bon, la fonction ne fonctionne pas.
 
 8.  En Athlétisme, le Finlandais Paavo Nurmi détient le record de médailles avec 12 médailles obtenues lors des JO d’hiver. Implémentez une fonction calcul_medailles_individuelles qui détermine le nombre de médaille maximal a été obtenu par un athlète lors d’olympiades. Note : s’il y a plusieurs athlètes à égalité, alors la cellule comporte plusieurs éléments, et une manipulation de la chaîne de caractères est nécessaire.

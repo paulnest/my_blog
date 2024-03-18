@@ -2,6 +2,9 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/exo_3/index.html",
+      "/posts/exo_2/index.html",
+      "/posts/exo_1/index.html",
       "/posts/post-with-code/index.html",
       "/posts/welcome/index.html"
     ]
