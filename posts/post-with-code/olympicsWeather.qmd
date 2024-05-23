@@ -3,9 +3,8 @@ title: "olympicsWeather"
 author: "Paul Nestour"
 date: "2024-03-16"
 categories: [package R]
-image: "image.jpeg"
+image: "nuages.jpeg"
 ---
-
 ## Librairie olympicsWeather : Guide d'utilisation
 
 La librairie olympicsWeather fournit des fonctionnalités pour accéder aux données de prévisions météorologiques en fonction des coordonnées géographiques ou des adresses. Avant d'utiliser la librairie, vous devez l'installer. Voici les étapes pour installer la librairie en utilisant le package remotes depuis GitHub.
@@ -14,7 +13,6 @@ La librairie olympicsWeather fournit des fonctionnalités pour accéder aux donn
 
 ```{r, eval=FALSE}
 # Installer le package remotes s'il n'est pas déjà installé
-
 install.packages("remotes")
 
 # Charger le package remotes

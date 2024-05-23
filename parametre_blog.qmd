@@ -1,7 +1,6 @@
 ---
 title: "Mon blog"
 listing:
-  image: profile.jpg
   contents: posts
   sort: "date desc"
   type: default
