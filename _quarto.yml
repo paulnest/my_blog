@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "my_blog"
+  title: "Data et beurre salé"
   navbar:
     right:
       - about.qmd
