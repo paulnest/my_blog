@@ -1,0 +1,1463 @@
+---
+title: "Évaluation des Actifs Financiers"
+author: "Paul NESTOUR et Lucas LE DREVO"
+format: html
+editor: visual
+date: "2023-11-15"
+categories: [dossier]
+abstract: "Nous avons réalisé ce dossier d'évaluation des actifs financiers, dans le cadre du programme de **Master 1 Économétrie Appliquée**, matière dispensée par  **M. Yayi**."
+---
+
+## Introduction
+
+Pour ce projet, nous nous intéresserons à 9 fonds d’investissement socialement responsable (ISR) suivants, disponibles sur le site Yahoo Finance.
+
+1.  **Amundi CPR Climate Action I**: Ce fonds d'investissement est géré par une équipe expérimentée chez Amundi, l'un des leaders mondiaux de la gestion d'actifs. Le fonds Amundi CPR Climate Action I se concentre sur les investissements durables et responsables, notamment dans des entreprises qui contribuent activement à la lutte contre le changement climatique et à la promotion d'une économie plus verte.
+
+2.  **MainFirst Global Equities X**: Géré par MainFirst, une société de gestion d'actifs reconnue, ce fonds offre une exposition diversifiée aux marchés mondiaux des actions. MainFirst Global Equities X vise à tirer parti des opportunités d'investissement à l'échelle mondiale, en mettant l'accent sur la sélection rigoureuse des actions offrant un potentiel de croissance durable à long terme.
+
+3.  **The Andersons : (ANDE)**: The Andersons est une société diversifiée bien établie, engagée dans plusieurs secteurs d'activité, y compris l'agriculture, l'ingénierie et le commerce. Son ticker symbol (ANDE) indique sa cotation en bourse et son rôle important dans l'économie américaine.
+
+4.  **Carmignac Emergents**: Ce fonds, géré par Carmignac Gestion, se concentre sur les marchés émergents, offrant aux investisseurs une opportunité de diversification géographique et un potentiel de croissance supérieur. Carmignac Emergents vise à identifier les entreprises prometteuses dans les économies en développement et à générer des rendements attractifs à long terme.
+
+5.  **Pluvalca Sustainable Opportunities**: Géré par Pluvalca Investissement, ce fonds met l'accent sur les opportunités d'investissement durable et responsable. Pluvalca Sustainable Opportunities cherche à investir dans des entreprises qui intègrent des critères environnementaux, sociaux et de gouvernance (ESG) dans leur modèle d'affaires, tout en offrant un potentiel de croissance attrayant.
+
+6.  **Fidelity Sustainable Water & Waste R Acc**: Ce fonds, géré par Fidelity Investments, se concentre sur les investissements dans des entreprises liées à la gestion de l'eau et des déchets, avec un accent particulier sur la durabilité et l'impact environnemental. Fidelity Sustainable Water & Waste R Acc vise à générer des rendements solides tout en contribuant à des objectifs environnementaux et sociaux positifs.
+
+7.  **Epsens EdR Tricolore Rendement**: Géré par Edmond de Rothschild Asset Management, ce fonds vise à générer des rendements attrayants en investissant principalement dans des actions françaises. Epsens EdR Tricolore Rendement bénéficie de l'expertise et de l'expérience de l'équipe de gestion d'actifs d'Edmond de Rothschild pour identifier les opportunités d'investissement sur les marchés français.
+
+8.  **Thematics Water R/A USD**: Ce fonds, géré par Thematics Asset Management, se concentre sur les investissements dans des entreprises liées au secteur de l'eau. Thematics Water R/A USD offre aux investisseurs une exposition à un thème d'investissement spécifique, tout en cherchant à capturer les opportunités de croissance dans un secteur essentiel à long terme.
+
+9.  **AIS Mandarine Global Transition**: Géré par Mandarine Gestion, ce fonds vise à investir dans des entreprises ou des projets qui contribuent à la transition vers une économie plus durable. AIS Mandarine Global Transition cherche à identifier les leaders du marché dans des secteurs clés de la transition énergétique et environnementale, offrant ainsi aux investisseurs une exposition à long terme à des thèmes d'investissement stratégiques.
+
+\newpage
+
+## Exercice 1 : Calcul de rendements, statistiques usuelles et performance des titres
+
+### 1. Calculer et représenter les prix et les rendements de chacun des fonds en fonction du temps. Commentez les résultats.
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Chargement des packages
+library(tidyverse)
+library(readr)
+library(tidyr)
+library(xts)
+library(TTR)
+library(moments)
+library(corrplot)
+library(ggplot2)
+```
+
+**Titres Amundi CPR Climate Action I** Les résultats pour le fonds "Amundi CPR Climate Action I" montrent une évolution intéressante des prix et des rendements tout au long de l'année 2023.
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Import des données
+X0P0001IYTY_F <- read_csv("./Databases/0P0001IYTY.F.csv")
+data1 <- X0P0001IYTY_F
+
+# Convertir les colonnes Open et Close en type numérique
+data1 <- data1 %>%
+  mutate(Open = as.numeric(Open),
+         Close = as.numeric(Close))
+
+# Conversion de la colonne de date en format Date
+data1$Date <- as.Date(data1$Date)
+
+# Remplacement des valeurs null ou manquantes par NA
+data1[is.na(data1)] <- NA
+
+# Supprimer les lignes contenant des valeurs manquantes
+data1 <- na.omit(data1)
+
+# Calculer les rendements pour l'ensemble des données
+data1 <- data1 %>% 
+  arrange(Date) %>%
+  mutate(Rendement = Close / lag(Close) - 1)
+
+data1 <- data1 %>%
+  mutate(Rendement = replace_na(Rendement, 0))
+
+# Représentation des prix
+ggplot(data1, aes(x = Date, y = Close)) +
+  geom_line() +
+  labs(title = "Évolution des prix des titres Amundi CPR Climate Action I",
+       x = "Date",
+       y = "Prix de clôture") +
+  theme_minimal()
+```
+
+Les prix moyens semblent fluctuer au fil des mois, avec une tendance générale à la hausse au début de l'année, suivie d'une période de fluctuation, de légère baisse au début du quatrième semestre, et finalement d'une forte hausse vers la fin de l'année. En particulier, une augmentation notable des prix est observée en mars, suivie d'une légère baisse en avril et mai, puis une tendance à la hausse en juin et juillet. Ensuite, nous constatons une certaine volatilité avec des variations jusqu'à la fin de l'année.
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Représentation des rendements
+ggplot(data1, aes(x = Date, y = Rendement)) +
+  geom_line() +
+  labs(title = "Évolution des rendements des titres Amundi CPR Climate Action I",
+       x = "Date",
+       y = "Rendement") +
+  theme_minimal()
+```
+
+Les rendements moyens montrent également une variabilité mensuelle. Nous observons des rendements positifs en janvier, février, mai, juin et novembre, avec des performances particulièrement fortes en novembre. Cependant, il y a aussi des mois avec des rendements négatifs, tels que mars, septembre et octobre.
+
+En général, ces résultats suggèrent une certaine volatilité dans les performances du fonds "Amundi CPR Climate Action I" au cours de l'année 2023. Il serait intéressant de creuser davantage pour comprendre les facteurs sous-jacents qui ont influencé ces fluctuations de prix et de rendements, ainsi que d'analyser la performance relative par rapport à d'autres fonds d'investissement socialement responsables.
+
+**Titres MainFirst Global Equities X** Les résultats pour le fonds MainFirst Global Equities X montrent une évolution des prix moyens et des rendements moyens au fil du temps pour chaque mois de l'année 2023.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Import des données
+X0P0001H2AP_F <- read_csv("./Databases/0P0001H2AP.F.csv")
+data2 <- X0P0001H2AP_F
+
+# Convertir les colonnes Open et Close en type numérique
+data2 <- data2 %>%
+  mutate(Open = as.numeric(Open),
+         Close = as.numeric(Close))
+
+# Conversion de la colonne de date en format Date
+data2$Date <- as.Date(data2$Date)
+
+# Remplacement des valeurs null ou manquantes par NA
+data2[is.na(data2)] <- NA
+
+# Supprimer les lignes contenant des valeurs manquantes
+data2 <- na.omit(data2)
+
+# Calculer les rendements pour l'ensemble des données
+data2 <- data2 %>% 
+  arrange(Date) %>%
+  mutate(Rendement = Close / lag(Close) - 1)
+
+data2 <- data2 %>%
+  mutate(Rendement = replace_na(Rendement, 0))
+
+# Représentation des prix
+ggplot(data2, aes(x = Date, y = Close)) +
+  geom_line() +
+  labs(title = "Évolution des prix des titres MainFirst Global Equities X",
+       x = "Date",
+       y = "Prix de clôture") +
+  theme_minimal()
+```
+
+On observe une variation des prix moyens du fonds tout au long de l'année 2023. Les prix moyens semblent fluctuer, avec des hauts et des bas d'un mois à l'autre. Par exemple, les prix moyens atteignent leur plus bas niveau en mars (126) et leur plus haut niveau en juillet (139), avec des variations entre ces extrêmes au cours des autres mois.
+
+Les rendements moyens du fonds présentent également des variations mensuelles. Certains mois affichent des rendements positifs, tandis que d'autres affichent des rendements négatifs. Par exemple, les rendements moyens sont positifs en janvier, juin, juillet et novembre, tandis qu'ils sont négatifs en février, avril, août et septembre.
+
+Bien que les prix et les rendements fluctuent d'un mois à l'autre, il semble y avoir certaines tendances générales au fil de l'année. Par exemple, les prix semblent augmenter progressivement au cours des premiers mois de l'année, avec un pic en juillet, avant de baisser légèrement vers la fin de l'année. Les rendements moyens semblent également suivre des tendances similaires, bien qu'avec plus de variations d'un mois à l'autre.
+
+Il serait intéressant d'analyser les facteurs externes qui ont pu influencer les performances du fonds au cours de cette période, tels que les conditions économiques mondiales, les événements politiques, ou les tendances du marché financier. Ces facteurs pourraient expliquer les variations observées dans les prix et les rendements du fonds.
+
+En résumé, l'analyse des prix moyens et des rendements moyens du fonds MainFirst Global Equities X pour l'année 2023 montre une évolution fluctuante mais présentant certaines tendances générales au fil du temps. Une analyse plus approfondie des facteurs influents pourrait fournir des insights supplémentaires sur les performances du fonds.
+
+**Titres The Andersons : (ANDE)** Les données fournies présentent les moyennes mensuelles des prix et des rendements pour le fonds The Andersons (ANDE) sur l'année 2023.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Import des données
+ANDE <- read_csv("./Databases/ANDE.csv")
+data3 <- ANDE
+
+# Convertir les colonnes Open et Close en type numérique
+data3 <- data3 %>%
+  mutate(Open = as.numeric(Open),
+         Close = as.numeric(Close))
+
+# Conversion de la colonne de date en format Date
+data3$Date <- as.Date(data3$Date)
+
+# Remplacement des valeurs null ou manquantes par NA
+data3[is.na(data3)] <- NA
+
+# Supprimer les lignes contenant des valeurs manquantes
+data3 <- na.omit(data3)
+
+# Calculer les rendements pour l'ensemble des données
+data3 <- data3 %>% 
+  arrange(Date) %>%
+  mutate(Rendement = Close / lag(Close) - 1)
+
+data3 <- data3 %>%
+  mutate(Rendement = replace_na(Rendement, 0))
+
+# Représentation des prix
+ggplot(data3, aes(x = Date, y = Close)) +
+  geom_line() +
+  labs(title = "Évolution des prix des titres The Andersons : (ANDE)",
+       x = "Date",
+       y = "Prix de clôture") +
+  theme_minimal()
+```
+
+Les prix moyens semblent avoir une tendance générale à la hausse au cours de l'année, avec quelques fluctuations mensuelles. Les prix ont augmenté progressivement jusqu'en juin, puis ont diminué légèrement en juillet et août, pour ensuite augmenter à nouveau jusqu'en décembre, atteignant un niveau plus élevé à la fin de l'année.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Représentation des rendements
+ggplot(data3, aes(x = Date, y = Rendement)) +
+  geom_line() +
+  labs(title = "Évolution des rendements des titres The Andersons : (ANDE)",
+       x = "Date",
+       y = "Rendement") +
+  theme_minimal()
+```
+
+Les rendements moyens présentent une variabilité mensuelle plus prononcée. On observe des fluctuations positives et négatives tout au long de l'année, indiquant une volatilité dans les performances du fonds. Cependant, la tendance globale semble être légèrement positive, avec des rendements positifs plus fréquents que les rendements négatifs.
+
+Il serait intéressant d'examiner s'il existe une corrélation entre les mouvements de prix et les rendements pour ce fonds. Par exemple, des hausses de prix sont-elles généralement suivies de rendements positifs, et vice versa ? Cette analyse pourrait aider à mieux comprendre la dynamique de performance du fonds.
+
+En résumé, les données indiquent une évolution positive des prix moyens au fil du temps, avec des rendements moyens fluctuant mais légèrement positifs sur l'ensemble de l'année. Cependant, une analyse plus approfondie serait nécessaire pour évaluer pleinement les performances du fonds The Andersons (ANDE) et comprendre les facteurs qui influencent ses prix et rendements.
+
+**Titres Carmignac Emergents** Les résultats montrent l'évolution des prix moyens et des rendements moyens du fonds Carmignac Emergents au cours de l'année 2023.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Import des données
+X0P0000WGBY_F <- read_csv("./Databases/0P0000WGBY.F.csv")
+data4 <- X0P0000WGBY_F
+
+# Convertir les colonnes Open et Close en type numérique
+data4 <- data4 %>%
+  mutate(Open = as.numeric(Open),
+         Close = as.numeric(Close))
+
+# Conversion de la colonne de date en format Date
+data4$Date <- as.Date(data4$Date)
+
+# Remplacement des valeurs null ou manquantes par NA
+data4[is.na(data4)] <- NA
+
+# Supprimer les lignes contenant des valeurs manquantes
+data4 <- na.omit(data4)
+
+# Calculer les rendements pour l'ensemble des données
+data4 <- data4 %>% 
+  arrange(Date) %>%
+  mutate(Rendement = Close / lag(Close) - 1)
+
+data4 <- data4 %>%
+  mutate(Rendement = replace_na(Rendement, 0))
+
+# Représentation des prix
+ggplot(data4, aes(x = Date, y = Close)) +
+  geom_line() +
+  labs(title = "Évolution des prix des titres Carmignac Emergents",
+       x = "Date",
+       y = "Prix de clôture") +
+  theme_minimal()
+```
+
+Les prix moyens semblent fluctuer légèrement au cours de l'année, avec des variations relativement modérées. Ils ont atteint leur point le plus bas en mai 2023 à environ 144, puis ont légèrement augmenté pour se situer autour de 152 à la fin de l'année.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Représentation des rendements
+ggplot(data4, aes(x = Date, y = Rendement)) +
+  geom_line() +
+  labs(title = "Évolution des rendements des titres Carmignac Emergents",
+       x = "Date",
+       y = "Rendement") +
+  theme_minimal()
+```
+
+Les rendements moyens du fonds Carmignac Emergents montrent une certaine volatilité au cours de l'année. Ils varient autour de zéro pour la plupart des mois, mais ils présentent quelques fluctuations positives et négatives. En général, les rendements semblent être assez faibles, avec quelques mois de rendements légèrement positifs et d'autres légèrement négatifs.
+
+Globalement, les prix et les rendements du fonds Carmignac Emergents semblent relativement stables au cours de l'année, avec quelques fluctuations modérées mais sans tendance forte à la hausse ou à la baisse.
+
+Ces observations peuvent être utilisées pour évaluer la performance du fonds Carmignac Emergents au cours de l'année 2023 et peuvent aider les investisseurs à prendre des décisions éclairées concernant leur portefeuille d'investissement.
+
+**Titres Pluvalca Sustainable Opportunities** Les résultats pour le fonds Pluvalca Sustainable Opportunities montrent une variation des prix et des rendements au fil du temps.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Import des données
+X0P0001FG1E_F <- read_csv("./Databases/0P0001FG1E.F.csv")
+data5 <- X0P0001FG1E_F
+
+# Convertir les colonnes Open et Close en type numérique
+data5 <- data5 %>%
+  mutate(Open = as.numeric(Open),
+         Close = as.numeric(Close))
+
+# Conversion de la colonne de date en format Date
+data5$Date <- as.Date(data5$Date)
+
+# Remplacement des valeurs null ou manquantes par NA
+data5[is.na(data5)] <- NA
+
+# Supprimer les lignes contenant des valeurs manquantes
+data5 <- na.omit(data5)
+
+# Calculer les rendements pour l'ensemble des données
+data5 <- data5 %>% 
+  arrange(Date) %>%
+  mutate(Rendement = Close / lag(Close) - 1)
+
+data5 <- data5 %>%
+  mutate(Rendement = replace_na(Rendement, 0))
+
+# Représentation des prix
+ggplot(data5, aes(x = Date, y = Close)) +
+  geom_line() +
+  labs(title = "Évolution des prix des titres Pluvalca Sustainable Opportunities",
+       x = "Date",
+       y = "Prix de clôture") +
+  theme_minimal()
+```
+
+Les prix moyens semblent avoir fluctué au cours de l'année 2023, avec une tendance générale à la baisse jusqu'au mois d'octobre, suivi d'une légère remontée vers la fin de l'année. Cette évolution peut être influencée par divers facteurs économiques et commerciaux qui ont impacté la valeur des actifs détenus par le fonds.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Représentation des rendements
+ggplot(data5, aes(x = Date, y = Rendement)) +
+  geom_line() +
+  labs(title = "Évolution des rendements des titres Pluvalca Sustainable Opportunities",
+       x = "Date",
+       y = "Rendement") +
+  theme_minimal()
+```
+
+Il est intéressant de noter que les prix et les rendements semblent suivre des tendances saisonnières, avec des mouvements spécifiques observés à différents moments de l'année. Par exemple, une tendance à la baisse des prix et des rendements est observée vers la fin de l'année, tandis qu'une tendance à la hausse est observée vers le début de l'année.
+
+En résumé, l'analyse des prix et des rendements du fonds Pluvalca Sustainable Opportunities indique une certaine volatilité au cours de l'année 2023, avec des fluctuations influencées par divers facteurs économiques et commerciaux.
+
+**Titres Fidelity Sustainable Water & Waste R Acc** Les données fournies représentent la moyenne mensuelle des prix et des rendements pour le fonds Fidelity Sustainable Water & Waste R Acc sur l'année 2023.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Import des données
+X0P0001M3XL_L <- read_csv("./Databases/0P0001M3XL.L.csv")
+data6 <- X0P0001M3XL_L
+
+# Convertir les colonnes Open et Close en type numérique
+data6 <- data6 %>%
+  mutate(Open = as.numeric(Open),
+         Close = as.numeric(Close))
+
+# Conversion de la colonne de date en format Date
+data6$Date <- as.Date(data6$Date)
+
+# Remplacement des valeurs null ou manquantes par NA
+data6[is.na(data6)] <- NA
+
+# Supprimer les lignes contenant des valeurs manquantes
+data6 <- na.omit(data6)
+
+# Calculer les rendements pour l'ensemble des données
+data6 <- data6 %>% 
+  arrange(Date) %>%
+  mutate(Rendement = Close / lag(Close) - 1)
+
+data6 <- data6 %>%
+  mutate(Rendement = replace_na(Rendement, 0))
+
+# Représentation des prix
+ggplot(data6, aes(x = Date, y = Close)) +
+  geom_line() +
+  labs(title = "Évolution des prix des titres Fidelity Sustainable Water & Waste R Acc",
+       x = "Date",
+       y = "Prix de clôture") +
+  theme_minimal()
+```
+
+On observe une fluctuation des prix moyens mensuels tout au long de l'année, avec des variations allant de 93,1 à 102. Ces fluctuations peuvent être dues à divers facteurs tels que l'offre et la demande sur le marché, les performances de l'entreprise sous-jacente, ainsi que les conditions macroéconomiques et géopolitiques.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Représentation des rendements
+ggplot(data6, aes(x = Date, y = Rendement)) +
+  geom_line() +
+  labs(title = "Évolution des rendements des titres Fidelity Sustainable Water & Waste R Acc",
+       x = "Date",
+       y = "Rendement") +
+  theme_minimal()
+```
+
+Les rendements moyens mensuels varient également tout au long de l'année, oscillant entre -0,25% et 0,38%. Ces variations reflètent les performances du fonds d'un mois à l'autre. Les rendements positifs indiquent une croissance du capital investi, tandis que les rendements négatifs indiquent une diminution. En regardant les données dans leur ensemble, il semble y avoir une tendance à la hausse des prix et des rendements moyens vers la fin de l'année. Cela suggère que le fonds a peut-être affiché de meilleures performances au cours des derniers mois de l'année.
+
+Pour une analyse plus approfondie, il serait intéressant de comparer ces résultats avec ceux des autres fonds ISR étudiés, ainsi qu'avec des indices de référence du secteur. Cela pourrait fournir des insights supplémentaires sur les performances relatives du fonds par rapport à ses pairs et au marché dans son ensemble.
+
+En résumé, ces données fournissent une vue d'ensemble des performances mensuelles du fonds Fidelity Sustainable Water & Waste R Acc en 2023, mais une analyse plus approfondie est nécessaire pour comprendre pleinement son comportement et son positionnement par rapport à d'autres investissements.
+
+**Titres Epsens EdR Tricolore Rendement** Les données fournies représentent la moyenne mensuelle des prix et des rendements pour le fonds "Epsens EdR Tricolore Rendement" sur l'année 2023.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Import des données
+X0P0000TD19_F <- read_csv("./Databases/0P0000TD19.F.csv")
+data7 <- X0P0000TD19_F
+
+# Convertir les colonnes Open et Close en type numérique
+data7 <- data7 %>%
+  mutate(Open = as.numeric(Open),
+         Close = as.numeric(Close))
+
+# Conversion de la colonne de date en format Date
+data7$Date <- as.Date(data7$Date)
+
+# Remplacement des valeurs null ou manquantes par NA
+data7[is.na(data7)] <- NA
+
+# Supprimer les lignes contenant des valeurs manquantes
+data7 <- na.omit(data7)
+
+# Calculer les rendements pour l'ensemble des données
+data7 <- data7 %>% 
+  arrange(Date) %>%
+  mutate(Rendement = Close / lag(Close) - 1)
+
+data7 <- data7 %>%
+  mutate(Rendement = replace_na(Rendement, 0))
+
+# Représentation des prix
+ggplot(data7, aes(x = Date, y = Close)) +
+  geom_line() +
+  labs(title = "Évolution des prix des titres Epsens EdR Tricolore Rendement",
+       x = "Date",
+       y = "Prix de clôture") +
+  theme_minimal()
+```
+
+Les prix moyens semblent fluctuer légèrement au cours de l'année, suivi d'une hausse, avec des variations relativement faibles. On observe une légère baisse vers la fin de l'année, avec un prix moyen en décembre légèrement plus élevé que le début de l'année. Cela peut indiquer une stabilité globale des prix, avec quelques variations mineures.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Représentation des rendements
+ggplot(data7, aes(x = Date, y = Rendement)) +
+  geom_line() +
+  labs(title = "Évolution des rendements des titres Epsens EdR Tricolore Rendement",
+       x = "Date",
+       y = "Rendement") +
+  theme_minimal()
+```
+
+Les rendements moyens varient également au fil des mois, oscillant autour de zéro. Cependant, on peut observer une certaine volatilité des rendements, avec des variations positives et négatives au cours de l'année. En particulier, il y a une augmentation notable des rendements en novembre, suivie d'une légère baisse en décembre.
+
+La stabilité des prix moyens suggère une certaine régularité dans la performance du fonds tout au long de l'année. Cependant, la volatilité des rendements indique une certaine variabilité dans la performance mensuelle du fonds. Il peut être intéressant d'approfondir l'analyse pour comprendre les facteurs sous-jacents à ces variations de rendements.
+
+En résumé, les données montrent une certaine stabilité des prix moyens avec une variabilité des rendements mensuels pour le fonds "Epsens EdR Tricolore Rendement" en 2023. Une analyse plus approfondie pourrait aider à mieux comprendre les performances et les tendances de ce fonds au fil du temps.
+
+**Titres Thematics Water R/A USD** Les résultats pour data8_mois montrent la moyenne mensuelle des prix et des rendements pour le fonds Thematics Water R/A USD pour l'année 2023.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Import des données
+X0P0001MMZC_F <- read_csv("./Databases/0P0001MMZC.F.csv")
+data8 <- X0P0001MMZC_F
+
+# Convertir les colonnes Open et Close en type numérique
+data8 <- data8 %>%
+  mutate(Open = as.numeric(Open),
+         Close = as.numeric(Close))
+
+# Conversion de la colonne de date en format Date
+data8$Date <- as.Date(data8$Date)
+
+# Remplacement des valeurs null ou manquantes par NA
+data8[is.na(data8)] <- NA
+
+# Supprimer les lignes contenant des valeurs manquantes
+data8 <- na.omit(data8)
+
+# Calculer les rendements pour l'ensemble des données
+data8 <- data8 %>% 
+  arrange(Date) %>%
+  mutate(Rendement = Close / lag(Close) - 1)
+
+data8 <- data8 %>%
+  mutate(Rendement = replace_na(Rendement, 0))
+
+# Représentation des prix
+ggplot(data8, aes(x = Date, y = Close)) +
+  geom_line() +
+  labs(title = "Évolution des prix des titres Thematics Water R/A USD",
+       x = "Date",
+       y = "Prix de clôture") +
+  theme_minimal()
+```
+
+La moyenne mensuelle des prix oscille autour de 24,4 USD à 26,3 USD au cours de l'année. On observe une légère augmentation du prix moyen au début de l'année, suivie de fluctuations légères mais relativement stables tout au long de l'année.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Représentation des rendements
+ggplot(data8, aes(x = Date, y = Rendement)) +
+  geom_line() +
+  labs(title = "Évolution des rendements des titres Thematics Water R/A USD",
+       x = "Date",
+       y = "Rendement") +
+  theme_minimal()
+```
+
+Les rendements moyens varient entre -0,22% et 0,36% par mois. On observe une certaine volatilité dans les rendements, avec des mois positifs et négatifs alternant tout au long de l'année. Le rendement le plus élevé est observé en novembre, tandis que le rendement le plus bas est enregistré en septembre.
+
+Les tendances mensuelles des prix et des rendements peuvent être utilisées pour évaluer la performance du fonds au fil du temps. Par exemple, une tendance à la hausse des prix et des rendements peut indiquer une performance solide du fonds, tandis qu'une volatilité accrue peut nécessiter une analyse plus approfondie pour comprendre les facteurs sous-jacents.
+
+En résumé, l'analyse des moyennes mensuelles des prix et des rendements fournit un aperçu de la performance du fonds Thematics Water R/A USD en 2023, en mettant en évidence les variations mensuelles et la volatilité des rendements. Ces informations peuvent être utiles pour les investisseurs dans leur processus de prise de décision.
+
+**Titres AIS Mandarine Global Transition** Les résultats montrent la moyenne mensuelle des prix et des rendements du fonds AIS Mandarine Global Transition pour chaque mois de l'année 2023.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Import des données
+X0P0001O9P2_F <- read_csv("./Databases/0P0001O9P2.F.csv")
+data9 <- X0P0001O9P2_F
+
+# Convertir les colonnes Open et Close en type numérique
+data9 <- data9 %>%
+  mutate(Open = as.numeric(Open),
+         Close = as.numeric(Close))
+
+# Conversion de la colonne de date en format Date
+data9$Date <- as.Date(data9$Date)
+
+# Remplacement des valeurs null ou manquantes par NA
+data9[is.na(data9)] <- NA
+
+# Supprimer les lignes contenant des valeurs manquantes
+data9 <- na.omit(data9)# Calculer les rendements pour l'ensemble des données
+
+data9 <- data9 %>% 
+  arrange(Date) %>%
+  mutate(Rendement = Close / lag(Close) - 1)
+
+data9 <- data9 %>%
+  mutate(Rendement = replace_na(Rendement, 0))
+
+# Représentation des prix
+ggplot(data9, aes(x = Date, y = Close)) +
+  geom_line() +
+  labs(title = "Évolution des prix des titres AIS Mandarine Global Transition",
+       x = "Date",
+       y = "Prix de clôture") +
+  theme_minimal()
+```
+
+En examinant ces résultats, on peut observer des variations dans les prix moyens et les rendements moyens tout au long de l'année 2023 pour le fonds AIS Mandarine Global Transition. Par exemple, on remarque une baisse des prix moyens en mars et en avril, suivie d'une légère augmentation en mai et juin. De même, les rendements moyens varient également mois par mois, reflétant les fluctuations du marché et les performances du fonds.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Représentation des rendements
+ggplot(data9, aes(x = Date, y = Rendement)) +
+  geom_line() +
+  labs(title = "Évolution des rendements des titres AIS Mandarine Global Transition",
+       x = "Date",
+       y = "Rendement") +
+  theme_minimal()
+```
+
+#### Conclusion
+
+Il semble y avoir une certaine cohérence dans les observations faites pour chaque fonds, malgré les différences dans les détails spécifiques. Pour la plupart des fonds, on observe des variations mensuelles des prix et des rendements, indiquant une certaine volatilité tout au long de l'année 2023. Par exemple, pour le fonds "Amundi CPR Climate Action I", nous avons observé une tendance générale à la hausse des prix au début de l'année, suivie d'une période de fluctuation et de légère baisse vers la fin de l'année. Les rendements ont également varié, avec des performances positives et négatives tout au long de l'année, indiquant une certaine volatilité dans les performances du fonds.
+
+De même, pour d'autres fonds comme "MainFirst Global Equities X" et "The Andersons (ANDE)", nous avons observé des tendances similaires de fluctuation des prix et des rendements, avec des variations mensuelles reflétant probablement les conditions économiques et commerciales changeantes. En résumé, ces observations soulignent l'importance d'une analyse approfondie des performances des fonds d'investissement, en examinant à la fois les prix moyens et les rendements moyens pour mieux comprendre leur comportement au fil du temps.
+
+### 2. Quelles sont les propriétés financières de chacune des séries ?
+
+### 3. Y a-t-il des retours à la moyenne ? Pouvez-vous identifier des événements d'actualité qui pourraient expliquer des valeurs inhabituelles ?
+
+**Amundi CPR Climate Action I**
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Calculer la moyenne mobile sur 7 jours
+sma_7 <- SMA(data1$Close, n = 7)
+
+# Calculer la moyenne mobile 30 jours
+sma_30 <- SMA(data1$Close, n = 30)
+
+# Identifier les croisements entre les moyennes mobiles
+crossings <- ifelse(sma_7 > sma_30, "Au-dessus", "En dessous")
+crossings <- c(NA, crossings[-length(crossings)])  # décaler le vecteur d'une période
+
+# Créer un data frame avec les données et les croisements
+data1_with_crossings <- data.frame(Date = index(data1),
+                                  Close = data1$Close,
+                                  SMA_7 = sma_7,
+                                  SMA_30 = sma_30,
+                                  Crossing = crossings)
+
+# Afficher les observations avec des croisements
+crossing_points <- data1_with_crossings[!is.na(data1_with_crossings$Crossing), ]
+print(crossing_points)
+```
+
+**MainFirst Global Equities X**
+
+```{r, eval=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Calculer la moyenne mobile sur 7 jours
+sma_7 <- SMA(data2$Close, n = 7)
+
+# Calculer la moyenne mobile 30 jours
+sma_30 <- SMA(data2$Close, n = 30)
+
+# Identifier les croisements entre les moyennes mobiles
+crossings <- ifelse(sma_7 > sma_30, "Au-dessus", "En dessous")
+crossings <- c(NA, crossings[-length(crossings)])  # décaler le vecteur d'une période
+
+# Créer un data frame avec les données et les croisements
+data2_with_crossings <- data.frame(Date = index(data2),
+                                   Close = data2$Close,
+                                   SMA_7 = sma_7,
+                                   SMA_30 = sma_30,
+                                   Crossing = crossings)
+
+# Afficher les observations avec des croisements
+crossing_points2 <- data2_with_crossings[!is.na(data2_with_crossings$Crossing), ]
+print(crossing_points2)
+```
+
+**The Andersons : (ANDE)**
+
+```{r, eval=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Calculer la moyenne mobile sur 7 jours
+sma_7 <- SMA(data3$Close, n = 7)
+
+# Calculer la moyenne mobile 30 jours
+sma_30 <- SMA(data3$Close, n = 30)
+
+# Identifier les croisements entre les moyennes mobiles
+crossings <- ifelse(sma_7 > sma_30, "Au-dessus", "En dessous")
+crossings <- c(NA, crossings[-length(crossings)])  # décaler le vecteur d'une période
+
+# Créer un data frame avec les données et les croisements
+data3_with_crossings <- data.frame(Date = index(data3),
+                                   Close = data3$Close,
+                                   SMA_7 = sma_7,
+                                   SMA_30 = sma_30,
+                                   Crossing = crossings)
+
+# Afficher les observations avec des croisements
+crossing_points3 <- data3_with_crossings[!is.na(data3_with_crossings$Crossing), ]
+print(crossing_points3)
+```
+
+**Carmignac Emergents**
+
+```{r, eval=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Calculer la moyenne mobile sur 7 jours
+sma_7 <- SMA(data4$Close, n = 7)
+
+# Calculer la moyenne mobile 30 jours
+sma_30 <- SMA(data4$Close, n = 30)
+
+# Identifier les croisements entre les moyennes mobiles
+crossings <- ifelse(sma_7 > sma_30, "Au-dessus", "En dessous")
+crossings <- c(NA, crossings[-length(crossings)])  # décaler le vecteur d'une période
+
+# Créer un data frame avec les données et les croisements
+data4_with_crossings <- data.frame(Date = index(data4),
+                                   Close = data4$Close,
+                                   SMA_7 = sma_7,
+                                   SMA_30 = sma_30,
+                                   Crossing = crossings)
+
+# Afficher les observations avec des croisements
+crossing_points4 <- data4_with_crossings[!is.na(data4_with_crossings$Crossing), ]
+print(crossing_points4)
+```
+
+**Pluvalca Sustainable Opportunities**
+
+```{r, eval=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Calculer la moyenne mobile sur 7 jours
+sma_7 <- SMA(data5$Close, n = 7)
+
+# Calculer la moyenne mobile 30 jours
+sma_30 <- SMA(data5$Close, n = 30)
+
+# Identifier les croisements entre les moyennes mobiles
+crossings <- ifelse(sma_7 > sma_30, "Au-dessus", "En dessous")
+crossings <- c(NA, crossings[-length(crossings)])  # décaler le vecteur d'une période
+
+# Créer un data frame avec les données et les croisements
+data5_with_crossings <- data.frame(Date = index(data5),
+                                   Close = data5$Close,
+                                   SMA_7 = sma_7,
+                                   SMA_30 = sma_30,
+                                   Crossing = crossings)
+
+# Afficher les observations avec des croisements
+crossing_points5 <- data5_with_crossings[!is.na(data5_with_crossings$Crossing), ]
+print(crossing_points5)
+```
+
+**Fidelity Sustainable Water & Waste R Acc**
+
+```{r, eval=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Calculer la moyenne mobile sur 7 jours
+sma_7 <- SMA(data6$Close, n = 7)
+
+# Calculer la moyenne mobile 30 jours
+sma_30 <- SMA(data6$Close, n = 30)
+
+# Identifier les croisements entre les moyennes mobiles
+crossings <- ifelse(sma_7 > sma_30, "Au-dessus", "En dessous")
+crossings <- c(NA, crossings[-length(crossings)])  # décaler le vecteur d'une période
+
+# Créer un data frame avec les données et les croisements
+data6_with_crossings <- data.frame(Date = index(data6),
+                                   Close = data6$Close,
+                                   SMA_7 = sma_7,
+                                   SMA_30 = sma_30,
+                                   Crossing = crossings)
+
+# Afficher les observations avec des croisements
+crossing_points6 <- data6_with_crossings[!is.na(data6_with_crossings$Crossing), ]
+print(crossing_points6)
+```
+
+**Epsens EdR Tricolore Rendement**
+
+```{r, eval=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Calculer la moyenne mobile sur 7 jours
+sma_7 <- SMA(data7$Close, n = 7)
+
+# Calculer la moyenne mobile 30 jours
+sma_30 <- SMA(data7$Close, n = 30)
+
+# Identifier les croisements entre les moyennes mobiles
+crossings <- ifelse(sma_7 > sma_30, "Au-dessus", "En dessous")
+crossings <- c(NA, crossings[-length(crossings)])  # décaler le vecteur d'une période
+
+# Créer un data frame avec les données et les croisements
+data7_with_crossings <- data.frame(Date = index(data7),
+                                   Close = data7$Close,
+                                   SMA_7 = sma_7,
+                                   SMA_30 = sma_30,
+                                   Crossing = crossings)
+
+# Afficher les observations avec des croisements
+crossing_points7 <- data7_with_crossings[!is.na(data7_with_crossings$Crossing), ]
+print(crossing_points7)
+```
+
+**Thematics Water R/A USD**
+
+```{r, eval=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Calculer la moyenne mobile sur 7 jours
+sma_7 <- SMA(data8$Close, n = 7)
+
+# Calculer la moyenne mobile 30 jours
+sma_30 <- SMA(data8$Close, n = 30)
+
+# Identifier les croisements entre les moyennes mobiles
+crossings <- ifelse(sma_7 > sma_30, "Au-dessus", "En dessous")
+crossings <- c(NA, crossings[-length(crossings)])  # décaler le vecteur d'une période
+
+# Créer un data frame avec les données et les croisements
+data8_with_crossings <- data.frame(Date = index(data8),
+                                   Close = data8$Close,
+                                   SMA_7 = sma_7,
+                                   SMA_30 = sma_30,
+                                   Crossing = crossings)
+
+# Afficher les observations avec des croisements
+crossing_points8 <- data8_with_crossings[!is.na(data8_with_crossings$Crossing), ]
+print(crossing_points8)
+```
+
+**AIS Mandarine Global Transition**
+
+```{r, eval=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Calculer la moyenne mobile sur 7 jours
+sma_7 <- SMA(data9$Close, n = 7)
+
+# Calculer la moyenne mobile 30 jours
+sma_30 <- SMA(data9$Close, n = 30)
+
+# Identifier les croisements entre les moyennes mobiles
+crossings <- ifelse(sma_7 > sma_30, "Au-dessus", "En dessous")
+crossings <- c(NA, crossings[-length(crossings)])  # décaler le vecteur d'une période
+
+# Créer un data frame avec les données et les croisements
+data9_with_crossings <- data.frame(Date = index(data9),
+                                   Close = data9$Close,
+                                   SMA_7 = sma_7,
+                                   SMA_30 = sma_30,
+                                   Crossing = crossings)
+
+# Afficher les observations avec des croisements
+crossing_points9 <- data9_with_crossings[!is.na(data9_with_crossings$Crossing), ]
+print(crossing_points9)
+```
+
+#### Conclusion
+
+"Comme en septembre, notre projection s’inscrit dans un contexte géopolitique très incertain, du fait notamment de la guerre en Ukraine et des tensions entre les États-Unis et la Chine, mais aussi à présent de la situation au Proche-Orient. Une aggravation de ces différentes tensions pourrait avoir des conséquences sur les prix du pétrole et du gaz, le commerce mondial et le niveau d’incertitude. Cela représente un aléa à la hausse sur l’inflation et à la baisse sur la croissance du PIB.
+
+Plus spécifique à la France, il existe toujours un aléa à la hausse sur la consommation, dans le cas où le taux d’épargne reviendrait plus rapidement vers son niveau pré-Covid. En ce qui concerne l’inflation, il est possible que les négociations commerciales aient des effets plus importants à la baisse sur les prix de l’alimentation. De façon plus générale, il est également possible que la baisse des prix de l’énergie et les effets de la politique monétaire entraînent une décélération plus rapide des prix à la consommation dans leur ensemble.
+
+L’évolution de l’investissement des entreprises est également sujette à des aléas. D’abord, les entreprises feront face à une charge d’intérêt en hausse à mesure qu’elles renouvelleront leurs emprunts à des taux plus élevés que par le passé. Cette charge financière accrue pourrait peser sur leurs embauches et leurs dépenses d’investissement. À l’inverse, la résilience de l’investissement, qui a souvent surpris par le passé, pourrait se poursuivre dans les trimestres à venir, en lien avec les besoins d’investissement dans la transition numérique et écologique."
+
+D'après la publication du 19/12/23 du site la Banque de France, **Projections macroéconomiques – Décembre 2023**, section "Par rapport à notre projection centrale, les aléas apparaissent dans l’ensemble légèrement négatifs sur l’activité et équilibrés sur l’inflation". https://www.banque-france.fr/fr/publications-et-statistiques/publications/projections-macroeconomiques-decembre-2023
+
+### 4. Représentez les boites à moustaches associées à la distribution de chaque fonds. Commentez.
+
+Les statistiques fournies par les boîtes à moustaches pour chaque fonds permettent d'avoir un aperçu de la distribution des prix de clôture tout au long de l'année 2023.
+
+**Amundi CPR Climate Action I**
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Boxplot pour data1
+boxplot(data1$Close,
+        main = "Prix des titres Amundi CPR Climate Action I",
+        xlab = "Amundi CPR Climate Action I",
+        ylab = "Prix de clôture",
+        col = "lightblue",
+        border = "blue")
+# Calculer les statistiques des boîtes à moustaches
+stats_data1 <- boxplot.stats(data1$Close)
+stats_data1
+```
+
+Les prix de clôture semblent être répartis sur une plage relativement étroite, avec une médiane à environ 1303.62. Cela suggère une certaine stabilité dans les prix tout au long de l'année, bien que la dispersion des données soit perceptible.
+
+**MainFirst Global Equities X**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Boxplot pour data2
+boxplot(data2$Close,
+        main = "Prix des titres MainFirst Global Equities X",
+        xlab = "MainFirst Global Equities X",
+        ylab = "Prix de clôture",
+        col = "lightblue",
+        border = "blue")
+stats_data2 <- boxplot.stats(data2$Close)
+stats_data2
+```
+
+La médiane des prix est d'environ 126.995, avec une plage assez large allant de 119.500 à 143.120. Cela indique une plus grande variabilité dans les prix par rapport au fonds précédent.
+
+**The Andersons : (ANDE)**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Boxplot pour data3
+boxplot(data3$Close,
+        main = "Prix des titres The Andersons : (ANDE)",
+        xlab = "The Andersons : (ANDE)",
+        ylab = "Prix de clôture",
+        col = "lightblue",
+        border = "blue")
+stats_data3 <- boxplot.stats(data3$Close)
+stats_data3
+```
+
+Avec une médiane à environ 40.78, les prix de clôture pour ce fonds sont significativement plus bas que les deux précédents. La plage de variation est également plus large, ce qui suggère une plus grande volatilité dans les prix.
+
+**Carmignac Emergents**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Boxplot pour data4
+boxplot(data4$Close,
+        main = "Prix des titres Carmignac Emergents",
+        xlab = "Carmignac Emergents",
+        ylab = "Prix de clôture",
+        col = "lightblue",
+        border = "blue")
+stats_data4 <- boxplot.stats(data4$Close)
+stats_data4
+```
+
+Ce fonds affiche une médiane à environ 147.94, avec une plage de variation plus étroite par rapport à certains autres fonds. Cela peut indiquer une certaine stabilité relative dans les prix de clôture.
+
+**Pluvalca Sustainable Opportunities**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Boxplot pour data5
+boxplot(data5$Close,
+        main = "Prix des titres Pluvalca Sustainable Opportunities",
+        xlab = "Pluvalca Sustainable Opportunities",
+        ylab = "Prix de clôture",
+        col = "lightblue",
+        border = "blue")
+stats_data5 <- boxplot.stats(data5$Close)
+stats_data5
+```
+
+Les prix de clôture pour ce fonds ont une médiane à environ 131.53, avec une plage de variation similaire à celle de Carmignac Emergents. Cependant, la médiane est plus élevée, suggérant des prix plus élevés en moyenne.
+
+**Fidelity Sustainable Water & Waste R Acc**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Boxplot pour data6
+boxplot(data6$Close,
+        main = "Prix des titres Fidelity Sustainable Water & Waste R Acc",
+        xlab = "Fidelity Sustainable Water & Waste R Acc",
+        ylab = "Prix de clôture",
+        col = "lightblue",
+        border = "blue")
+stats_data6 <- boxplot.stats(data6$Close)
+stats_data6
+```
+
+La médiane des prix est d'environ 96.605, avec une plage de variation plus large allant de 90.08 à 105.20. Cela indique une certaine volatilité dans les prix de clôture pour ce fonds.
+
+**Epsens EdR Tricolore Rendement**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Boxplot pour data7
+boxplot(data7$Close,
+        main = "Prix des titres Epsens EdR Tricolore Rendement",
+        xlab = "Epsens EdR Tricolore Rendement",
+        ylab = "Prix de clôture",
+        col = "lightblue",
+        border = "blue")
+stats_data7 <- boxplot.stats(data7$Close)
+stats_data7
+```
+
+Ce fonds présente une médiane à environ 15.373, avec une plage de variation relativement étroite. Les prix de clôture sont nettement plus bas que ceux des autres fonds, ce qui peut refléter une catégorie d'actifs différente ou une performance différente.
+
+**Thematics Water R/A USD**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Boxplot pour data8
+boxplot(data8$Close,
+        main = "Prix des titres Thematics Water R/A USD",
+        xlab = "Thematics Water R/A USD",
+        ylab = "Prix de clôture",
+        col = "lightblue",
+        border = "blue")
+stats_data8 <- boxplot.stats(data8$Close)
+stats_data8
+```
+
+Avec une médiane à environ 24.37694, ce fonds affiche une plage de variation relativement étroite par rapport à certains autres fonds. Cependant, la médiane est plus élevée, suggérant des prix plus élevés en moyenne.
+
+**AIS Mandarine Global Transition**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Boxplot pour data9
+boxplot(data9$Close,
+        main = "Prix des titres AIS Mandarine Global Transition",
+        xlab = "AIS Mandarine Global Transition",
+        ylab = "Prix de clôture",
+        col = "lightblue",
+        border = "blue")
+stats_data9 <- boxplot.stats(data9$Close)
+stats_data9
+```
+
+Ce fonds présente une médiane à environ 79.595, avec une plage de variation relativement étroite. Les prix de clôture sont significativement plus élevés que ceux d'autres fonds, indiquant une catégorie d'actifs ou une performance différente.
+
+#### Conclusion
+
+En résumé, l'analyse des statistiques des boîtes à moustaches pour chaque fonds permet de mieux comprendre la distribution des prix de clôture et la volatilité associée à chaque fonds tout au long de l'année 2023.
+
+### 5. Calculer les statistiques descriptives univariées (moyenne, variance, écart-type, asymétrie, kurtosis) pour chaque fonds et commenter les résultats. Quels fonds ont le rendement moyen le plus élevé et le plus faible ? Quels fonds ont l'écart type le plus élevé et le plus faible ? Quelles séries semblent les plus et les moins distribués normalement ?
+
+Les résultats des statistiques descriptives univariées fournissent des informations précieuses sur la distribution des rendements pour chaque fonds.
+
+**Amundi CPR Climate Action I**
+
+```{r, cache = TRUE}
+# Supprimer les lignes contenant des valeurs manquantes
+data1_clean <- na.omit(data1)
+
+# Convertir les colonnes autres que la colonne Date en type numérique
+data1_clean[, -1] <- sapply(data1_clean[, -1], as.numeric)
+
+# Calculer les statistiques descriptives pour chaque fonds
+stats_data1 <- cbind(
+  Mean = colMeans(data1_clean[, -1]),  # Exclure la colonne Date
+  Variance = sapply(data1_clean[, -1], var),
+  Std_Deviation = sapply(data1_clean[, -1], sd),
+  Skewness = sapply(data1_clean[, -1], skewness),
+  Kurtosis = sapply(data1_clean[, -1], kurtosis)
+)
+
+# Afficher les statistiques descriptives
+stats_data1
+```
+
+**MainFirst Global Equities X**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Supprimer les lignes contenant des valeurs manquantes
+data2_clean <- na.omit(data2)
+
+# Convertir les colonnes autres que la colonne Date en type numérique
+data2_clean[, -1] <- sapply(data2_clean[, -1], as.numeric)
+
+# Calculer les statistiques descriptives pour chaque fonds
+stats_data2 <- cbind(
+  Mean = colMeans(data2_clean[, -1]),  # Exclure la colonne Date
+  Variance = sapply(data2_clean[, -1], var),
+  Std_Deviation = sapply(data2_clean[, -1], sd),
+  Skewness = sapply(data2_clean[, -1], skewness),
+  Kurtosis = sapply(data2_clean[, -1], kurtosis)
+)
+
+# Afficher les statistiques descriptives
+stats_data2
+```
+
+Le fonds MainFirst Global Equities X a l'écart-type le plus faible parmi les fonds, ce qui indique une dispersion moindre des rendements autour de la moyenne.
+
+**The Andersons : (ANDE)**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Supprimer les lignes contenant des valeurs manquantes
+data3_clean <- na.omit(data3)
+
+# Convertir les colonnes autres que la colonne Date en type numérique
+data3_clean[, -1] <- sapply(data3_clean[, -1], as.numeric)
+
+# Calculer les statistiques descriptives pour chaque fonds
+stats_data3 <- cbind(
+  Mean = colMeans(data3_clean[, -1]),  # Exclure la colonne Date
+  Variance = sapply(data3_clean[, -1], var),
+  Std_Deviation = sapply(data3_clean[, -1], sd),
+  Skewness = sapply(data3_clean[, -1], skewness),
+  Kurtosis = sapply(data3_clean[, -1], kurtosis)
+)
+
+# Afficher les statistiques descriptives
+stats_data3
+```
+
+**Carmignac Emergents**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Supprimer les lignes contenant des valeurs manquantes
+data4_clean <- na.omit(data4)
+
+# Convertir les colonnes autres que la colonne Date en type numérique
+data4_clean[, -1] <- sapply(data4_clean[, -1], as.numeric)
+
+# Calculer les statistiques descriptives pour chaque fonds
+stats_data4 <- cbind(
+  Mean = colMeans(data4_clean[, -1]),  # Exclure la colonne Date
+  Variance = sapply(data4_clean[, -1], var),
+  Std_Deviation = sapply(data4_clean[, -1], sd),
+  Skewness = sapply(data4_clean[, -1], skewness),
+  Kurtosis = sapply(data4_clean[, -1], kurtosis)
+)
+
+# Afficher les statistiques descriptives
+stats_data4
+```
+
+Le fonds Carmignac Emergents semble avoir le rendement moyen le plus élevé parmi les fonds analysés, avec une moyenne de 0.000365, suivi par AIS Mandarine Global Transition avec une moyenne de 0.000235.
+
+**Pluvalca Sustainable Opportunities**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Supprimer les lignes contenant des valeurs manquantes
+data5_clean <- na.omit(data5)
+
+# Convertir les colonnes autres que la colonne Date en type numérique
+data5_clean[, -1] <- sapply(data5_clean[, -1], as.numeric)
+
+# Calculer les statistiques descriptives pour chaque fonds
+stats_data5 <- cbind(
+  Mean = colMeans(data5_clean[, -1]),  # Exclure la colonne Date
+  Variance = sapply(data5_clean[, -1], var),
+  Std_Deviation = sapply(data5_clean[, -1], sd),
+  Skewness = sapply(data5_clean[, -1], skewness),
+  Kurtosis = sapply(data5_clean[, -1], kurtosis)
+)
+
+# Afficher les statistiques descriptives
+stats_data5
+```
+
+Le fonds Pluvalca Sustainable Opportunities présente l'écart-type le plus élevé parmi les fonds, ce qui suggère une plus grande variabilité dans ses rendements.
+
+**Fidelity Sustainable Water & Waste R Acc**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Supprimer les lignes contenant des valeurs manquantes
+data6_clean <- na.omit(data6)
+
+# Convertir les colonnes autres que la colonne Date en type numérique
+data6_clean[, -1] <- sapply(data6_clean[, -1], as.numeric)
+
+# Calculer les statistiques descriptives pour chaque fonds
+stats_data6 <- cbind(
+  Mean = colMeans(data6_clean[, -1]),  # Exclure la colonne Date
+  Variance = sapply(data6_clean[, -1], var),
+  Std_Deviation = sapply(data6_clean[, -1], sd),
+  Skewness = sapply(data6_clean[, -1], skewness),
+  Kurtosis = sapply(data6_clean[, -1], kurtosis)
+)
+
+# Afficher les statistiques descriptives
+stats_data6
+```
+
+Le fonds Fidelity Sustainable Water & Waste R Acc affiche le rendement moyen le plus faible parmi les fonds analysés, avec une moyenne de 0.000473.
+
+**Epsens EdR Tricolore Rendement**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Supprimer les lignes contenant des valeurs manquantes
+data7_clean <- na.omit(data7)
+
+# Convertir les colonnes autres que la colonne Date en type numérique
+data7_clean[, -1] <- sapply(data7_clean[, -1], as.numeric)
+
+# Calculer les statistiques descriptives pour chaque fonds
+stats_data7 <- cbind(
+  Mean = colMeans(data7_clean[, -1]),  # Exclure la colonne Date
+  Variance = sapply(data7_clean[, -1], var),
+  Std_Deviation = sapply(data7_clean[, -1], sd),
+  Skewness = sapply(data7_clean[, -1], skewness),
+  Kurtosis = sapply(data7_clean[, -1], kurtosis)
+)
+
+# Afficher les statistiques descriptives
+stats_data7
+```
+
+**Thematics Water R/A USD**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Supprimer les lignes contenant des valeurs manquantes
+data8_clean <- na.omit(data8)
+
+# Convertir les colonnes autres que la colonne Date en type numérique
+data8_clean[, -1] <- sapply(data8_clean[, -1], as.numeric)
+
+# Calculer les statistiques descriptives pour chaque fonds
+stats_data8 <- cbind(
+  Mean = colMeans(data8_clean[, -1]),  # Exclure la colonne Date
+  Variance = sapply(data8_clean[, -1], var),
+  Std_Deviation = sapply(data8_clean[, -1], sd),
+  Skewness = sapply(data8_clean[, -1], skewness),
+  Kurtosis = sapply(data8_clean[, -1], kurtosis)
+)
+
+# Afficher les statistiques descriptives
+stats_data8
+```
+
+**AIS Mandarine Global Transition**
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Supprimer les lignes contenant des valeurs manquantes
+data9_clean <- na.omit(data9)
+
+# Convertir les colonnes autres que la colonne Date en type numérique
+data9_clean[, -1] <- sapply(data9_clean[, -1], as.numeric)
+
+# Calculer les statistiques descriptives pour chaque fonds
+stats_data9 <- cbind(
+  Mean = colMeans(data9_clean[, -1]),  # Exclure la colonne Date
+  Variance = sapply(data9_clean[, -1], var),
+  Std_Deviation = sapply(data9_clean[, -1], sd),
+  Skewness = sapply(data9_clean[, -1], skewness),
+  Kurtosis = sapply(data9_clean[, -1], kurtosis)
+)
+# Afficher les statistiques descriptives
+stats_data9
+```
+
+#### Conclusion
+
+La plupart des fonds semblent avoir une légère asymétrie vers la gauche (skewness négatif), indiquant une légère queue plus longue du côté gauche de la distribution des rendements.
+
+Les valeurs de kurtosis pour la plupart des fonds dépassent 3, ce qui suggère une distribution des rendements plus leptokurtique (plus de poids sur les queues) par rapport à une distribution normale. Les fonds Pluvalca Sustainable Opportunities et The Andersons semblent être les moins distribués normalement en raison de leurs valeurs de skewness et de kurtosis élevées.
+
+Les fonds MainFirst Global Equities X et Thematics Water R/A USD semblent être les plus distribués normalement parmi ceux analysés, avec des valeurs de skewness et de kurtosis plus proches de zéro. En résumé, ces statistiques permettent de comparer la distribution des rendements entre les différents fonds, mettant en évidence leurs caractéristiques distinctives en termes de rendement moyen, volatilité et forme de distribution.
+
+### 6. En utilisant un taux mensuel sans risque égal à 0,5% par mois (ce qui correspond à un taux annuel composé en continu de 6,2%), calculer le ratio de Sharpe pour chaque actif. Commenter.
+
+```{r, cache = TRUE}
+# Taux mensuel sans risque
+risk_free_rate <- 0.005
+
+# Calcul du ratio de Sharpe pour chaque actif
+sharpe_ratios <- c(
+  (mean(data1_clean$Rendement) - risk_free_rate) / sd(data1_clean$Rendement),
+  (mean(data2_clean$Rendement) - risk_free_rate) / sd(data2_clean$Rendement),
+  (mean(data3_clean$Rendement) - risk_free_rate) / sd(data3_clean$Rendement),
+  (mean(data4_clean$Rendement) - risk_free_rate) / sd(data4_clean$Rendement),
+  (mean(data5_clean$Rendement) - risk_free_rate) / sd(data5_clean$Rendement),
+  (mean(data6_clean$Rendement) - risk_free_rate) / sd(data6_clean$Rendement),
+  (mean(data7_clean$Rendement) - risk_free_rate) / sd(data7_clean$Rendement),
+  (mean(data8_clean$Rendement) - risk_free_rate) / sd(data8_clean$Rendement),
+  (mean(data9_clean$Rendement) - risk_free_rate) / sd(data9_clean$Rendement)
+)
+```
+
+Les ratios de Sharpes sont présentés dans le même ordre depuis le début de l'exercice et le seront également pour les questions suivantes. Voici l'ordre en question : 1. Amundi CPR Climate Action I 2. MainFirst Global Equities X 3. The Andersons : (ANDE) 4. Carmignac Emergents 5. Pluvalca Sustainable Opportunities 6. Fidelity Sustainable Water & Waste R Acc 7. Epsens EdR Tricolore Rendement 8. Thematics Water R/A USD 9. AIS Mandarine Global Transition
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Affichage des ratios de Sharpe
+sharpe_ratios
+```
+
+#### Conclusion
+
+Ces valeurs négatives indiquent que le rendement excédentaire par rapport au taux sans risque n’est pas suffisant pour compenser le risque pris par rapport à la volatilité de chaque actif. Un ratio de Sharpe positif est généralement préférable, ce qui indiquerait un rendement excédentaire adéquat par rapport au risque.
+
+Les ratios de Sharpe calculés pour chaque actif sont tous négatifs, ce qui signifie que le rendement excédentaire par rapport au taux sans risque n'est pas suffisant pour compenser le risque pris par rapport à la volatilité de chaque actif. Un ratio de Sharpe positif est généralement préférable, car il indique un rendement excédentaire adéquat par rapport au risque.
+
+Parmi les actifs analysés, aucun ne semble offrir un rendement ajusté au risque satisfaisant, ce qui peut être un indicateur de sous-performance par rapport à un investissement sans risque, du moins sur la période considérée. Cela pourrait inciter les investisseurs à revoir leur allocation d'actifs ou leur stratégie d'investissement, en cherchant peut-être des opportunités offrant un meilleur rapport risque-rendement.
+
+### 7. Déterminez la matrice de variances-covariances des rendements de vos neuf actifs et commenter
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Calcul de la matrice de variances-covariances des rendements des neuf actifs
+cov_matrix <- cov(cbind(data1_clean$Rendement, data2_clean$Rendement, data3_clean$Rendement, 
+                        data4_clean$Rendement, data5_clean$Rendement, data6_clean$Rendement, 
+                        data7_clean$Rendement, data8_clean$Rendement, data9_clean$Rendement))
+```
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Affichage de la matrice de variances-covariances
+cov_matrix
+```
+
+#### Conclusion
+
+La matrice de variances-covariances des rendements des neuf actifs est symétrique, ce qui est conforme aux propriétés des matrices de covariances. Les valeurs sur la diagonale représentent les variances des rendements de chaque actif, tandis que les valeurs hors diagonale représentent les covariances entre les rendements des différents actifs.
+
+Une covariance positive entre les rendements de deux actifs indique une relation linéaire positive, ce qui signifie que les rendements de ces actifs ont tendance à évoluer dans le même sens. À l’inverse, une covariance négative indique une relation linéaire négative, ce qui signifie que les rendements des actifs ont tendance à évoluer dans des directions opposées.
+
+En regardant la matrice, on peut observer que les variances des rendements des actifs se situent sur la diagonale principale, tandis que les covariances entre les rendements des différents actifs sont situées en dehors de la diagonale. Les valeurs de covariances indiquent à quel point les rendements des actifs sont corrélés les uns par rapport aux autres.
+
+### 8. Calculer la matrice de corrélation des rendements de vos neuf actifs et tracer cette matrice de corrélation à l'aide de la fonction corrplot du package corrplot.
+
+### 9. Quels actifs sont les plus fortement corrélés ? Quels sont les moins corrélés ? D'après les valeurs de corrélations estimées, pensez-vous que la diversification réduira le risque avec ces actifs ?
+
+Pour identifier les actifs les plus fortement corrélés, nous pouvons examiner les valeurs les plus proches de 1 dans la matrice de corrélation. De même, les actifs les moins corrélés auront des valeurs proches de 0.
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Calcul de la matrice de corrélation des rendements des neuf actifs
+cor_matrix <- cor(cbind(data1_clean$Rendement, data2_clean$Rendement, data3_clean$Rendement,data4_clean$Rendement, data5_clean$Rendement, data6_clean$Rendement, data7_clean$Rendement, data8_clean$Rendement, data9_clean$Rendement))
+```
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Affichage de la matrice de corrélation
+cor_matrix
+```
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Tracé de la matrice de corrélation à l'aide de la fonction corrplot
+corrplot(cor_matrix, method = "color")
+```
+
+#### Conclusion
+
+En examinant la matrice de corrélation, nous pouvons observer que les actifs les plus fortement corrélés sont ceux avec des valeurs proches de 1 sur la diagonale principale de la matrice. Dans ce cas, les actifs les plus corrélés sont le 5ème et le 7ème actif, avec une corrélation de 0.83.
+
+Les actifs les moins corrélés sont ceux avec des valeurs proches de 0 dans la matrice. Par exemple, les actifs 1 et 9 semblent être les moins corrélés, avec une corrélation de -0.11.
+
+En termes de diversification, la corrélation entre les actifs joue un rôle crucial. Une diversification efficace suppose que les actifs inclus dans un portefeuille ont des corrélations faibles ou négatives, car cela signifie qu’ils ne réagissent pas de la même manière aux mêmes conditions de marché. Cela réduit le risque global du portefeuille. Dans ce cas, puisque les actifs présentent des corrélations positives relativement élevées, la diversification seule ne réduira pas considérablement le risque, car les actifs ont tendance à se déplacer dans la même direction sous certaines conditions du marché. Cependant, une diversification peut encore offrir certains avantages, bien que plus limités, en répartissant le risque sur différents actifs.
+
+### 10. A partir de 7 mesures de performances ajustées au risque, identifier pour chacune d'elle, le titre le plus rentable.
+
+```{r, cache = TRUE}
+# Définition des valeurs de référence
+beta <- 1.2  # Exemple de coefficient bêta
+mean_market_return <- 0.08  # Exemple de rendement moyen du marché
+mean_benchmark_return <- 0.06  # Exemple de rendement moyen de l'indice de référence
+
+
+# Calcul des mesures de performance ajustées au risque pour chaque actif
+
+# Création d'une fonction pour calculer les mesures de performance ajustées au risque
+calculate_performance <- function(returns, risk_free_rate) {
+  mean_return <- mean(returns)
+  volatility <- sd(returns)
+  sharpe_ratio <- (mean_return - risk_free_rate) / volatility
+  sortino_ratio <- (mean_return - risk_free_rate) / sqrt(sum(pmin(returns - risk_free_rate, 0)^2) / length(returns))
+  treynor_ratio <- (mean_return - risk_free_rate) / beta
+  jensen_alpha <- mean_return - risk_free_rate - beta * (mean_market_return - risk_free_rate)
+  information_ratio <- (mean_return - mean_benchmark_return) / sqrt(mean((returns - mean_return)^2))
+  omega_ratio <- mean(returns) / (sqrt(sum(pmin(returns, 0)^2) / length(returns)))
+  
+  return(list(
+    Sharpe_Ratio = sharpe_ratio,
+    Sortino_Ratio = sortino_ratio,
+    Treynor_Ratio = treynor_ratio,
+    Jensen_Alpha = jensen_alpha,
+    Information_Ratio = information_ratio,
+    Omega_Ratio = omega_ratio
+  ))
+}
+
+# Définition du taux sans risque
+risk_free_rate <- 0.005
+
+# Calcul des mesures de performance ajustées au risque pour chaque actif
+performance_data <- list()
+for (i in 1:9) {
+  returns <- get(paste0("data", i, "_clean"))$Rendement
+  performance_data[[paste0("data", i)]] <- calculate_performance(returns, risk_free_rate)
+}
+
+# Identifier le titre le plus rentable pour chaque mesure de performance
+best_performers <- list()
+metrics <- names(performance_data[[1]])  # Obtenez les noms des mesures de performance
+for (metric in metrics) {
+  best_performer <- names(which.max(sapply(performance_data, function(x) x[[metric]])))
+  best_performers[[metric]] <- best_performer
+}
+
+# Afficher les titres les plus rentables pour chaque mesure de performance
+best_performers
+```
+
+#### Conclusion
+
+Sur la base des mesures de performance ajustées au risque calculées, le titre The Andersons : (ANDE) est identifié comme le titre le plus rentable pour toutes les mesures de performance, y compris le ratio de Sharpe, le ratio de Sortino, le ratio de Treynor, l’alpha de Jensen, le ratio d’information et le ratio d’Oméga. Cela suggère que, selon ces mesures, le titre 3 présente la meilleure performance ajustée au risque parmi les neuf actifs étudiés.
+
+\newpage
+
+## Exercice 2 : théorie moderne de portefeuille
+
+### 1. Utilisez les 9 actifs précédents.
+
+#### a. Calculez le rendement du portefeuille équipondéré composé des 9 fonds, puis en déduire son écart type
+
+#### b. Quelles sont les propriétés financières de cette série de rendement obtenue ?
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Sélectionner les rendements de chaque fonds
+returns <- cbind(data1_clean$Rendement, data2_clean$Rendement, data3_clean$Rendement,
+                 data4_clean$Rendement, data5_clean$Rendement, data6_clean$Rendement,
+                 data7_clean$Rendement, data8_clean$Rendement, data9_clean$Rendement)
+
+# Calculer les rendements du portefeuille équipondéré
+portfolio_returns <- rowMeans(returns)
+
+# Calculer l'écart-type du portefeuille
+portfolio_sd <- sd(portfolio_returns)
+```
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Afficher le rendement et l'écart-type du portefeuille
+print(paste("Rendement du portefeuille équipondéré:", mean(portfolio_returns)))
+print(paste("Écart-type du portefeuille équipondéré:", portfolio_sd))
+```
+
+La série de rendements obtenue pour le portefeuille équipondéré possède plusieurs propriétés financières importantes.
+
+Le rendement moyen du portefeuille équipondéré est d’environ 0.0006854. Cela indique le rendement moyen que l’investisseur peut attendre sur son investissement sur une période donnée.
+
+L’écart-type du portefeuille équipondéré est d’environ 0.005063. C’est une mesure de la dispersion des rendements autour de la moyenne. Plus l’écart-type est élevé, plus les rendements sont volatils et risqués.
+
+L’écart-type est également une mesure du risque du portefeuille. Un écart-type plus élevé indique un niveau de risque plus élevé, car cela signifie que les rendements sont plus volatils et moins prévisibles.
+
+Le rendement moyen et l’écart-type peuvent être utilisés pour calculer des mesures de performance ajustées au risque telles que le ratio de Sharpe, le ratio de Treynor, etc. Ces mesures aident à évaluer la performance du portefeuille par rapport à son niveau de risque.
+
+En combinant plusieurs actifs dans un portefeuille équipondéré, on bénéficie de la diversification, ce qui peut réduire le risque global du portefeuille. Cependant, la réduction du risque dépend de la corrélation entre les rendements des actifs individuels. Si les actifs sont fortement corrélés, la diversification peut avoir un impact limité sur la réduction du risque.
+
+#### c. Dans un plan moyenne-variance, représentez les 9 séries.
+
+#### d. Déduisez-en les titres inefficients.
+
+```{r, cache = TRUE}
+# Calculer les moyennes et les covariances des rendements de chaque série
+means <- sapply(returns, mean)
+covariances <- cov(returns)
+
+# Calculer les rendements moyens et les variances pour chaque série
+portfolios <- data.frame(
+  mean = means,
+  var = diag(covariances)
+)
+
+# Tracer les rendements moyens en fonction des variances pour chaque série
+plot(portfolios$var, portfolios$mean, 
+     xlab = "Variance", ylab = "Rendement moyen",
+     main = "Plan Moyenne-Variance des 9 séries")
+text(portfolios$var, portfolios$mean, labels = 1:10, pos = 3)
+```
+
+Dans un plan moyenne-variance, les titres inefficients sont généralement ceux qui se trouvent sur la frontière efficiente, c’est-à-dire les séries qui offrent le meilleur rendement pour un niveau donné de risque ou la plus faible variance pour un rendement donné.
+
+Pour identifier les titres inefficients dans ce contexte, nous pouvons utiliser la théorie moderne du portefeuille pour déterminer la frontière efficiente. Les titres qui ne sont pas sur la frontière efficiente sont considérés comme inefficients.
+
+Dans le graphique de la moyenne-variance que nous avons tracé, les titres qui ne sont pas sur la frontière efficiente peuvent être considérés comme inefficients. Ces titres sont ceux qui sont situés en dessous de la frontière efficiente et ne sont pas atteints par une combinaison linéaire des titres situés sur la frontière.
+
+### 2. Considérez dans la suite les trois premiers fonds notamment les séries Amundi CPR Climate Action I, MainFirst Global Equities X et The Andersons : (ANDE).
+
+#### a. Tracez la frontière efficiente à partir de toutes les combinaisons possibles de ces trois titres.
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Sélectionner les rendements des trois premiers fonds
+returns <- cbind(data1_clean$Rendement, data2_clean$Rendement, data3_clean$Rendement)
+
+# Calculer les moyennes et les covariances des rendements des trois fonds
+means <- colMeans(returns)
+covariances <- cov(returns)
+
+# Nombre de simulations pour générer les poids des portefeuilles
+num_simulations <- 10000
+
+# Générer des poids aléatoires pour chaque titre
+set.seed(123)  # Pour la reproductibilité
+weights_combinations <- expand.grid(seq(0, 1, by = 0.1), seq(0, 1, by = 0.1), seq(0, 1, by = 0.1))
+weights_combinations <- weights_combinations[rowSums(weights_combinations) == 1, ]
+ 
+# Nombre de combinaisons de poids
+num_combinations <- nrow(weights_combinations)
+ 
+# Générer des matrices de poids
+weights_matrices <- array(0, dim = c(num_combinations, ncol(returns)))
+ 
+# Remplir les matrices de poids
+for (i in 1:num_combinations) {
+  weights_matrices[i, ] <- t(weights_combinations[i, ])
+}
+ 
+# Calculer les rendements des portefeuilles
+portfolio_returns <- rowSums(weights_matrices * means)
+ 
+# Calculer les variances des portefeuilles
+portfolio_variances <- diag(weights_matrices %*% covariances %*% t(weights_matrices))
+ 
+# Tracer la frontière efficiente
+plot(sqrt(portfolio_variances), portfolio_returns, type = "l",
+     xlab = "Écart-type", ylab = "Rendement",
+     main = "Frontière efficiente des trois premiers fonds")
+
+```
+
+#### b. Déterminez le portefeuille de variance minimale et calculer le rendement attendu et l'écart-type de ce portefeuille. Y a-t-il des pondérations négatives dans le portefeuille de variance minimale ?
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Charger la bibliothèque
+library(quadprog)
+
+# Sélectionner les rendements des trois premiers fonds
+returns <- cbind(data1_clean$Rendement, data2_clean$Rendement, data3_clean$Rendement)
+
+# Calculer les moyennes et les covariances des rendements des trois fonds
+means <- colMeans(returns)
+covariances <- cov(returns)
+
+# Calculer l'inverse de la matrice de covariance
+inv_cov <- solve(covariances)
+
+# Calculer les pondérations du portefeuille de variance minimale
+n <- ncol(returns)
+portfolio_weights <- rep(1, n) %*% inv_cov / sum(rep(1, n) %*% inv_cov)
+
+# Calculer le rendement attendu du portefeuille de variance minimale
+min_variance_return <- sum(means * portfolio_weights)
+
+# Calculer l'écart-type du portefeuille de variance minimale
+min_variance_sd <- sqrt(portfolio_weights %*% covariances %*% t(portfolio_weights))
+```
+
+Les pondérations du portefeuille de variance minimale sont de 0.669 pour le premier fonds, 0.267 pour le deuxième fonds et 0.064 pour le troisième fonds. Le rendement attendu de ce portefeuille est d'environ 0.0008385 et l'écart-type est d'environ 0.0061817.
+
+Il n'y a pas de pondérations négatives dans le portefeuille de variance minimale. Cela est dû à la contrainte de somme des pondérations égale à 1, qui garantit que les pondérations restent positives.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Afficher les résultats
+print("Pondérations du portefeuille de variance minimale :")
+print(portfolio_weights)
+print(paste("Rendement attendu du portefeuille de variance minimale :", min_variance_return))
+print(paste("Écart-type du portefeuille de variance minimale :", min_variance_sd))
+```
+
+#### c. En prenant pour rendement de l'actif sans risque 𝑟𝑓 = 2,5%, déterminez le portefeuille tangent.
+
+```{r, warning = FALSE, message = FALSE, cache = TRUE}
+# Rendement de l'actif sans risque
+rf <- 0.025  # 2.5%
+
+# Calculer les pondérations du portefeuille tangent
+tangent_weights <- solve(covariances) %*% (means - rf) / sum(solve(covariances) %*% (means - rf))
+```
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, cache = TRUE}
+# Afficher les résultats
+print("Pondérations du portefeuille tangent :")
+print(tangent_weights)
+```
+
+Cela signifie que pour obtenir le portefeuille tangent avec un rendement sans risque de 2,5%, nous devrions allouer 67,645% de notre portefeuille au premier actif, 26,472% au deuxième actif et 5,883% au troisième actif.
