@@ -1,9 +1,0 @@
----
-title: "Le coin passions"
-author: "Paul Nestour"
-date: "2001-01-13"
-categories: [photos, littérature, cinéma,...]
-image: "image.jpg"
----
-
-L'Église Sainte-Croix de Nantes de l'autre coté de la rive. ![Église Sainte-Croix de Nantes](./image.jpg)

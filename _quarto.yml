@@ -4,6 +4,7 @@ project:
 
 website:
   title: "Data et beurre salé"
+  - parametre_blog.qmd
   navbar:
     right:
       - parametre_blog.qmd
