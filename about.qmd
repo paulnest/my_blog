@@ -1,0 +1,15 @@
+---
+title: "À propos de moi"
+image: profile.jpg
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/paul-nestour-50b96a19a/
+    - icon: github
+      text: Github
+      href: https://github.com/paulnest
+---
+
+Je m'appelle Paul Nestour et dans le cadre de cette page, je me présente comme un étudiant de master Économétrie Appliquée de l'IAE de Nantes université, futur Data Analyst. Créer dans un contexte de découverte du service web GitHub lors de mon cours de "R avancé", ma page "my_blog" a pour objectif à moyen terme de résumer l'ensemble de mes projets réalisés au cours de mes études et à long terme de synthétiser mes réalisations professionnelles ainsi que ma progression informatique tout au long de ma carrière.
