@@ -1,45 +1,45 @@
 ---
-title: "olympicsWeather"
+title: "Get Weather Forecast"
 author: "Paul Nestour"
 date: "2024-03-16"
 categories: [package R]
 image: "nuages.jpeg"
 ---
-## Librairie olympicsWeather : Guide d'utilisation
+## OlympicsWeather Library: User Guide
 
-La librairie olympicsWeather fournit des fonctionnalités pour accéder aux données de prévisions météorologiques en fonction des coordonnées géographiques ou des adresses. Avant d'utiliser la librairie, vous devez l'installer. Voici les étapes pour installer la librairie en utilisant le package remotes depuis GitHub.
+The OlympicsWeather library provides functionalities to access weather forecast data based on geographic coordinates or addresses. Before using the library, you need to install it. Here are the steps to install the library using the remotes package from GitHub.
 
-### Chargement du package
+### Loading the Package
 
 ```{r, eval=FALSE}
-# Installer le package remotes s'il n'est pas déjà installé
+# Install the remotes package if it is not already installed
 install.packages("remotes")
 
-# Charger le package remotes
+# Load the remotes package
 library(remotes)
 
-# Installer le package olympicsWeather depuis GitHub
+# Install the olympicsWeather package from GitHub
 remotes::install_github("paulnest/olympicsWeather")
 
-# Charger la librairie
+# Load the olympicsWeather library
 library(olympicsWeather)
 ```
 
-### Quelques exemples de prévisions Météo
+### Some Weather Forecast Examples
 
-#### Quelles sont les prévisions météo à 7 jours pour le stade de France ?
+#### What are the 7-day weather forecasts for the Stade de France?
 
 ```{r}
 olympicsWeather::get_forecast("Stade de France")
 ```
 
-#### Pour Tahiti ?
+#### What about Tahiti ?
 
 ```{r}
 olympicsWeather::get_forecast("Tahiti")
 ```
 
-#### Pour les coordonnées gps 43.276703, 5.334791 (Marseille) ?
+#### For the GPS coordinates 43.276703, 5.334791 (Marseille)?
 
 ```{r}
 olympicsWeather::get_forecast(c(43.276703, 5.334791))

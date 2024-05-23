@@ -9,7 +9,7 @@
 <meta name="author" content="Paul Nestour">
 <meta name="dcterms.date" content="2024-03-16">
 
-<title>Data et beurre salé - olympicsWeather</title>
+<title>Data da vezañ tretet - Get Weather Forecast</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Data et beurre salé</span>
+    <span class="navbar-title">Data da vezañ tretet</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -148,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">olympicsWeather</h1>
+      <h1 class="title">Get Weather Forecast</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">package R</div>
               </div>
@@ -187,29 +187,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="librairie-olympicsweather-guide-dutilisation" class="level2">
-<h2 class="anchored" data-anchor-id="librairie-olympicsweather-guide-dutilisation">Librairie olympicsWeather : Guide d’utilisation</h2>
-<p>La librairie olympicsWeather fournit des fonctionnalités pour accéder aux données de prévisions météorologiques en fonction des coordonnées géographiques ou des adresses. Avant d’utiliser la librairie, vous devez l’installer. Voici les étapes pour installer la librairie en utilisant le package remotes depuis GitHub.</p>
-<section id="chargement-du-package" class="level3">
-<h3 class="anchored" data-anchor-id="chargement-du-package">Chargement du package</h3>
+<section id="olympicsweather-library-user-guide" class="level2">
+<h2 class="anchored" data-anchor-id="olympicsweather-library-user-guide">OlympicsWeather Library: User Guide</h2>
+<p>The OlympicsWeather library provides functionalities to access weather forecast data based on geographic coordinates or addresses. Before using the library, you need to install it. Here are the steps to install the library using the remotes package from GitHub.</p>
+<section id="loading-the-package" class="level3">
+<h3 class="anchored" data-anchor-id="loading-the-package">Loading the Package</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installer le package remotes s'il n'est pas déjà installé</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the remotes package if it is not already installed</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger le package remotes</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the remotes package</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Installer le package olympicsWeather depuis GitHub</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the olympicsWeather package from GitHub</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"paulnest/olympicsWeather"</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger la librairie</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the olympicsWeather library</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(olympicsWeather)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="quelques-exemples-de-prévisions-météo" class="level3">
-<h3 class="anchored" data-anchor-id="quelques-exemples-de-prévisions-météo">Quelques exemples de prévisions Météo</h3>
-<section id="quelles-sont-les-prévisions-météo-à-7-jours-pour-le-stade-de-france" class="level4">
-<h4 class="anchored" data-anchor-id="quelles-sont-les-prévisions-météo-à-7-jours-pour-le-stade-de-france">Quelles sont les prévisions météo à 7 jours pour le stade de France ?</h4>
+<section id="some-weather-forecast-examples" class="level3">
+<h3 class="anchored" data-anchor-id="some-weather-forecast-examples">Some Weather Forecast Examples</h3>
+<section id="what-are-the-7-day-weather-forecasts-for-the-stade-de-france" class="level4">
+<h4 class="anchored" data-anchor-id="what-are-the-7-day-weather-forecasts-for-the-stade-de-france">What are the 7-day weather forecasts for the Stade de France?</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>olympicsWeather<span class="sc">::</span><span class="fu">get_forecast</span>(<span class="st">"Stade de France"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -238,8 +238,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="pour-tahiti" class="level4">
-<h4 class="anchored" data-anchor-id="pour-tahiti">Pour Tahiti ?</h4>
+<section id="what-about-tahiti" class="level4">
+<h4 class="anchored" data-anchor-id="what-about-tahiti">What about Tahiti ?</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>olympicsWeather<span class="sc">::</span><span class="fu">get_forecast</span>(<span class="st">"Tahiti"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -268,8 +268,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="pour-les-coordonnées-gps-43.276703-5.334791-marseille" class="level4">
-<h4 class="anchored" data-anchor-id="pour-les-coordonnées-gps-43.276703-5.334791-marseille">Pour les coordonnées gps 43.276703, 5.334791 (Marseille) ?</h4>
+<section id="for-the-gps-coordinates-43.276703-5.334791-marseille" class="level4">
+<h4 class="anchored" data-anchor-id="for-the-gps-coordinates-43.276703-5.334791-marseille">For the GPS coordinates 43.276703, 5.334791 (Marseille)?</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>olympicsWeather<span class="sc">::</span><span class="fu">get_forecast</span>(<span class="fu">c</span>(<span class="fl">43.276703</span>, <span class="fl">5.334791</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

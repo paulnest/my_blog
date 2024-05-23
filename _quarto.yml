@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Data et beurre salé"
+  title: "Data da vezañ tretet"
   navbar:
     right:
       - index.qmd
