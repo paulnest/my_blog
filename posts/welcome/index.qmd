@@ -1,12 +1,13 @@
 ---
-title: "Welcome To My Blog"
-author: "Tristan O'Malley"
-date: "2024-05-20"
+title: "Bienvenue sur mon blog"
+image: thumbnail.jpg
+author: "Paul Nestour"
+date: "2024-03-13"
 categories: [news]
 ---
 
-This is the first post in a Quarto blog. Welcome!
+Voici le premier post d'une longue série, je l'espère. C'est mon tout premier blog et ça n'a pas été facile à réaliser. Bienvenue à tous !
 
-![](thumbnail.jpg)
+Dans un premier chapître de ma vie professionnelle, je posterai ici un maximum de projets réalisés durant mon cycle d'étude. Vous retrouverez donc sur cette page les plaquettes de mes deux semestres de Master 1 Économétrie Appliquée.
 
-Since this post doesn't specify an explicit `image`, the first image in the post will be used in the listing page of posts.
+![Plaquette semestre 1](./plaquette1.jpg) ![Plaquette semestre 1](./plaquette2.jpg)
