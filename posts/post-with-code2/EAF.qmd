@@ -1,6 +1,6 @@
 ---
 title: "Évaluation des Actifs Financiers"
-author: "Paul NESTOUR et Lucas LE DREVO"
+author: "Paul Nestour et Lucas Le Drévo"
 format: html
 editor: visual
 date: "2023-11-15"
