@@ -6,7 +6,7 @@ categories: [package R]
 image: "image.jpeg"
 ---
 
-## Librairie olympicsWeather
+## Librairie olympicsWeather : Guide d'utilisation
 
 La librairie olympicsWeather fournit des fonctionnalités pour accéder aux données de prévisions météorologiques en fonction des coordonnées géographiques ou des adresses. Avant d'utiliser la librairie, vous devez l'installer. Voici les étapes pour installer la librairie en utilisant le package remotes depuis GitHub.
 
@@ -31,19 +31,18 @@ library(olympicsWeather)
 
 #### Quelles sont les prévisions météo à 7 jours pour le stade de France ?
 
-```{r, eval=FALSE}
+```{r}
 olympicsWeather::get_forecast("Stade de France")
 ```
 
 #### Pour Tahiti ?
 
-```{r, eval=FALSE}
+```{r}
 olympicsWeather::get_forecast("Tahiti")
 ```
 
 #### Pour les coordonnées gps 43.276703, 5.334791 (Marseille) ?
 
-```{r, eval=FALSE}
+```{r}
 olympicsWeather::get_forecast(c(43.276703, 5.334791))
 ```
-
