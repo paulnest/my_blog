@@ -1,8 +1,11 @@
 ---
 title: "Biostatistique"
 author: "Paul Nestour et Lauriane Belane-Tanga"
-format: pdf
+format: html
 editor: visual
+date: "2024-02-16"
+categories: [dossier]
+image: "voiture.jpeg"
 ---
 
 ## Analyse et Optimisation d'un trajet de voiture
