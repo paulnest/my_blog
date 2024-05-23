@@ -1,9 +1,9 @@
 ---
-title: "Biostatistique"
+title: "Biostatistiques"
 author: "Paul Nestour et Lauriane Belane-Tanga"
 format: html
 editor: visual
-date: "2024-02-16"
+date: "2024-02-17"
 categories: [dossier]
 image: "voiture.jpeg"
 ---

@@ -2,7 +2,7 @@
 title: "Bienvenue sur mon blog"
 image: thumbnail.jpg
 author: "Paul Nestour"
-date: "2024-03-13"
+date: "2023-09-13"
 categories: [news]
 ---
 

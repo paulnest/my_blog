@@ -1,10 +1,11 @@
 ---
 title: "Get Weather Forecast"
 author: "Paul Nestour"
-date: "2024-03-16"
+date: "2024-04-16"
 categories: [package R]
 image: "nuages.jpeg"
 ---
+
 ## OlympicsWeather Library: User Guide
 
 The OlympicsWeather library provides functionalities to access weather forecast data based on geographic coordinates or addresses. Before using the library, you need to install it. Here are the steps to install the library using the remotes package from GitHub.
