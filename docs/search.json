@@ -25,6 +25,27 @@
     "href": "index.html",
     "title": "my_blog",
     "section": "",
-    "text": "Bienvenue sur mon blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 13, 2024\n\n\nPaul Nestour\n\n\n\n\n\n\n\n\n\n\n\n\nLe coin passions\n\n\n\n\n\n\nphotos\n\n\nlittérature\n\n\ncinéma\n\n\n…\n\n\n\n\n\n\n\n\n\nJan 13, 2001\n\n\nPaul Nestour\n\n\n\n\n\n\nNo matching items"
+    "text": "olympicsWeather\n\n\n\n\n\n\npackage R\n\n\n\n\n\n\n\n\n\nMar 16, 2024\n\n\nPaul Nestour\n\n\n\n\n\n\n\n\n\n\n\n\nBienvenue sur mon blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 13, 2024\n\n\nPaul Nestour\n\n\n\n\n\n\n\n\n\n\n\n\nLe coin passions\n\n\n\n\n\n\nphotos\n\n\nlittérature\n\n\ncinéma\n\n\n…\n\n\n\n\n\n\n\n\n\nJan 13, 2001\n\n\nPaul Nestour\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/post-with-code/olympicsWeather.html",
+    "href": "posts/post-with-code/olympicsWeather.html",
+    "title": "olympicsWeather",
+    "section": "",
+    "text": "La librairie olympicsWeather fournit des fonctionnalités pour accéder aux données de prévisions météorologiques en fonction des coordonnées géographiques ou des adresses. Avant d’utiliser la librairie, vous devez l’installer. Voici les étapes pour installer la librairie en utilisant le package remotes depuis GitHub.\n\n\n\n# Installer le package remotes s'il n'est pas déjà installé\n\ninstall.packages(\"remotes\")\n\n# Charger le package remotes\nlibrary(remotes)\n\n# Installer le package olympicsWeather depuis GitHub\nremotes::install_github(\"paulnest/olympicsWeather\")\n\n# Charger la librairie\nlibrary(olympicsWeather)\n\n\n\n\n\n\n\nolympicsWeather::get_forecast(\"Stade de France\")\n\nPassing 1 address to the Nominatim single address geocoder\n\n\nQuery completed in: 1 seconds\n\n\nWarning: Unknown or uninitialised column: `time`.\n\n\nWarning: Unknown or uninitialised column: `temperature_2m`.\n\n\nWarning: Unknown or uninitialised column: `apparent_temperature`.\n\n\nWarning: Unknown or uninitialised column: `precipitation_probability`.\n\n\nWarning: Unknown or uninitialised column: `precipitation`.\n\n\n# A tibble: 0 × 0\n\n\n\n\n\n\nolympicsWeather::get_forecast(\"Tahiti\")\n\nPassing 1 address to the Nominatim single address geocoder\n\n\nQuery completed in: 1 seconds\n\n\nWarning: Unknown or uninitialised column: `time`.\n\n\nWarning: Unknown or uninitialised column: `temperature_2m`.\n\n\nWarning: Unknown or uninitialised column: `apparent_temperature`.\n\n\nWarning: Unknown or uninitialised column: `precipitation_probability`.\n\n\nWarning: Unknown or uninitialised column: `precipitation`.\n\n\n# A tibble: 0 × 0\n\n\n\n\n\n\nolympicsWeather::get_forecast(c(43.276703, 5.334791))\n\nWarning: Unknown or uninitialised column: `time`.\n\n\nWarning: Unknown or uninitialised column: `temperature_2m`.\n\n\nWarning: Unknown or uninitialised column: `apparent_temperature`.\n\n\nWarning: Unknown or uninitialised column: `precipitation_probability`.\n\n\nWarning: Unknown or uninitialised column: `precipitation`.\n\n\n# A tibble: 0 × 0"
+  },
+  {
+    "objectID": "posts/post-with-code/olympicsWeather.html#librairie-olympicsweather",
+    "href": "posts/post-with-code/olympicsWeather.html#librairie-olympicsweather",
+    "title": "olympicsWeather",
+    "section": "",
+    "text": "La librairie olympicsWeather fournit des fonctionnalités pour accéder aux données de prévisions météorologiques en fonction des coordonnées géographiques ou des adresses. Avant d’utiliser la librairie, vous devez l’installer. Voici les étapes pour installer la librairie en utilisant le package remotes depuis GitHub.\n\n\n\n# Installer le package remotes s'il n'est pas déjà installé\n\ninstall.packages(\"remotes\")\n\n# Charger le package remotes\nlibrary(remotes)\n\n# Installer le package olympicsWeather depuis GitHub\nremotes::install_github(\"paulnest/olympicsWeather\")\n\n# Charger la librairie\nlibrary(olympicsWeather)\n\n\n\n\n\n\n\nolympicsWeather::get_forecast(\"Stade de France\")\n\nPassing 1 address to the Nominatim single address geocoder\n\n\nQuery completed in: 1 seconds\n\n\nWarning: Unknown or uninitialised column: `time`.\n\n\nWarning: Unknown or uninitialised column: `temperature_2m`.\n\n\nWarning: Unknown or uninitialised column: `apparent_temperature`.\n\n\nWarning: Unknown or uninitialised column: `precipitation_probability`.\n\n\nWarning: Unknown or uninitialised column: `precipitation`.\n\n\n# A tibble: 0 × 0\n\n\n\n\n\n\nolympicsWeather::get_forecast(\"Tahiti\")\n\nPassing 1 address to the Nominatim single address geocoder\n\n\nQuery completed in: 1 seconds\n\n\nWarning: Unknown or uninitialised column: `time`.\n\n\nWarning: Unknown or uninitialised column: `temperature_2m`.\n\n\nWarning: Unknown or uninitialised column: `apparent_temperature`.\n\n\nWarning: Unknown or uninitialised column: `precipitation_probability`.\n\n\nWarning: Unknown or uninitialised column: `precipitation`.\n\n\n# A tibble: 0 × 0\n\n\n\n\n\n\nolympicsWeather::get_forecast(c(43.276703, 5.334791))\n\nWarning: Unknown or uninitialised column: `time`.\n\n\nWarning: Unknown or uninitialised column: `temperature_2m`.\n\n\nWarning: Unknown or uninitialised column: `apparent_temperature`.\n\n\nWarning: Unknown or uninitialised column: `precipitation_probability`.\n\n\nWarning: Unknown or uninitialised column: `precipitation`.\n\n\n# A tibble: 0 × 0"
+  },
+  {
+    "objectID": "posts/post-with-code/passions.html",
+    "href": "posts/post-with-code/passions.html",
+    "title": "Le coin passions",
+    "section": "",
+    "text": "L’Église Sainte-Croix de Nantes de l’autre coté de la rive."
   }
 ]
