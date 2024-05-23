@@ -10,4 +10,8 @@ Voici le premier post d'une longue série, je l'espère. C'est mon tout premier 
 
 Dans un premier chapître de ma vie professionnelle, je posterai ici un maximum de projets réalisés durant mon cycle d'étude. Vous retrouverez donc sur cette page les plaquettes de mes deux semestres de Master 1 Économétrie Appliquée.
 
+Welcome everyone to the first post of what I hope will be a long series. Creating my very first blog hasn't been an easy journey, but I'm thrilled to finally share it with you all!
+
+In this initial chapter of my professional journey, I'll be sharing as many projects as possible that I've completed during my studies. On this page, you'll find brochures from both semesters of my Master's in Applied Econometrics.
+
 ![Plaquette semestre 1](./plaquette1.jpg) ![Plaquette semestre 1](./plaquette2.jpg)
