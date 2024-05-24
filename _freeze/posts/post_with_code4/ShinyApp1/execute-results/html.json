@@ -1,0 +1,15 @@
+{
+  "hash": "aebadf2c21edee9746580ed2293e3493",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"App : analyse de marché\"\nauthor: \"Paul Nestour\"\ndate: \"2024-01-16\"\ncategories: [ShinyApp]\nimage: \"nuages.jpeg\"\n---\n\n\n### Analyse du marché de l'emploi dans le domaine de la Data\n\nCeci est ma première application ShinyApp réalisé pour mon évaluation de Dataviz : RShiny.\n\nVous pouvez accéder à mon application Shiny pour analyser le marché de l'emploi dans le domaine de la data science en cliquant sur le lien ci-dessous :\n\n[Accéder à l'Application Shiny](https://analysedumarchedata.shinyapps.io/analyse_marche_data/)\n\nCette application vous permet de visualiser différentes caractéristiques de l'emploi dans le domaine de la data science, telles que la répartition géographique des offres d'emploi, les caractéristiques générales des entreprises recrutant des data scientists, et la divergence salariale en fonction de différents paramètres.\n\nL'application est plutôt simpliste mais mes compétences en Dataviz se sont développées depuis. La version non déployée de l'app contient également une carte des opportunités d'emploi\n\n#### Interface utilisateur : ui\n\n::: {.cell}\n\n```{.r .cell-code}\n#'    tabPanel(\"Carte\",\n#'             highchartOutput(\"mapChart\")),\n```\n:::\n\n\n#### Comportement et logique : server\n\n::: {.cell}\n\n```{.r .cell-code}\n#'  output$mapChart <- renderHighchart({\n#'    highchart() %>%\n#'      hc_add_series_map(\n#'        worldgeojson,\n#'        df = salaries,\n#'        joinBy = c(\"name\", \"Name\"),\n#'        value = \"count\"\n#'      ) %>%\n#'      hc_colorAxis(minColor = \"lightblue\", maxColor = \"darkblue\") %>%\n#'      hc_title(text = \"Nombre d'Offres d'Emploi par Pays\") %>%\n#'      hc_mapNavigation(enable = TRUE, enableMouseWheelZoom = TRUE)\n#'  })\n```\n:::\n\n\n#### Base et traitement\n\n::: {.cell}\n\n```{.r .cell-code}\n#'#IMPORTATION\n#'link <- \"https://ai-jobs.net/salaries/download/salaries.csv\"\n#'salaries <- read.csv(link, sep = \",\", header = TRUE)\n#'link2 = \"https://github.com/datasets/country-list/blob/master/data.csv\"\n#'iso_mapping = read.csv(link2, sep = \",\", header = TRUE)\n\n#'#salaries <- read_csv(\"data/salaries.csv\")\n\n#'# TRAITEMENT DE LA BASE\n\n#'ajout du nom des pays avec le code iso. colonne \"name\"\n#'iso_mapping <- read_csv(\"data/data.csv\")\n\n#'salaries <- left_join(salaries, iso_mapping, by = c(\"company_location\" = \"Code\"))\n\n#'# ajout du nbr d'offre/pays. colonne \"count\"\n#'grouped_data <- salaries |>  \n#'  group_by(Name) |> \n#'  summarize(count = n())\n#'salaries <- dplyr::left_join(salaries, grouped_data, by = \"Name\")\n\n#'# Détails \"name\"\n#'salaries <- salaries %>%\n#'  mutate(Name = ifelse(Name == \"United States\", \"United States of America\", #'Name))\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

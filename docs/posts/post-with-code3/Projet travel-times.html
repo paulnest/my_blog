@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Paul Nestour et Lauriane Belane-Tanga">
+<meta name="dcterms.date" content="2024-02-17">
+
+<title>Data da vezañ tretet - Biostatistiques</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Data da vezañ tretet</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Mon blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">À propos de moi</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/paulnest"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Biostatistiques</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">dossier</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Paul Nestour et Lauriane Belane-Tanga </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 17, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="analyse-et-optimisation-dun-trajet-de-voiture" class="level2">
+<h2 class="anchored" data-anchor-id="analyse-et-optimisation-dun-trajet-de-voiture">Analyse et Optimisation d’un trajet de voiture</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Un individu du nom de Kevin DUNN utilise une application pour suivre les coordonnées GPS lorsqu’il se rend au travail et en revient chaque jour. L’application calcule <strong>la distance parcourue (en kilomètres)</strong> en prenant en compte les données de localisation et d’altitude. Elle calcule également <strong>les vitesses moyennes et maximales</strong> en prenant en compte <strong>le temps de mouvement et d’arrêt de la voiture</strong>; ainsi que <strong>la durée totale du trajet</strong>. M. Dunn a également répertorié <strong>la date et l’heure</strong> à laquelle il commence son trajet, le sens dans lequel il l’effectue, <strong>s’il a pris ou non l’autoroute</strong> en entière et quelques <strong>commentaires</strong>. Nous n’avons pas le détail du calcul effectué par ailleurs, le conducteur a également calculé <strong>sa consommation</strong> d’essence durant chaque trajet. <strong>Monsieur Dunn souhaite optimiser sa consommation d’essence durant chaque trajet, pour ainsi effectuer des économies en réduisant les coûts liés au carburant et participer à la réduction des émissions de carbone</strong>. Nous allons donc analyser près de <strong>205 trajets</strong> effectués par M. Dunn sur une période de 6 mois entre juillet 2011 et janvier 2012.</p>
+<p>Nous avons 13 variables explicatives : AvgMovingSpeed, la vitesse moyenne enregistrée lorsque la voiture est en mouvement ; AvgSpeed : la vitesse moyenne pour l’ensemble du trajet ; Distance : parcourue en kilomètres ; FuelEconomy : l’estimation de l’économie de carburant ; MaxSpeed : la vitesse la plus rapide enregistrée ; MovingTime : durée pendant laquelle la voiture a été considérée comme en déplacement ; TotalTime : durée de l’ensemble du trajet en minutes ; Take407All : oui si l’autoroute 407 a été empruntée durant le trajet mais il essaie d’éviter ; Comments ; Date des voyages ; StartTime lors de l’entrée dans la voiture ; GoingTo : work or home, le sens de la marche ; DayOfWeek : de lundi à vendredi.</p>
+<p>Au cours de notre analyse, il sera question pour nous d’analyser les informations recueillies de M. Dunn de manière adaptée et d’interpréter correctement les résultats afin de fournir à M. Dunn des résultats et des stratégies pour qu’il réussisse à mieux gérer ses consommations.</p>
+<p>De plus, l’analyse de ses données ne se limite pas à une exploration de ses habitudes de déplacement. Pour lui présenter des résultats concrets et fiables, nous allons analyser les facteurs qui influencent l’efficacité énergétique. En ces temps où la durabilité et la responsabilité environnementales occupent une place centrale dans nos préoccupations, cette analyse pourrait s’avérer précieuse non seulement pour M. Dunn mais aussi pour d’autres agents économiques en leur permettant de contribuer activement à la réduction des émissions de gaz à effet de serre.</p>
+<p>Le dossier du jeu de données, de sa description et le contact de M. Dunn sont accessibles sur le site : <a href="https://openmv.net/" class="uri">https://openmv.net/</a> sous le nom de “Travel times”.</p>
+</section>
+<section id="les-librairies-utilisées" class="level3">
+<h3 class="anchored" data-anchor-id="les-librairies-utilisées">Les librairies utilisées</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(outliers)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="les-données" class="level3">
+<h3 class="anchored" data-anchor-id="les-données">Les Données</h3>
+<section id="ouverture-des-données-et-visualisation" class="level4">
+<h4 class="anchored" data-anchor-id="ouverture-des-données-et-visualisation">Ouverture des données et visualisation</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>travel_times <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"./data/travel-times.xlsx"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(travel_times)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Travel<span class="ot">=</span>travel_times</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="nettoyage-des-données-remplacement-des-tirets-par-na" class="level3">
+<h3 class="anchored" data-anchor-id="nettoyage-des-données-remplacement-des-tirets-par-na">Nettoyage des données : remplacement des tirets par NA</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>FuelEconomy <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"-"</span>, <span class="cn">NA</span>, Travel<span class="sc">$</span>FuelEconomy)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Travel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="modification-du-format-des-variables" class="level3">
+<h3 class="anchored" data-anchor-id="modification-du-format-des-variables">Modification du format des variables</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>StartTime<span class="ot">&lt;-</span> <span class="fu">format</span>(Travel<span class="sc">$</span>StartTime, <span class="st">"%H:%M:%S"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(Travel<span class="sc">$</span>Date, <span class="at">format =</span> <span class="st">"%m/%d/%Y"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>FuelEconomy <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(Travel<span class="sc">$</span>FuelEconomy)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Travel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="aperçu-des-données" class="level3">
+<h3 class="anchored" data-anchor-id="aperçu-des-données">Aperçu des données</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Travel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Date             StartTime          DayOfWeek           GoingTo         
+ Min.   :2011-07-11   Length:205         Length:205         Length:205        
+ 1st Qu.:2011-08-22   Class :character   Class :character   Class :character  
+ Median :2011-10-04   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :2011-10-05                                                           
+ 3rd Qu.:2011-11-17                                                           
+ Max.   :2012-01-06                                                           
+                                                                              
+    Distance        MaxSpeed        AvgSpeed      AvgMovingSpeed  
+ Min.   :48.32   Min.   :112.2   Min.   : 38.10   Min.   : 50.30  
+ 1st Qu.:50.65   1st Qu.:124.9   1st Qu.: 68.90   1st Qu.: 76.60  
+ Median :51.14   Median :127.4   Median : 73.60   Median : 81.40  
+ Mean   :50.99   Mean   :127.6   Mean   : 74.48   Mean   : 81.98  
+ 3rd Qu.:51.63   3rd Qu.:129.8   3rd Qu.: 79.90   3rd Qu.: 86.00  
+ Max.   :60.32   Max.   :140.9   Max.   :107.70   Max.   :112.10  
+ NA's   :1       NA's   :1                                        
+  FuelEconomy       TotalTime       MovingTime     Take407All       
+ Min.   : 7.810   Min.   :28.20   Min.   :27.10   Length:205        
+ 1st Qu.: 8.370   1st Qu.:38.40   1st Qu.:35.67   Class :character  
+ Median : 8.520   Median :41.25   Median :37.60   Mode  :character  
+ Mean   : 8.691   Mean   :41.91   Mean   :37.86                     
+ 3rd Qu.: 8.970   3rd Qu.:44.42   3rd Qu.:39.90                     
+ Max.   :10.050   Max.   :82.30   Max.   :62.40                     
+ NA's   :19       NA's   :1       NA's   :1                         
+   Comments        
+ Length:205        
+ Class :character  
+ Mode  :character  
+                   
+                   
+                   
+                   </code></pre>
+</div>
+</div>
+<p>Un premier aperçu de notre jeu de données nous permet de constater ce qui suit :</p>
+<ul>
+<li>Nous avons 4 variables qualitatives : <strong>comments</strong>, <strong>Take407All</strong>, <strong>GoingTo</strong>, et <strong>DayOfWeek</strong>.</li>
+<li>Les données couvrent une période du 11 juillet 2011 au 06 janvier 2012.</li>
+<li>Les heures de départ sont stockées sous forme de chaînes de caractères mais ne sont pas utiles pour notre analyse.</li>
+<li>Les jours de la semaine où M. Dunn se déplace sont du lundi au vendredi.</li>
+<li>La distance des déplacements varie entre 48.32 et 60.32 km.</li>
+<li>La vitesse maximale pendant les déplacements varie entre 112.2 et 140.9 km/h.</li>
+<li>La consommation de carburant pendant les déplacements de M. Dunn ne peut pas encore être spécifiée car nous remarquons la présence de 19 valeurs manquantes.</li>
+<li>Le temps total des déplacements varie entre 28.20 et 82.30 minutes.</li>
+<li>Le temps passé en mouvement pendant les déplacements varie entre 27.10 et 62.40 minutes.</li>
+</ul>
+<p>Nous décidons de ne pas tenir compte de la variable <strong>comments</strong> durant notre analyse car elle nous fournit simplement des informations supplémentaires sur la tenue des déplacements de M. Dunn.</p>
+</section>
+<section id="expulsion-des-colonnes-comments-et-starttime." class="level3">
+<h3 class="anchored" data-anchor-id="expulsion-des-colonnes-comments-et-starttime.">Expulsion des colonnes comments et startTime.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> Travel[, <span class="sc">!</span><span class="fu">colnames</span>(Travel) <span class="sc">%in%</span> <span class="fu">c</span>( <span class="st">"StartTime"</span>)]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> subset_data[, <span class="sc">-</span><span class="dv">12</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(subset_data)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Travel<span class="ot">=</span>subset_data</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(Travel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualisation-des-données-manquantes" class="level3">
+<h3 class="anchored" data-anchor-id="visualisation-des-données-manquantes">Visualisation des données manquantes</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">md.pattern</span>(Travel, <span class="at">rotate.names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Date DayOfWeek GoingTo AvgSpeed AvgMovingSpeed Distance MaxSpeed TotalTime
+181    1         1       1        1              1        1        1         1
+19     1         1       1        1              1        1        1         1
+1      1         1       1        1              1        1        1         1
+1      1         1       1        1              1        1        1         1
+1      1         1       1        1              1        1        1         0
+1      1         1       1        1              1        1        0         1
+1      1         1       1        1              1        0        1         1
+       0         0       0        0              0        1        1         1
+    MovingTime Take407All FuelEconomy   
+181          1          1           1  0
+19           1          1           0  1
+1            1          0           1  1
+1            0          1           1  1
+1            1          1           1  1
+1            1          1           1  1
+1            1          1           1  1
+             1          1          19 24</code></pre>
+</div>
+</div>
+<p>La visualisation des données nous permet de constater que nous avons 24 données manquantes, réparties comme suit : la variable FuelEconomy a 19 valeurs manquantes, et une valeur manquante respectivement pour les variables Distance, MaxSpeed, TotalTime, MovingTime, et Take407All.</p>
+<p>Nous allons par la suite effectuer une analyse univariée, une analyse bivariée, et remplacer nos 24 valeurs manquantes.</p>
+<section id="calcul-des-données-manquantes-simples" class="level4">
+<h4 class="anchored" data-anchor-id="calcul-des-données-manquantes-simples">Calcul des données manquantes simples</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>MovingTime[<span class="dv">187</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>((Travel<span class="sc">$</span>Distance[<span class="dv">187</span>] <span class="sc">/</span> Travel<span class="sc">$</span>AvgMovingSpeed[<span class="dv">187</span>])<span class="sc">*</span><span class="dv">60</span> ,<span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>Distance[<span class="dv">155</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>((Travel<span class="sc">$</span>MovingTime[<span class="dv">155</span>])<span class="sc">*</span><span class="fl">0.0167</span><span class="sc">*</span>(Travel<span class="sc">$</span>AvgMovingSpeed[<span class="dv">155</span>]),<span class="dv">2</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>TotalTime[<span class="dv">66</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>((Travel<span class="sc">$</span>Distance[<span class="dv">187</span>] <span class="sc">/</span> Travel<span class="sc">$</span>AvgSpeed[<span class="dv">187</span>])<span class="sc">*</span><span class="dv">60</span> ,<span class="dv">1</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">md.pattern</span>(Travel, <span class="at">rotate.names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Date DayOfWeek GoingTo Distance AvgSpeed AvgMovingSpeed TotalTime
+184    1         1       1        1        1              1         1
+19     1         1       1        1        1              1         1
+1      1         1       1        1        1              1         1
+1      1         1       1        1        1              1         1
+       0         0       0        0        0              0         0
+    MovingTime MaxSpeed Take407All FuelEconomy   
+184          1        1          1           1  0
+19           1        1          1           0  1
+1            1        1          0           1  1
+1            1        0          1           1  1
+             0        1          1          19 21</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="analyse-univariée" class="level2">
+<h2 class="anchored" data-anchor-id="analyse-univariée">Analyse Univariée</h2>
+<section id="analyse-des-variables-qualitatives" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-des-variables-qualitatives">Analyse des variables qualitatives</h3>
+<p>Les 3 variables qualitatives sont : Take407All, GoingTo, et DayOfWeek. Nous allons réaliser des tableaux de contingence car nos variables sont finies.</p>
+<section id="tableaux-de-contingence" class="level4">
+<h4 class="anchored" data-anchor-id="tableaux-de-contingence">Tableaux de contingence</h4>
+<p>Nous utiliserons la fonction count() de la librairie <strong>dplyr</strong> car elle permet de voir les valeurs manquantes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(Travel,Take407All)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Take407All     n
+  &lt;chr&gt;      &lt;int&gt;
+1 No           169
+2 Yes           35
+3 &lt;NA&gt;           1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(Travel,GoingTo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  GoingTo     n
+  &lt;chr&gt;   &lt;int&gt;
+1 GSK       105
+2 Home      100</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Travel<span class="sc">$</span>DayOfWeek)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   Friday    Monday  Thursday   Tuesday Wednesday 
+       27        39        44        48        47 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(Travel,DayOfWeek)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  DayOfWeek     n
+  &lt;chr&gt;     &lt;int&gt;
+1 Friday       27
+2 Monday       39
+3 Thursday     44
+4 Tuesday      48
+5 Wednesday    47</code></pre>
+</div>
+</div>
+<p>La sortie indique le décompte du nombre d’occurrences de chaque valeur de la variable <strong>Take407All</strong>. Ainsi, nous pouvons dire que sur les 205 trajets effectués par M. Dunn, il emprunte l’autoroute 407 35 fois et ne l’emprunte pas 169 fois. De plus, parmi les 205 trajets, il y a un jour pour lequel nous ne savons pas par quelle voie M. Dunn roule, ce qui correspond à une donnée manquante. Nous la traiterons plus tard, à l’aide d’une régression linéaire et des variables <strong>AvgSpeed</strong>, <strong>MaxSpeed</strong> et <strong>MovingTime</strong>.</p>
+<p>Dans ces 205 trajets, M. Dunn effectue 100 trajets de son lieu de travail vers sa maison et 105 trajets de sa maison vers son lieu de travail.</p>
+<p>Enfin, il se déplace durant 5 jours de la semaine, du lundi au vendredi. Plus précisément, il a effectué 27 trajets le vendredi, 39 trajets le lundi, 44 trajets le jeudi, 48 trajets le mardi, et 47 trajets le mercredi.</p>
+<p><strong>Nous constatons donc que durant les 6 mois, il s’est moins déplacé en voiture le vendredi</strong>.</p>
+<p>Nous décidons par la suite d’effectuer une représentation graphique pour mieux illustrer ces données.</p>
+</section>
+<section id="représentation-graphique" class="level4">
+<h4 class="anchored" data-anchor-id="représentation-graphique">Représentation graphique</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Take407All , <span class="at">fill =</span> Take407All ) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> GoingTo , <span class="at">fill =</span> GoingTo ) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> DayOfWeek , <span class="at">fill =</span> DayOfWeek ) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-10-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="analyse-des-variables-quantitatives" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-des-variables-quantitatives">Analyse des variables Quantitatives</h3>
+<p>Nous allons explorer la dispersion de chacune de nos 8 variables quantitatives en utilisant des histogrammes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Distance) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> MaxSpeed  ) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> AvgSpeed  ) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-11-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> AvgMovingSpeed  ) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-11-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> TotalTime ) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-11-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span>  MovingTime  ) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-11-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span>  FuelEconomy  ) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 19 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-11-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nous générons ainsi les histogrammes des variables : FuelEconomy, MovingTime, TotalTime, AvgMovingSpeed, AvgSpeed, MaxSpeed, et Distance. Cela nous permet de visualiser la distribution des valeurs telles que la vitesse moyenne des déplacements, la vitesse la plus rapide enregistrée, l’estimation de l’économie du carburant, la distance parcourue en kilomètres, la durée de l’ensemble du trajet en minutes, et la vitesse moyenne pour l’ensemble des trajets. Comme constaté, ultérieurement certaines d’entre elles ont des valeurs manquantes. Aussi, La distribution de la variable économie de carburant est différente de celle des autres variables, probablement parce que les valeurs se répètent plusieur fois. En effet M. Dunn indique sur le site internet que le calcule de cette variable est imprécis sans donner de détails.</p>
+</section>
+<section id="cas-particulier-des-dates" class="level3">
+<h3 class="anchored" data-anchor-id="cas-particulier-des-dates">Cas particulier des dates</h3>
+<p>Dans notre cas, nous avons deux années d’études.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>DayOfWeek <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"lundi"</span>, <span class="st">"mardi"</span>, <span class="st">"mercredi"</span>, <span class="st">"jeudi"</span>, <span class="st">"vendredi"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Travel, <span class="fu">aes</span>(<span class="at">x =</span> DayOfWeek, <span class="at">fill =</span> DayOfWeek)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="fu">format</span>(Date, <span class="st">"%B"</span>), <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span>  <span class="co"># Utiliser le nom complet du mois</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Nombre de trajets par jour de la semaine, réparti par mois"</span>, </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Jour de la semaine"</span>, <span class="at">y =</span> <span class="st">"Nombre de trajets"</span>, <span class="at">fill =</span> <span class="st">"Jour de la semaine"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nous avons créé un graphique à barres montrant le nombre de trajets par jour de la semaine, avec les jours de la semaine réorganisés dans l’ordre spécifique.</p>
+<section id="cas-particulier-dune-valeur-aberrante-reperée-visuellement" class="level4">
+<h4 class="anchored" data-anchor-id="cas-particulier-dune-valeur-aberrante-reperée-visuellement">Cas particulier d’une valeur aberrante reperée visuellement</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>AvgSpeedVar <span class="ot">&lt;-</span> Travel<span class="sc">$</span>AvgSpeed <span class="sc">-</span> Travel<span class="sc">$</span>AvgMovingSpeed</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Travel, <span class="fu">aes</span>(<span class="at">x =</span> Date)) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> AvgSpeed), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> AvgMovingSpeed), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Variation de la vitesse moyenne totale et en mouvement au fil du temps"</span>, </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Vitesse"</span>) <span class="sc">+</span>  </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y-%m"</span>, <span class="at">date_breaks =</span> <span class="st">"1 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>À l’aide de la nouvelle variable et des boxplots suivantes, nous pourrons décider de traiter ou non la valeur abberante en question que nous pouvons observer en Octobre 2011.</p>
+</section>
+</section>
+<section id="boxplot" class="level3">
+<h3 class="anchored" data-anchor-id="boxplot">Boxplot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">where</span>(is.numeric)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>( <span class="at">y =</span> value) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> name, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tratement de la valeur aberrante mentionnée précédemment</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>AvgSpeed[<span class="dv">99</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(Travel<span class="sc">$</span>Distance[<span class="dv">99</span>] <span class="sc">/</span> (Travel<span class="sc">$</span>TotalTime[<span class="dv">99</span>] <span class="sc">/</span> <span class="dv">60</span>),<span class="dv">1</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Suppression de la variable annexe</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>Travel <span class="ot">&lt;-</span> Travel[, <span class="sc">-</span><span class="dv">12</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On observe que toutes nos variables quantitatives présentent des valeurs aberrantes : les boîtes à moustaches mettent en évidence ces valeurs atypiques. La variable FuelEconomy ne présente qu’une seule valeur aberrante, mais sa boîte à moustaches révèle une distribution asymétrique des données, avec une médiane plus proche du premier quartile. Nous remarquons ainsi que dans moins de la moitié de ses trajets, M. Dunn réalise une économie de carburant de 8.5 unités.</p>
+<p>Les autres variables ont plus de 3 valeurs aberrantes. Nous cherchons à comprendre la raison de ces valeurs atypiques, et décidons de les conserver pour une analyse plus approfondie de la consommation d’énergie et des déplacements de M. Dunn.</p>
+<p>Nous passons ensuite à l’analyse bivariée de nos données.</p>
+</section>
+</section>
+<section id="analyse-bivariée" class="level2">
+<h2 class="anchored" data-anchor-id="analyse-bivariée">Analyse bivariée</h2>
+<section id="analyse-quanti-quanti" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-quanti-quanti">Analyse quanti-quanti</h3>
+<p>L’objectif ici est de déterminer si l’une des variables peut être calculée à partir de l’autre. Plus précisément, nous tentons d’expliquer la corrélation entre deux variables quantitatives.</p>
+<p>Nous représentons la matrice de corrélation, qui présente les coefficients de corrélation entre toutes les paires de variables de l’ensemble des données. Chaque cellule de la matrice représente le degré de corrélation entre deux variables spécifiques.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>variables_numeriques <span class="ot">&lt;-</span> Travel[<span class="fu">sapply</span>(Travel, is.numeric)]</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>matrice_correlation <span class="ot">&lt;-</span> <span class="fu">cor</span>(variables_numeriques, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(matrice_correlation, <span class="at">type =</span> <span class="st">"upper"</span>, <span class="at">order =</span> <span class="st">"hclust"</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">"black"</span>, <span class="at">tl.srt =</span> <span class="dv">90</span>, <span class="at">tl.cex =</span> <span class="fl">0.9</span>, <span class="at">number.cex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">diag =</span> <span class="cn">FALSE</span>, <span class="at">col =</span> <span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">9</span>, <span class="at">name =</span> <span class="st">"Blues"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Les coefficients de corrélation varient de -1 à 1. Un coefficient de 1 indique une corrélation parfaite, ce qui signifie que lorsque la première variable augmente, la deuxième augmente également de manière linéaire. Un coefficient de 0 indique l’absence de corrélation linéaire entre les deux variables.</p>
+<p>Dans notre cas, la variable <strong>AvgSpeed</strong> présente une forte corrélation positive avec la variable <strong>AvgMovingSpeed</strong>, avec un coefficient de <strong>0.89</strong>, et une forte corrélation négative avec <strong>TotalTime</strong> de <strong>-0.87</strong>. Cela signifie que lorsque la vitesse moyenne générale d’un trajet augmente, la vitesse moyenne pendant le mouvement augmente également ; et lorsque la vitesse moyenne générale augmente, le temps de trajet diminue. Ainsi, une vitesse élevée conduit à des temps de trajet plus courts.</p>
+<p>AvgMovingSpeed et MovingTime sont fortement corrélées négativement (-0.94), suggérant que lorsque la vitesse moyenne en mouvement augmente, le temps de déplacement total diminue, et vice versa. Cela peut être lié à l’efficacité des déplacements, à la fluidité de la circulation et/ou au style de conduite de M. Dunn.</p>
+</section>
+<section id="analyse-quali-quali" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-quali-quali">Analyse quali-quali</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(Travel, GoingTo, DayOfWeek) <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> DayOfWeek, <span class="at">y =</span> GoingTo, <span class="at">fill =</span> n) <span class="sc">+</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(Travel, GoingTo,Take407All) <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Take407All, <span class="at">y =</span> GoingTo, <span class="at">fill =</span> n) <span class="sc">+</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nous avons généré deux heatmaps :</p>
+<p>Le premier représente graphiquement le nombre d’occurrences croisées entre les destinations (GoingTo) et les jours de la semaine (DayOfWeek). Chaque tuile dans le graphique correspond à une combinaison de destination et de jour de la semaine, et la couleur de la tuile indique le nombre d’occurrences pour cette combinaison.</p>
+<p>Le premier est censé représenter le nombre de trajets en fonction de la destination et des jours de la semaine. Cependant, au niveau des jours de la semaine, nous observons des cases NA, probablement dues à un problème au niveau du jeu de données.</p>
+</section>
+<section id="analyse-quali-quanti" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-quali-quanti">Analyse quali-quanti</h3>
+<section id="analyse-avec-la-variable-quali-goingto" class="level4">
+<h4 class="anchored" data-anchor-id="analyse-avec-la-variable-quali-goingto">Analyse avec la variable quali GoingTo</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>palette_couleurs <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"purple"</span>))(<span class="fu">length</span>(<span class="fu">unique</span>(Travel<span class="sc">$</span>GoingTo)))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>vecteur_couleur <span class="ot">&lt;-</span> <span class="fu">setNames</span>(palette_couleurs, <span class="fu">unique</span>(Travel<span class="sc">$</span>GoingTo))</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span> </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> Distance<span class="sc">:</span>MaxSpeed<span class="sc">:</span>TotalTime<span class="sc">:</span>AvgSpeed<span class="sc">:</span>AvgMovingSpeed<span class="sc">:</span>MovingTime<span class="sc">:</span>FuelEconomy ,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"mesure"</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"valeur"</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> valeur, <span class="at">x =</span> GoingTo, <span class="at">color =</span> GoingTo) <span class="sc">+</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> vecteur_couleur) <span class="sc">+</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> mesure, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>), </span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>  </span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 2 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 6 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 3 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 4 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 7 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 20 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nous avons généré un graphique à boîtes avec des boîtes à moustaches pour différentes mesures, organisées par destination (GoingTo) : en rouge lorsque M.Dunn rentre chez lui et en violet lorsqu’il se déplace vers son lieu de travail. Il y a plus d’une valeur aberrante par boîte. Les boîtes sont presque toutes asymétriques. Par exemple, pour la variable FuelEconomy, sur l’ensemble des trajets que M.Dunn effectue vers son lieu de travail (GSK), durant moins de la moitié des trajets, M.Dunn réalise une économie de carburant de 8.6 unités. La vitesse moyenne enregistrée lorsque la voiture est en déplacement durant moins de la moitié de ses trajets vers son lieu de travail (GSK) est de 80 minutes.</p>
+</section>
+<section id="analyse-avec-la-variable-quali-dayofweek" class="level4">
+<h4 class="anchored" data-anchor-id="analyse-avec-la-variable-quali-dayofweek">Analyse avec la variable quali DayOfWeek</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span> </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(Distance, MaxSpeed, AvgMovingSpeed, TotalTime, FuelEconomy, AvgSpeed, MovingTime),</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"mesure"</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"valeur"</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> valeur, <span class="at">x =</span> DayOfWeek, <span class="at">color =</span> <span class="fu">as.factor</span>(DayOfWeek)) <span class="sc">+</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> mesure, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">rainbow</span>(<span class="fu">length</span>(<span class="fu">unique</span>(Travel<span class="sc">$</span>DayOfWeek)))) <span class="sc">+</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 20 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 20 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ici, nous avons la représentation graphique avec des boîtes à moustaches de différentes mesures, organisées par jour de la semaine. Ainsi, durant les cinq premiers jours de la semaine, nous avons la vitesse maximale pendant les trajets pour chaque jour de la semaine, ainsi que les économies de carburant réalisées. Nous remarquons que pour moins de la moitié de ses trajets, M. Dunn effectue des économies d’environ 8.5 unités par jour et qu’il va plus rapidement le mardi.</p>
+</section>
+<section id="analyse-bivariée-avec-la-variable-qualitative-take407all" class="level4">
+<h4 class="anchored" data-anchor-id="analyse-bivariée-avec-la-variable-qualitative-take407all">Analyse bivariée avec la variable qualitative Take407All</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> Distance<span class="sc">:</span>MaxSpeed<span class="sc">:</span>AvgMovingSpeed<span class="sc">:</span>TotalTime<span class="sc">:</span>FuelEconomy <span class="sc">:</span>AvgSpeed<span class="sc">:</span>MovingTime ,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"mesure"</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"valeur"</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> valeur, <span class="at">x =</span> Take407All, <span class="at">color =</span> Take407All) <span class="sc">+</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> mesure, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 2 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 4 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 6 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 5 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in x:y: numerical expression has 3 elements: only the first used</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 20 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 20 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ici, nous avons la représentation des boîtes en fonction de l’emprunt ou non du péage 407. La boîte grise représente les valeurs manquantes. On peut observer que M. Dunn est plus rapide lorsqu’il emprunte l’autoroute. Les distances parcourues sont plus courtes et, pour la plupart de ses trajets effectués sur l’autoroute, il réalise une économie de carburant de 8.3 unités. De plus, le temps mis pour effectuer un trajet est plus court lorsqu’il emprunte l’autoroute.</p>
+</section>
+</section>
+<section id="traitement-de-la-variable-fueleconmy-et-de-la-valeur-manquante-maxspeed" class="level3">
+<h3 class="anchored" data-anchor-id="traitement-de-la-variable-fueleconmy-et-de-la-valeur-manquante-maxspeed">Traitement de la variable FuelEconmy et de la valeur manquante MaxSpeed</h3>
+<p>Pour la vitesse maximale du trajet ligne 170 et pour les 19 valeurs manquantes nous faisons à nouveau appel au package mice.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>tables_imputation <span class="ot">&lt;-</span> <span class="fu">mice</span>(Travel, <span class="at">m=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ iter imp variable
+  1   1  MaxSpeed  FuelEconomy
+  1   2  MaxSpeed  FuelEconomy
+  1   3  MaxSpeed  FuelEconomy
+  1   4  MaxSpeed  FuelEconomy
+  1   5  MaxSpeed  FuelEconomy
+  2   1  MaxSpeed  FuelEconomy
+  2   2  MaxSpeed  FuelEconomy
+  2   3  MaxSpeed  FuelEconomy
+  2   4  MaxSpeed  FuelEconomy
+  2   5  MaxSpeed  FuelEconomy
+  3   1  MaxSpeed  FuelEconomy
+  3   2  MaxSpeed  FuelEconomy
+  3   3  MaxSpeed  FuelEconomy
+  3   4  MaxSpeed  FuelEconomy
+  3   5  MaxSpeed  FuelEconomy
+  4   1  MaxSpeed  FuelEconomy
+  4   2  MaxSpeed  FuelEconomy
+  4   3  MaxSpeed  FuelEconomy
+  4   4  MaxSpeed  FuelEconomy
+  4   5  MaxSpeed  FuelEconomy
+  5   1  MaxSpeed  FuelEconomy
+  5   2  MaxSpeed  FuelEconomy
+  5   3  MaxSpeed  FuelEconomy
+  5   4  MaxSpeed  FuelEconomy
+  5   5  MaxSpeed  FuelEconomy</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Number of logged events: 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tables_imputation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Class: mids
+Number of multiple imputations:  5 
+Imputation methods:
+          Date      DayOfWeek        GoingTo       Distance       MaxSpeed 
+            ""             ""             ""             ""          "pmm" 
+      AvgSpeed AvgMovingSpeed    FuelEconomy      TotalTime     MovingTime 
+            ""             ""          "pmm"             ""             "" 
+    Take407All 
+            "" 
+PredictorMatrix:
+          Date DayOfWeek GoingTo Distance MaxSpeed AvgSpeed AvgMovingSpeed
+Date         0         0       0        1        1        1              1
+DayOfWeek    1         0       0        1        1        1              1
+GoingTo      1         0       0        1        1        1              1
+Distance     1         0       0        0        1        1              1
+MaxSpeed     1         0       0        1        0        1              1
+AvgSpeed     1         0       0        1        1        0              1
+          FuelEconomy TotalTime MovingTime Take407All
+Date                1         1          1          0
+DayOfWeek           1         1          1          0
+GoingTo             1         1          1          0
+Distance            1         1          1          0
+MaxSpeed            1         1          1          0
+AvgSpeed            1         1          1          0
+Number of logged events:  3 
+  it im dep     meth        out
+1  0  0     constant  DayOfWeek
+2  0  0     constant    GoingTo
+3  0  0     constant Take407All</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>Travel <span class="ot">&lt;-</span> <span class="fu">complete</span>(tables_imputation, <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>))</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">md.pattern</span>(Travel, <span class="at">rotate.names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Date DayOfWeek GoingTo Distance MaxSpeed AvgSpeed AvgMovingSpeed
+204    1         1       1        1        1        1              1
+1      1         1       1        1        1        1              1
+       0         0       0        0        0        0              0
+    FuelEconomy TotalTime MovingTime Take407All  
+204           1         1          1          1 0
+1             1         1          1          0 1
+              0         0          0          1 1</code></pre>
+</div>
+</div>
+<p>Pour les deux colonnes, mice utilise la méthode de la PMM (Predictive Mean Matching), pour les deux variables quantitatives. Il calcule 5 valeurs pour chaque cellule vide. Enfin, à l’aide de la fonction sample, je recrée un dataframe complet avec des valeurs imputée aléatoirement.</p>
+</section>
+<section id="régression-logistique" class="level3">
+<h3 class="anchored" data-anchor-id="régression-logistique">Régression logistique</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>Trajet <span class="ot">&lt;-</span> Travel[<span class="fu">complete.cases</span>(Travel<span class="sc">$</span>Take407All), ]</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>Trajet<span class="sc">$</span>Take407All <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Trajet<span class="sc">$</span>Take407All <span class="sc">==</span> <span class="st">"Yes"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Take407All <span class="sc">~</span> MaxSpeed <span class="sc">+</span> AvgSpeed <span class="sc">+</span> MovingTime, </span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> Trajet,</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> binomial)</span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>missing_data <span class="ot">&lt;-</span> Travel[<span class="fu">is.na</span>(Travel<span class="sc">$</span>Take407All), <span class="fu">c</span>(<span class="st">"MaxSpeed"</span>, <span class="st">"AvgSpeed"</span>, <span class="st">"MovingTime"</span>)]</span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> missing_data, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>Take407All[<span class="fu">is.na</span>(Travel<span class="sc">$</span>Take407All)] <span class="ot">&lt;-</span> <span class="fu">round</span>(predictions)</span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>Take407All <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Travel<span class="sc">$</span>Take407All <span class="sc">==</span> <span class="st">"Yes"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>Travel<span class="sc">$</span>Take407All <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Travel<span class="sc">$</span>Take407All)</span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a><span class="fu">md.pattern</span>(Travel, <span class="at">rotate.names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> /\     /\
+{  `---'  }
+{  O   O  }
+==&gt;  V &lt;==  No need for mice. This data set is completely observed.
+ \  \|/  /
+  `-----'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projet-travel-times_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Date DayOfWeek GoingTo Distance MaxSpeed AvgSpeed AvgMovingSpeed
+205    1         1       1        1        1        1              1
+       0         0       0        0        0        0              0
+    FuelEconomy TotalTime MovingTime Take407All  
+205           1         1          1          1 0
+              0         0          0          0 0</code></pre>
+</div>
+</div>
+<p>À partir d’un dataframe où il n’y a plus de valeurs manquantes, nous effectuons une régression logistoque afin de déterminer qu’elle est la valeur de la ligne 71 de la colonne Take407All. Grâce à la fonction <strong>predict</strong> du package <strong>stats</strong> Nous trouvons que la valeur manquante était “No”. La prédiction est correct. Il aurait été intéressant de réaliser une matrice de confusion pour évaluer le modèle de prédiction.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
