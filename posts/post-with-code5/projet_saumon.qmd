@@ -3,6 +3,7 @@ title: "Analyse comparative de la spectrométrie du saumon de consommation"
 author: "Paul Nestour"
 date: "2024-05-16"
 categories: [Dossier]
+image: "PLSDA.jpg"
 abstract: "Ce dossier a été rédigé dans le cadre du cours 'Modélisation avec des variables latentes' pendant notre première année de Master ECA."
 ---
 
@@ -32,6 +33,8 @@ library(caret)
 library(pls)
 library(tidyr)
 library(tidyverse)
+library(factoextra)
+library(FactoMineR)
 
 # Lecture du fichier CSV
 ICPMS_Raw_data <- read_csv("./ICPMS.csv")
@@ -95,19 +98,24 @@ clean_data <- na.omit(normalized_data)
 Le jeu de données comprend 20 éléments chimiques, pour lesquels des statistiques descriptives ont été calculées. Les valeurs ont été normalisées pour rendre les variables comparables, révélant ainsi des distributions distinctes pour chaque variable. Dans l'ensemble, les distributions semblent être orientées vers le bas, suggérant une concentration relativement faible des éléments chimiques. De plus, il y a une présence notable de valeurs aberrantes potentielles, ce qui peut nécessiter une attention particulière lors de l'analyse.
 
 ```{r}
-#Statistiques récapitulatives
-summary(clean_data)
-
 # Boxplots et moyennes des variables numériques 
-clean_data |>
-     pivot_longer(
-      cols = where(is.numeric)
-    ) |>
-    ggplot() +
-    aes(y = value) +
-    facet_wrap(~ name, scales = "free_y") +
-    geom_boxplot() +
-    theme_light()
+boxplot(clean_data[, -1], main = "Boxplot des variables normalisées")
+points(colMeans(clean_data[, -1]), col = "red", pch = 19)
+```
+
+Nous avons représenté chaque observation sur un plan bidimensionnel et de regrouper les pays fournisseurs par couleur. Dans ce contexte, la Figure 2 nous permet de conLirmer que le saumon de chaque pays a bien une composition différente des éléments chimiques sé lectionné s. Par exemple, il est possible de constater que les saumons d’Alaska et les saumons sauvages d’Islande ont des compositions globalement diffé rentes pour les molécules sélectionnées.
+
+```{r}
+# Projection bidimensionelle des individus (modèle PCA)
+pca_spectro <- PCA(clean_data[,-1], scale.unit = TRUE, graph = FALSE)
+summary(pca_spectro)
+fviz_pca_ind(pca_spectro,
+             habillage = clean_data$Class,
+             geom = "point",
+             palette = "jco",
+             addEllipses = T, # Ajouter des ellipses de confiance
+             legend.title = "Supplying country",
+             title = "Projection des individus (PCA)")
 ```
 
 ## Analyse des Corrélations
