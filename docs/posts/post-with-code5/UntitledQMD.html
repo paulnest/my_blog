@@ -9,7 +9,7 @@
 <meta name="author" content="Paul Nestour">
 <meta name="dcterms.date" content="2024-05-16">
 
-<title>Data da vezañ tretet - Analyse comparative de la spectrométrie du saumon de consommation et de son lieu de production</title>
+<title>Data da vezañ tretet - Analyse comparative de la spectrométrie du saumon de consommation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Analyse comparative de la spectrométrie du saumon de consommation et de son lieu de production</h1>
+      <h1 class="title">Analyse comparative de la spectrométrie du saumon de consommation</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Dossier</div>
               </div>
@@ -195,145 +195,85 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction-et-démarche" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-et-démarche">Introduction et démarche</h2>
-<p>L’étude initiale, issue de la publication “Data fusion and multivariate analysis for food authenticity analysis”, avait pour objectif d’établir un modèle permettant de déterminer l’authenticité du saumon en fonction de son origine géographique et de son mode d’élevage. Pour ce faire, les chercheurs se sont appuyés sur une base de données constituée de 521 échantillons de saumon provenant de fournisseurs de quatre pays différents (Alaska, Écosse, Norvège et Islande), avec des méthodes de production sauvage ou d’élevage, chaque pays ayant ses spécificités propres.</p>
-<p>Ainsi, les chercheurs ont utilisé la spectrométrie de masse à plasma à couplage inductif (ICP-MS), une des techniques spectrométriques les plus importantes. Sa sensibilité extrêmement élevée et une large plage dynamique linéaire permettent l’analyse simultanée des composants principaux et des ultra-traces. Cette technique est capable d’analyser des éléments de Li à U et peut être appliquée aux solutions et aux solides. Son utilisation permet donc l’analyse quantitative d’éléments mineurs et est utilisée dans un large panel de processus industriels et agroalimentaires : qualification des matières premières, sécurité des produits, recherche et développement, contrôle de la production, analyse des défaillances, etc.</p>
+<p>L’étude initiale, issue de la publication “Data fusion and multivariate analysis for food authenticity analysis”, avait pour objectif d’établir un modèle permettant de déterminer l’authenticité du saumon en fonction de son origine géographique et de son mode d’élevage. Pour ce faire, les chercheurs se sont appuyés sur une base de données constituée de 521 échantillons de saumon provenant de fournisseurs de quatre pays différents (Alaska, Écosse, Norvège et Islande), avec des méthodes de production sauvage ou d’élevage, chaque pays ayant ses spécificités propres.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Ainsi, les chercheurs ont utilisé la spectrométrie de masse à plasma à couplage inductif (ICP-MS), une des techniques spectrométriques les plus importantes. Sa sensibilité extrêmement élevée et une large plage dynamique linéaire permettent l’analyse simultanée des composants principaux et des ultra-traces. Cette technique est capable d’analyser des éléments de Li à U et peut être appliquée aux solutions et aux solides. Son utilisation permet donc l’analyse quantitative d’éléments mineurs et est utilisée dans un large panel de processus industriels et agroalimentaires : qualification des matières premières, sécurité des produits, recherche et développement, contrôle de la production, analyse des défaillances, etc.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>La démarche suivie dans cette analyse a été méthodique, impliquant plusieurs étapes clés pour aboutir à une interprétation cohérente des résultats. Tout d’abord, une analyse descriptive du jeu de données partiel a été réalisée, comprenant 20 éléments chimiques au lieu des 37 initiaux. Les variables des éléments chimiques ont été renommées et normalisées entre 0 et 1. Cette première analyse consistait en la visualisation des statistiques de base des variables (Min, Q1, médiane, Q3, max et moyenne), de leurs valeurs atypiques ou des potentielles valeurs manquantes, ainsi qu’à l’observation des corrélations entre les variables. Les résultats ont été interprétés pour identifier les tendances et les relations entre les variables.</p>
 <p>Ensuite, le jeu de données a été divisé en deux ensembles : un ensemble d’apprentissage et un ensemble de test, en fonction de la variable de classe, et le jeu de test est réservé exclusivement à l’évaluation de la performance du modèle. On a procédé à l’ajustement d’un modèle de prédiction. En parallèle, un modèle PLS-DA a été ajusté en utilisant la méthode des moindres carrés partiels avec une validation croisée à 5 plis. Les résultats de la validation croisée ont été minutieusement analysés pour sélectionner le nombre optimal de composantes latentes. La performance du modèle a été évaluée en termes d’exactitude, de kappa et d’autres métriques, tandis que sa qualité prédictive a été évaluée en utilisant la matrice de confusion, la précision, le rappel et le score F1 sur l’ensemble de test. De plus, les variables importantes pour la discrimination entre les classes ont été identifiées à partir de l’importance des variables dans le modèle PLS-DA. Tous ces résultats ont ensuite été visualisés pour faciliter leur interprétation.</p>
 <p>En conclusion, cette approche méthodique et exhaustive a permis d’explorer et d’analyser en profondeur les données ICP-MS Raw, en mettant en lumière les modèles, les tendances et les relations entre les variables. Les conclusions tirées fournissent une base solide pour comprendre et interpréter les mécanismes sous-jacents ainsi que les facteurs influençant les différentes classes présentes dans les données.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chargement des packages nécessaires</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"lattice"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The following package(s) will be installed:
-- lattice [0.22-6]
-These packages will be installed into "~/Documents/my_blog/renv/library/R-4.3/x86_64-apple-darwin20".
-
-# Installing packages --------------------------------------------------------
-- Installing lattice ...                        OK [linked from cache]
-Successfully installed 1 package in 13 milliseconds.</code></pre>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"lattice"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pls)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Lecture du fichier CSV</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ICPMS_Raw_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./ICPMS.csv"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion de la variable 'Class' en facteur</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>ICPMS_Raw_data<span class="sc">$</span>Class <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(ICPMS_Raw_data<span class="sc">$</span>Class)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection des 20 éléments restants</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>selected_elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"7  Li  [ No Gas ]"</span>, <span class="st">"11  B  [ No Gas ]"</span>, <span class="st">"27  Al  [ He ]"</span>, <span class="st">"51  V  [ He ]"</span>, <span class="st">"52  Cr  [ He ]"</span>, <span class="st">"55  Mn  [ He ]"</span>, <span class="st">"56  Fe  [ He ]"</span>, <span class="st">"59  Co  [ He ]"</span>, <span class="st">"60  Ni  [ He ]"</span>, <span class="st">"63  Cu  [ He ]"</span>, <span class="st">"66  Zn  [ He ]"</span>, <span class="st">"75  As  [ He ]"</span>, <span class="st">"78  Se  [ He ]"</span>, <span class="st">"85  Rb  [ He ]"</span>, <span class="st">"88  Sr  [ He ]"</span>, <span class="st">"93  Nb  [ He ]"</span>, <span class="st">"95  Mo  [ He ]"</span>, <span class="st">"111  Cd  [ He ]"</span>, <span class="st">"133  Cs  [ He ]"</span>, <span class="st">"181  Ta  [ He ]"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélectionner les colonnes spécifiées</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>selected_data <span class="ot">&lt;-</span> ICPMS_Raw_data[, <span class="fu">c</span>(<span class="st">"Class"</span>, selected_elements)]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Renommer les colonnes</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(selected_data)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Li"</span>, <span class="st">"B"</span>, <span class="st">"Al"</span>, <span class="st">"V"</span>, <span class="st">"Cr"</span>, <span class="st">"Mn"</span>, <span class="st">"Fe"</span>, <span class="st">"Co"</span>, <span class="st">"Ni"</span>, <span class="st">"Cu"</span>, <span class="st">"Zn"</span>, <span class="st">"As"</span>, <span class="st">"Se"</span>, <span class="st">"Rb"</span>, <span class="st">"Sr"</span>, <span class="st">"Nb"</span>, <span class="st">"Mo"</span>, <span class="st">"Cd"</span>, <span class="st">"Cs"</span>, <span class="st">"Ta"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection des colonnes</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>selected_data <span class="ot">&lt;-</span> ICPMS_Raw_data <span class="sc">%&gt;%</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Class, <span class="fu">all_of</span>(selected_elements)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">Li =</span> <span class="st">`</span><span class="at">7  Li  [ No Gas ]</span><span class="st">`</span>,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">B =</span> <span class="st">`</span><span class="at">11  B  [ No Gas ]</span><span class="st">`</span>,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">Al =</span> <span class="st">`</span><span class="at">27  Al  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">V =</span> <span class="st">`</span><span class="at">51  V  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cr =</span> <span class="st">`</span><span class="at">52  Cr  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mn =</span> <span class="st">`</span><span class="at">55  Mn  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">Fe =</span> <span class="st">`</span><span class="at">56  Fe  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">Co =</span> <span class="st">`</span><span class="at">59  Co  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ni =</span> <span class="st">`</span><span class="at">60  Ni  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cu =</span> <span class="st">`</span><span class="at">63  Cu  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">Zn =</span> <span class="st">`</span><span class="at">66  Zn  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">As =</span> <span class="st">`</span><span class="at">75  As  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">Se =</span> <span class="st">`</span><span class="at">78  Se  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">Rb =</span> <span class="st">`</span><span class="at">85  Rb  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sr =</span> <span class="st">`</span><span class="at">88  Sr  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nb =</span> <span class="st">`</span><span class="at">93  Nb  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mo =</span> <span class="st">`</span><span class="at">95  Mo  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cd =</span> <span class="st">`</span><span class="at">111  Cd  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cs =</span> <span class="st">`</span><span class="at">133  Cs  [ He ]</span><span class="st">`</span>,</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ta =</span> <span class="st">`</span><span class="at">181  Ta  [ He ]</span><span class="st">`</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection des colonnes à normaliser</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>columns_to_normalize <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Li"</span>, <span class="st">"B"</span>, <span class="st">"Al"</span>, <span class="st">"V"</span>, <span class="st">"Cr"</span>, <span class="st">"Mn"</span>, <span class="st">"Fe"</span>, <span class="st">"Co"</span>, <span class="st">"Ni"</span>, <span class="st">"Cu"</span>, <span class="st">"Zn"</span>, <span class="st">"As"</span>, <span class="st">"Se"</span>, <span class="st">"Rb"</span>, <span class="st">"Sr"</span>, <span class="st">"Nb"</span>, <span class="st">"Mo"</span>, <span class="st">"Cd"</span>, <span class="st">"Cs"</span>, <span class="st">"Ta"</span>)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'une fonction pour la normalisation min-max</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>min_max_normalize <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">-</span> <span class="fu">min</span>(x)) <span class="sc">/</span> (<span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x))</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Appliquer la fonction de normalisation min-max à chaque colonne sélectionnée</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>normalized_data <span class="ot">&lt;-</span> selected_data <span class="sc">%&gt;%</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(columns_to_normalize), min_max_normalize))</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Nettoyage des données (exemple : supprimer les lignes avec des valeurs manquantes)</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(normalized_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: lattice</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'pls'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:caret':
-
-    R2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:stats':
-
-    loadings</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lecture du fichier CSV</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ICPMS_Raw_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./ICPMS.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 521 Columns: 38</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (1): Class
-dbl (37): 7  Li  [ No Gas ], 9  Be  [ No Gas ], 11  B  [ No Gas ], 23  Na  [...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion de la variable 'Class' en facteur</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ICPMS_Raw_data<span class="sc">$</span>Class <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(ICPMS_Raw_data<span class="sc">$</span>Class)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection des 20 éléments restants</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>selected_elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"7  Li  [ No Gas ]"</span>, <span class="st">"11  B  [ No Gas ]"</span>, <span class="st">"27  Al  [ He ]"</span>, <span class="st">"51  V  [ He ]"</span>, <span class="st">"52  Cr  [ He ]"</span>, <span class="st">"55  Mn  [ He ]"</span>, <span class="st">"56  Fe  [ He ]"</span>, <span class="st">"59  Co  [ He ]"</span>, <span class="st">"60  Ni  [ He ]"</span>, <span class="st">"63  Cu  [ He ]"</span>, <span class="st">"66  Zn  [ He ]"</span>, <span class="st">"75  As  [ He ]"</span>, <span class="st">"78  Se  [ He ]"</span>, <span class="st">"85  Rb  [ He ]"</span>, <span class="st">"88  Sr  [ He ]"</span>, <span class="st">"93  Nb  [ He ]"</span>, <span class="st">"95  Mo  [ He ]"</span>, <span class="st">"111  Cd  [ He ]"</span>, <span class="st">"133  Cs  [ He ]"</span>, <span class="st">"181  Ta  [ He ]"</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélectionner les colonnes spécifiées</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>selected_data <span class="ot">&lt;-</span> ICPMS_Raw_data[, <span class="fu">c</span>(<span class="st">"Class"</span>, selected_elements)]</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Renommer les colonnes</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(selected_data)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Li"</span>, <span class="st">"B"</span>, <span class="st">"Al"</span>, <span class="st">"V"</span>, <span class="st">"Cr"</span>, <span class="st">"Mn"</span>, <span class="st">"Fe"</span>, <span class="st">"Co"</span>, <span class="st">"Ni"</span>, <span class="st">"Cu"</span>, <span class="st">"Zn"</span>, <span class="st">"As"</span>, <span class="st">"Se"</span>, <span class="st">"Rb"</span>, <span class="st">"Sr"</span>, <span class="st">"Nb"</span>, <span class="st">"Mo"</span>, <span class="st">"Cd"</span>, <span class="st">"Cs"</span>, <span class="st">"Ta"</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection des colonnes</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>selected_data <span class="ot">&lt;-</span> ICPMS_Raw_data <span class="sc">%&gt;%</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Class, <span class="fu">all_of</span>(selected_elements)) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Li =</span> <span class="st">`</span><span class="at">7  Li  [ No Gas ]</span><span class="st">`</span>,</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">B =</span> <span class="st">`</span><span class="at">11  B  [ No Gas ]</span><span class="st">`</span>,</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Al =</span> <span class="st">`</span><span class="at">27  Al  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">V =</span> <span class="st">`</span><span class="at">51  V  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cr =</span> <span class="st">`</span><span class="at">52  Cr  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mn =</span> <span class="st">`</span><span class="at">55  Mn  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">Fe =</span> <span class="st">`</span><span class="at">56  Fe  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">Co =</span> <span class="st">`</span><span class="at">59  Co  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ni =</span> <span class="st">`</span><span class="at">60  Ni  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cu =</span> <span class="st">`</span><span class="at">63  Cu  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Zn =</span> <span class="st">`</span><span class="at">66  Zn  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">As =</span> <span class="st">`</span><span class="at">75  As  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Se =</span> <span class="st">`</span><span class="at">78  Se  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">Rb =</span> <span class="st">`</span><span class="at">85  Rb  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sr =</span> <span class="st">`</span><span class="at">88  Sr  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nb =</span> <span class="st">`</span><span class="at">93  Nb  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mo =</span> <span class="st">`</span><span class="at">95  Mo  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cd =</span> <span class="st">`</span><span class="at">111  Cd  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cs =</span> <span class="st">`</span><span class="at">133  Cs  [ He ]</span><span class="st">`</span>,</span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ta =</span> <span class="st">`</span><span class="at">181  Ta  [ He ]</span><span class="st">`</span></span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection des colonnes à normaliser</span></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>columns_to_normalize <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Li"</span>, <span class="st">"B"</span>, <span class="st">"Al"</span>, <span class="st">"V"</span>, <span class="st">"Cr"</span>, <span class="st">"Mn"</span>, <span class="st">"Fe"</span>, <span class="st">"Co"</span>, <span class="st">"Ni"</span>, <span class="st">"Cu"</span>, <span class="st">"Zn"</span>, <span class="st">"As"</span>, <span class="st">"Se"</span>, <span class="st">"Rb"</span>, <span class="st">"Sr"</span>, <span class="st">"Nb"</span>, <span class="st">"Mo"</span>, <span class="st">"Cd"</span>, <span class="st">"Cs"</span>, <span class="st">"Ta"</span>)</span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'une fonction pour la normalisation min-max</span></span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>min_max_normalize <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">-</span> <span class="fu">min</span>(x)) <span class="sc">/</span> (<span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x))</span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Appliquer la fonction de normalisation min-max à chaque colonne sélectionnée</span></span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>normalized_data <span class="ot">&lt;-</span> selected_data <span class="sc">%&gt;%</span></span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(columns_to_normalize), min_max_normalize))</span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Nettoyage des données (exemple : supprimer les lignes avec des valeurs manquantes)</span></span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(normalized_data)</span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 21
-  Class    Li     B     Al      V     Cr     Mn    Fe     Co     Ni     Cu    Zn
-  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1 Alas… 0.479 0.665 0.0201 0.150  0.0311 0.290  0.222 0.177  0.0215 0.124  0.807
-2 Alas… 0.302 0.531 0.0204 0.0348 0.0120 0.294  0.163 0.0583 0.0473 0.0867 0.302
-3 Alas… 0.334 0.468 0.0336 0.0990 0.0634 0.195  0.155 0.0780 0.0544 0.108  0.385
-4 Alas… 0.314 0.473 0.0191 0.121  0.0586 0.0887 0.183 0.0375 0.0222 0.0697 0.295
-5 Alas… 0.555 0.843 0.0211 0.0928 0.0823 0.215  0.316 0.0754 0.0577 0.115  0.514
-6 Alas… 0.249 0.238 0.0169 0.0602 0.0349 0.118  0.194 0.0417 0.0228 0.127  0.334
-# ℹ 9 more variables: As &lt;dbl&gt;, Se &lt;dbl&gt;, Rb &lt;dbl&gt;, Sr &lt;dbl&gt;, Nb &lt;dbl&gt;,
-#   Mo &lt;dbl&gt;, Cd &lt;dbl&gt;, Cs &lt;dbl&gt;, Ta &lt;dbl&gt;</code></pre>
-</div>
-</div>
+</section>
+<section id="statistiques-descriptives" class="level2">
+<h2 class="anchored" data-anchor-id="statistiques-descriptives">Statistiques descriptives</h2>
+<p>Le jeu de données comprend 20 éléments chimiques, pour lesquels des statistiques descriptives ont été calculées. Les valeurs ont été normalisées pour rendre les variables comparables, révélant ainsi des distributions distinctes pour chaque variable. Dans l’ensemble, les distributions semblent être orientées vers le bas, suggérant une concentration relativement faible des éléments chimiques. De plus, il y a une présence notable de valeurs aberrantes potentielles, ce qui peut nécessiter une attention particulière lors de l’analyse.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Statistiques récapitulatives</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Statistiques récapitulatives</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Class           Li               B                 Al         
  Alaskan  : 99   Min.   :0.0000   Min.   :0.00000   Min.   :0.00000  
@@ -378,11 +318,31 @@ dbl (37): 7  Li  [ No Gas ], 9  Be  [ No Gas ], 11  B  [ No Gas ], 23  Na  [...
  3rd Qu.:0.07411  
  Max.   :1.00000  </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplots et moyennes des variables numériques </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>clean_data <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">pivot_longer</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">cols =</span> <span class="fu">where</span>(is.numeric)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> value) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> name, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="UntitledQMD_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
+</div>
+</div>
+</section>
+<section id="analyse-des-corrélations" class="level2">
+<h2 class="anchored" data-anchor-id="analyse-des-corrélations">Analyse des Corrélations</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Corrélations entre les variables</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(clean_data[, <span class="sc">-</span><span class="dv">1</span>]) <span class="co"># Exclure la variable de classe</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">"circle"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Corrélations entre les variables</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(clean_data[, <span class="sc">-</span><span class="dv">1</span>]) <span class="co"># Exclure la variable de classe</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">"circle"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -392,14 +352,14 @@ dbl (37): 7  Li  [ No Gas ], 9  Be  [ No Gas ], 11  B  [ No Gas ], 23  Na  [...
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélectionner les corrélations supérieures à 0.8</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>high_corr <span class="ot">&lt;-</span> <span class="fu">which</span>(cor_matrix <span class="sc">&gt;</span> <span class="fl">0.8</span> <span class="sc">&amp;</span> cor_matrix <span class="sc">&lt;</span> <span class="dv">1</span>, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les paires de variables corrélées</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>high_corr_pairs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">row =</span> <span class="fu">rownames</span>(cor_matrix)[high_corr[,<span class="dv">1</span>]],</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">col =</span> <span class="fu">colnames</span>(cor_matrix)[high_corr[,<span class="dv">2</span>]],</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">corr_value =</span> cor_matrix[high_corr])</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>high_corr_pairs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélectionner les corrélations supérieures à 0.8</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>high_corr <span class="ot">&lt;-</span> <span class="fu">which</span>(cor_matrix <span class="sc">&gt;</span> <span class="fl">0.8</span> <span class="sc">&amp;</span> cor_matrix <span class="sc">&lt;</span> <span class="dv">1</span>, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les paires de variables corrélées</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>high_corr_pairs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">row =</span> <span class="fu">rownames</span>(cor_matrix)[high_corr[,<span class="dv">1</span>]],</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">col =</span> <span class="fu">colnames</span>(cor_matrix)[high_corr[,<span class="dv">2</span>]],</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">corr_value =</span> cor_matrix[high_corr])</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>high_corr_pairs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  row col corr_value
 1  Se  Zn  0.8192668
@@ -410,32 +370,45 @@ dbl (37): 7  Li  [ No Gas ], 9  Be  [ No Gas ], 11  B  [ No Gas ], 23  Na  [...
 6  Nb  Ta  0.9427543</code></pre>
 </div>
 </div>
+<p>Les résultats de l’analyse des corrélations suggèrent également qu’il existe des corrélations significatives entre certaines paires de variables. Par exemple, la corrélation des éléments chimiques Se et Zn est de 0.82, celle des éléments chimiques Cs et Rb est de 0.87, et celle des éléments chimiques Ta et Nb est de 0.94. Ces fortes corrélations peuvent indiquer une relation chimique ou géologique commune entre ces éléments. Ces résultats peuvent servir de base pour des analyses plus avancées ou pour formuler des hypothèses à explorer davantage dans notre étude.</p>
+</section>
+<section id="découpage-du-jeu-de-données" class="level2">
+<h2 class="anchored" data-anchor-id="découpage-du-jeu-de-données">Découpage du Jeu de Données</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution de la variable Class</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(clean_data<span class="sc">$</span>Class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution de la variable Class</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(clean_data<span class="sc">$</span>Class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   Alaskan Iceland-F Iceland-W    Norway  Scotland 
        99        55        90       100       177 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Définition de la variable de classe</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>classe_variable <span class="ot">&lt;-</span> <span class="st">"Class"</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Création de l'ensemble d'apprentissage et de l'ensemble de test</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Pour la reproductibilité</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(clean_data[[classe_variable]], <span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>data_train <span class="ot">&lt;-</span> clean_data[index, ]</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>data_test <span class="ot">&lt;-</span> clean_data[<span class="sc">-</span>index, ]</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Définition du contrôle de la validation croisée</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>)  <span class="co"># Validation croisée à 5 plis</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustement du modèle PLS-DA</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>pls_model <span class="ot">&lt;-</span> <span class="fu">train</span>(Class <span class="sc">~</span> ., <span class="at">data =</span> data_train, <span class="at">method =</span> <span class="st">"pls"</span>, <span class="at">trControl =</span> train_control, <span class="at">preProc =</span> <span class="fu">c</span>(<span class="st">"center"</span>, <span class="st">"scale"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Définition de la variable de classe</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>classe_variable <span class="ot">&lt;-</span> <span class="st">"Class"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Création de l'ensemble d'apprentissage et de l'ensemble de test</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Pour la reproductibilité</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(clean_data[[classe_variable]], <span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>data_train <span class="ot">&lt;-</span> clean_data[index, ]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>data_test <span class="ot">&lt;-</span> clean_data[<span class="sc">-</span>index, ]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Définition du contrôle de la validation croisée</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>)  <span class="co"># Validation croisée à 5 plis</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustement du modèle PLS-DA</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>pls_model <span class="ot">&lt;-</span> <span class="fu">train</span>(Class <span class="sc">~</span> ., <span class="at">data =</span> data_train, <span class="at">method =</span> <span class="st">"pls"</span>, <span class="at">trControl =</span> train_control, <span class="at">preProc =</span> <span class="fu">c</span>(<span class="st">"center"</span>, <span class="st">"scale"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Nous avons stratifié notre jeu de données en un ensemble d’apprentissage et un ensemble de test en utilisant la variable de classe “Class” comme référence pour notre prédiction. Cette division nous a permis de réserver 80% des données pour l’apprentissage et 20% pour l’évaluation. Pour garantir la reproductibilité, nous avons fixé une graine aléatoire. Les données sélectionnées ont été utilisées pour former l’ensemble d’apprentissage, tandis que les observations restantes ont constitué l’ensemble de test. Cette approche rigoureuse nous permettra d’évaluer la performance du modèle sur des données inconnues, assurant ainsi sa capacité à généraliser au-delà des données d’entraînement.</p>
+</section>
+<section id="modèle-pls-da" class="level2">
+<h2 class="anchored" data-anchor-id="modèle-pls-da">Modèle PLS-DA</h2>
+<p>Nous avons débuté en ajustant un modèle PLS-DA à l’aide de la méthode des moindres carrés partiels, une approche courante pour traiter des données multivariées telles que celles que nous avons utilisées. Ce modèle a été formé sur un ensemble d’apprentissage comprenant 418 échantillons et 20 prédicteurs, qui sont les éléments chimiques étudiés. Avant d’ajuster le modèle, nous avons centré et mis à l’échelle nos données pour garantir une comparaison juste entre les différentes variables.</p>
+<p>En évaluant les performances du modèle, nous nous sommes concentrés sur deux principales métriques : l’exactitude (Accuracy) et le coefficient Kappa. L’exactitude mesure simplement le nombre de prédictions correctes par rapport au nombre total d’échantillons, tandis que le coefficient Kappa prend également en compte la possibilité de prédictions correctes dues au hasard.</p>
+<p>En explorant différentes configurations de notre modèle, nous avons constaté que l’exactitude atteignait son maximum, dépassant les 85%, lorsque nous utilisions trois composantes latentes. Cela signifie que l’ajout d’une troisième composante latente a considérablement amélioré la capacité du modèle à prédire avec précision la classe à laquelle chaque échantillon appartient.</p>
+<p>Pour mieux comprendre la qualité de nos prédictions, nous avons également visualisé les valeurs prédites par rapport aux valeurs réelles. Cette analyse visuelle nous a permis de confirmer que notre modèle était capable de discriminer efficacement entre les différentes classes, renforçant ainsi notre confiance dans ses performances.</p>
+<p>En résumé, notre modèle PLS-DA a présenté des performances robustes, avec une exactitude dépassant les 85% lors de la validation croisée. Cela suggère que notre modèle est capable de classifier avec précision les échantillons de notre ensemble de test, ce qui est essentiel pour son utilisation dans des applications pratiques.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage des résultats</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pls_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage des résultats</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pls_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Partial Least Squares 
 
@@ -457,9 +430,12 @@ Accuracy was used to select the optimal model using the largest value.
 The final value used for the model was ncomp = 3.</code></pre>
 </div>
 </div>
+</section>
+<section id="qualité-prédictive-du-modèle" class="level2">
+<h2 class="anchored" data-anchor-id="qualité-prédictive-du-modèle">Qualité prédictive du modèle</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisation de la performance du modèle</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pls_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisation de la performance du modèle</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pls_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -467,14 +443,14 @@ The final value used for the model was ncomp = 3.</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model<span class="ot">=</span>pls_model</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Prédictions sur les données de test</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_test)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrice de confusion</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="ot">&lt;-</span> <span class="fu">table</span>(predictions, data_test<span class="sc">$</span>Class)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(conf_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model<span class="ot">=</span>pls_model</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Prédictions sur les données de test</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_test)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrice de confusion</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="ot">&lt;-</span> <span class="fu">table</span>(predictions, data_test<span class="sc">$</span>Class)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(conf_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           
 predictions Alaskan Iceland-F Iceland-W Norway Scotland
@@ -484,29 +460,29 @@ predictions Alaskan Iceland-F Iceland-W Norway Scotland
   Norway          0         0         0     14        0
   Scotland        0         8         0      6       34</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de la précision</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(conf_matrix)) <span class="sc">/</span> <span class="fu">sum</span>(conf_matrix)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Accuracy:"</span>, accuracy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de la précision</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(conf_matrix)) <span class="sc">/</span> <span class="fu">sum</span>(conf_matrix)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Accuracy:"</span>, accuracy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Accuracy: 0.854368932038835"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul du rappel (recall)</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>recall <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">rowSums</span>(conf_matrix) <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">diag</span>(conf_matrix) <span class="sc">/</span> <span class="fu">rowSums</span>(conf_matrix))</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Recall:"</span>, <span class="fu">mean</span>(recall)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul du rappel (recall)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>recall <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">rowSums</span>(conf_matrix) <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">diag</span>(conf_matrix) <span class="sc">/</span> <span class="fu">rowSums</span>(conf_matrix))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Recall:"</span>, <span class="fu">mean</span>(recall)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Recall: 0.891666666666667"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul du score F1</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>precision <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">colSums</span>(conf_matrix) <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">diag</span>(conf_matrix) <span class="sc">/</span> <span class="fu">colSums</span>(conf_matrix))</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>f1_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> precision <span class="sc">*</span> recall <span class="sc">/</span> (precision <span class="sc">+</span> recall)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>f1_score <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.nan</span>(f1_score), <span class="dv">0</span>, f1_score)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"F1 Score:"</span>, <span class="fu">mean</span>(f1_score)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul du score F1</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>precision <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">colSums</span>(conf_matrix) <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">diag</span>(conf_matrix) <span class="sc">/</span> <span class="fu">colSums</span>(conf_matrix))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>f1_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> precision <span class="sc">*</span> recall <span class="sc">/</span> (precision <span class="sc">+</span> recall)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>f1_score <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.nan</span>(f1_score), <span class="dv">0</span>, f1_score)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"F1 Score:"</span>, <span class="fu">mean</span>(f1_score)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "F1 Score: 0.808561304039688"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identification des variables importantes</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>importance <span class="ot">&lt;-</span> <span class="fu">varImp</span>(model)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(importance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identification des variables importantes</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>importance <span class="ot">&lt;-</span> <span class="fu">varImp</span>(model)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(importance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>pls variable importance
 
@@ -533,8 +509,8 @@ Al  11.179   14.0218    15.568  8.416   13.395
 Nb  14.738    0.9783     5.779  3.197    3.721
 Cr  12.711    1.6006     7.509  3.640    5.116</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisation de l'importance des variables</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(importance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisation de l'importance des variables</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(importance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -543,11 +519,28 @@ Cr  12.711    1.6006     7.509  3.640    5.116</code></pre>
 </div>
 </div>
 </div>
+<p>La matrice de confusion est un outil essentiel pour évaluer la performance d’un modèle de classification comme le PLS-DA. Elle présente les résultats des prédictions du modèle par rapport aux classes réelles dans le jeu de test. Chaque cellule de la matrice représente le nombre d’observations pour lesquelles le modèle a prédit une classe spécifique (colonnes) par rapport à la classe réelle (lignes). Par exemple, si nous considérons la première ligne de la matrice, elle indique que le modèle a correctement classé 19 échantillons comme étant de la classe ‘Alaskan’, sans aucune erreur de classification pour les autres classes.</p>
+<p>L’exactitude (accuracy) est une mesure globale de la performance du modèle, calculée comme le rapport entre le nombre total de prédictions correctes et le nombre total d’observations dans le jeu de test. Une exactitude élevée, comme celle observée ici à environ 85.4%, indique que le modèle a réussi à prédire correctement la grande majorité des échantillons.</p>
+<p>Le rappel (recall) est une mesure de la capacité du modèle à identifier correctement les observations positives parmi toutes les observations réellement positives. Il est calculé comme le rapport entre le nombre de vrais positifs et la somme des vrais positifs et des faux négatifs. Un rappel élevé, tel que celui observé ici à environ 89.2%, indique que le modèle a une bonne capacité à rappeler les vraies observations positives.</p>
+<p>Le score F1 est une mesure combinée de la précision et du rappel du modèle, calculée comme la moyenne harmonique de ces deux métriques. Il tient compte à la fois des faux positifs et des faux négatifs. Un score F1 élevé, comme celui obtenu ici à environ 80.9%, suggère un bon équilibre entre la précision et le rappel du modèle.</p>
+<p>En conclusion, les résultats de la matrice de confusion, de l’exactitude, du rappel et du score F1 indiquent que le modèle PLS-DA a des performances solides sur les données de test, avec une capacité satisfaisante à prédire correctement les classes des échantillons.</p>
+</section>
+<section id="interprétation-du-modèle-ajusté" class="level2">
+<h2 class="anchored" data-anchor-id="interprétation-du-modèle-ajusté">Interprétation du modèle ajusté</h2>
+<p>L’analyse de l’interprétation du modèle PLS-DA révèle les éléments chimiques les plus pertinents pour la discrimination entre les différentes classes. Ces éléments sont classés en fonction de leur importance maximale à travers les différentes classes. Par exemple, le lithium (Li) est identifié comme étant le plus important pour discriminer la classe ‘Alaskan’, tandis que le bore (B) est crucial pour la classe ‘Iceland-F’. Les valeurs attribuées à chaque élément indiquent leur contribution relative à la discrimination des classes, les valeurs plus élevées reflétant une contribution plus significative. Le graphique représente visuellement cette importance des variables pour chaque classe, où les barres plus hautes correspondent à une plus grande importance dans la discrimination de la classe correspondante.</p>
+<p>Cette analyse permet ainsi d’identifier les éléments chimiques clés influençant la classification des saumons entre sauvage et d’élevage, fournissant ainsi de précieuses informations pour comprendre les compositions permettant la différenciation des échantillons.</p>
 
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Hong, Y., Birse, N., Quinn, B., Li, Y., Jia, W., McCarron, P., Wu, D., Rosas da Silva, G., Vanhaecke, L., van Ruth, S., &amp; Elliott, C. T.(2023).Data fusion and multivariate analysis for food authenticity analysis.Nature Communications, 14, Article 3309. https://doi.org/10.1038/s41467-023-38382-z<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>https://www.euro.fr/materials-and-engineering-sciences/nos-techniques/icp-ms/<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

@@ -1,5 +1,5 @@
 ---
-title: "Analyse comparative de la spectrométrie du saumon de consommation et de son lieu de production"
+title: "Analyse comparative de la spectrométrie du saumon de consommation"
 author: "Paul Nestour"
 date: "2024-05-16"
 categories: [Dossier]
@@ -8,9 +8,13 @@ abstract: "Ce dossier a été rédigé dans le cadre du cours 'Modélisation ave
 
 ## Introduction et démarche
 
-L'étude initiale, issue de la publication "Data fusion and multivariate analysis for food authenticity analysis", avait pour objectif d'établir un modèle permettant de déterminer l'authenticité du saumon en fonction de son origine géographique et de son mode d'élevage. Pour ce faire, les chercheurs se sont appuyés sur une base de données constituée de 521 échantillons de saumon provenant de fournisseurs de quatre pays différents (Alaska, Écosse, Norvège et Islande), avec des méthodes de production sauvage ou d'élevage, chaque pays ayant ses spécificités propres.
+L'étude initiale, issue de la publication "Data fusion and multivariate analysis for food authenticity analysis", avait pour objectif d'établir un modèle permettant de déterminer l'authenticité du saumon en fonction de son origine géographique et de son mode d'élevage. Pour ce faire, les chercheurs se sont appuyés sur une base de données constituée de 521 échantillons de saumon provenant de fournisseurs de quatre pays différents (Alaska, Écosse, Norvège et Islande), avec des méthodes de production sauvage ou d'élevage, chaque pays ayant ses spécificités propres.[^1]
 
-Ainsi, les chercheurs ont utilisé la spectrométrie de masse à plasma à couplage inductif (ICP-MS), une des techniques spectrométriques les plus importantes. Sa sensibilité extrêmement élevée et une large plage dynamique linéaire permettent l'analyse simultanée des composants principaux et des ultra-traces. Cette technique est capable d'analyser des éléments de Li à U et peut être appliquée aux solutions et aux solides. Son utilisation permet donc l’analyse quantitative d'éléments mineurs et est utilisée dans un large panel de processus industriels et agroalimentaires : qualification des matières premières, sécurité des produits, recherche et développement, contrôle de la production, analyse des défaillances, etc.
+[^1]: Hong, Y., Birse, N., Quinn, B., Li, Y., Jia, W., McCarron, P., Wu, D., Rosas da Silva, G., Vanhaecke, L., van Ruth, S., & Elliott, C. T.(2023).Data fusion and multivariate analysis for food authenticity analysis.Nature Communications, 14, Article 3309. https://doi.org/10.1038/s41467-023-38382-z
+
+Ainsi, les chercheurs ont utilisé la spectrométrie de masse à plasma à couplage inductif (ICP-MS), une des techniques spectrométriques les plus importantes. Sa sensibilité extrêmement élevée et une large plage dynamique linéaire permettent l'analyse simultanée des composants principaux et des ultra-traces. Cette technique est capable d'analyser des éléments de Li à U et peut être appliquée aux solutions et aux solides. Son utilisation permet donc l’analyse quantitative d'éléments mineurs et est utilisée dans un large panel de processus industriels et agroalimentaires : qualification des matières premières, sécurité des produits, recherche et développement, contrôle de la production, analyse des défaillances, etc.[^2]
+
+[^2]: https://www.euro\ins.fr/materials-and-engineering-sciences/nos-techniques/icp-ms/
 
 La démarche suivie dans cette analyse a été méthodique, impliquant plusieurs étapes clés pour aboutir à une interprétation cohérente des résultats. Tout d'abord, une analyse descriptive du jeu de données partiel a été réalisée, comprenant 20 éléments chimiques au lieu des 37 initiaux. Les variables des éléments chimiques ont été renommées et normalisées entre 0 et 1. Cette première analyse consistait en la visualisation des statistiques de base des variables (Min, Q1, médiane, Q3, max et moyenne), de leurs valeurs atypiques ou des potentielles valeurs manquantes, ainsi qu’à l’observation des corrélations entre les variables. Les résultats ont été interprétés pour identifier les tendances et les relations entre les variables.
 
@@ -18,7 +22,7 @@ Ensuite, le jeu de données a été divisé en deux ensembles : un ensemble d'ap
 
 En conclusion, cette approche méthodique et exhaustive a permis d'explorer et d'analyser en profondeur les données ICP-MS Raw, en mettant en lumière les modèles, les tendances et les relations entre les variables. Les conclusions tirées fournissent une base solide pour comprendre et interpréter les mécanismes sous-jacents ainsi que les facteurs influençant les différentes classes présentes dans les données.
 
-```{r, eval=TRUE}
+```{r, output=FALSE}
 # Chargement des packages nécessaires
 install.packages("lattice")
 library(readr)
@@ -26,6 +30,8 @@ library(dplyr)
 library(ggplot2)
 library(caret)
 library(pls)
+library(tidyr)
+library(tidyverse)
 
 # Lecture du fichier CSV
 ICPMS_Raw_data <- read_csv("./ICPMS.csv")
@@ -80,17 +86,31 @@ min_max_normalize <- function(x) {
 normalized_data <- selected_data %>%
   mutate(across(all_of(columns_to_normalize), min_max_normalize))
 
-
 # Nettoyage des données (exemple : supprimer les lignes avec des valeurs manquantes)
 clean_data <- na.omit(normalized_data)
-
-head(clean_data)
 ```
+
+## Statistiques descriptives
+
+Le jeu de données comprend 20 éléments chimiques, pour lesquels des statistiques descriptives ont été calculées. Les valeurs ont été normalisées pour rendre les variables comparables, révélant ainsi des distributions distinctes pour chaque variable. Dans l'ensemble, les distributions semblent être orientées vers le bas, suggérant une concentration relativement faible des éléments chimiques. De plus, il y a une présence notable de valeurs aberrantes potentielles, ce qui peut nécessiter une attention particulière lors de l'analyse.
 
 ```{r}
 #Statistiques récapitulatives
 summary(clean_data)
+
+# Boxplots et moyennes des variables numériques 
+clean_data |>
+     pivot_longer(
+      cols = where(is.numeric)
+    ) |>
+    ggplot() +
+    aes(y = value) +
+    facet_wrap(~ name, scales = "free_y") +
+    geom_boxplot() +
+    theme_light()
 ```
+
+## Analyse des Corrélations
 
 ```{r}
 #Corrélations entre les variables
@@ -108,6 +128,10 @@ high_corr_pairs <- data.frame(row = rownames(cor_matrix)[high_corr[,1]],
                               corr_value = cor_matrix[high_corr])
 high_corr_pairs
 ```
+
+Les résultats de l’analyse des corrélations suggèrent également qu'il existe des corrélations significatives entre certaines paires de variables. Par exemple, la corrélation des éléments chimiques Se et Zn est de 0.82, celle des éléments chimiques Cs et Rb est de 0.87, et celle des éléments chimiques Ta et Nb est de 0.94. Ces fortes corrélations peuvent indiquer une relation chimique ou géologique commune entre ces éléments. Ces résultats peuvent servir de base pour des analyses plus avancées ou pour formuler des hypothèses à explorer davantage dans notre étude.
+
+## Découpage du Jeu de Données
 
 ```{r}
 # Distribution de la variable Class
@@ -129,11 +153,26 @@ train_control <- trainControl(method = "cv", number = 5)  # Validation croisée 
 pls_model <- train(Class ~ ., data = data_train, method = "pls", trControl = train_control, preProc = c("center", "scale"))
 ```
 
+Nous avons stratifié notre jeu de données en un ensemble d'apprentissage et un ensemble de test en utilisant la variable de classe "Class" comme référence pour notre prédiction. Cette division nous a permis de réserver 80% des données pour l'apprentissage et 20% pour l'évaluation. Pour garantir la reproductibilité, nous avons fixé une graine aléatoire. Les données sélectionnées ont été utilisées pour former l'ensemble d'apprentissage, tandis que les observations restantes ont constitué l'ensemble de test. Cette approche rigoureuse nous permettra d'évaluer la performance du modèle sur des données inconnues, assurant ainsi sa capacité à généraliser au-delà des données d'entraînement.
+
+## Modèle PLS-DA
+
+Nous avons débuté en ajustant un modèle PLS-DA à l'aide de la méthode des moindres carrés partiels, une approche courante pour traiter des données multivariées telles que celles que nous avons utilisées. Ce modèle a été formé sur un ensemble d'apprentissage comprenant 418 échantillons et 20 prédicteurs, qui sont les éléments chimiques étudiés. Avant d'ajuster le modèle, nous avons centré et mis à l'échelle nos données pour garantir une comparaison juste entre les différentes variables.
+
+En évaluant les performances du modèle, nous nous sommes concentrés sur deux principales métriques : l'exactitude (Accuracy) et le coefficient Kappa. L'exactitude mesure simplement le nombre de prédictions correctes par rapport au nombre total d'échantillons, tandis que le coefficient Kappa prend également en compte la possibilité de prédictions correctes dues au hasard.
+
+En explorant différentes configurations de notre modèle, nous avons constaté que l'exactitude atteignait son maximum, dépassant les 85%, lorsque nous utilisions trois composantes latentes. Cela signifie que l'ajout d'une troisième composante latente a considérablement amélioré la capacité du modèle à prédire avec précision la classe à laquelle chaque échantillon appartient.
+
+Pour mieux comprendre la qualité de nos prédictions, nous avons également visualisé les valeurs prédites par rapport aux valeurs réelles. Cette analyse visuelle nous a permis de confirmer que notre modèle était capable de discriminer efficacement entre les différentes classes, renforçant ainsi notre confiance dans ses performances.
+
+En résumé, notre modèle PLS-DA a présenté des performances robustes, avec une exactitude dépassant les 85% lors de la validation croisée. Cela suggère que notre modèle est capable de classifier avec précision les échantillons de notre ensemble de test, ce qui est essentiel pour son utilisation dans des applications pratiques.
+
 ```{r}
 # Affichage des résultats
 print(pls_model)
 ```
 
+## Qualité prédictive du modèle
 ```{r}
 # Visualisation de la performance du modèle
 plot(pls_model)
@@ -161,13 +200,26 @@ f1_score <- 2 * precision * recall / (precision + recall)
 f1_score <- ifelse(is.nan(f1_score), 0, f1_score)
 print(paste("F1 Score:", mean(f1_score)))
 
-
-
 # Identification des variables importantes
 importance <- varImp(model)
 print(importance)
 
 # Visualisation de l'importance des variables
 plot(importance)
-
 ```
+
+La matrice de confusion est un outil essentiel pour évaluer la performance d'un modèle de classification comme le PLS-DA. Elle présente les résultats des prédictions du modèle par rapport aux classes réelles dans le jeu de test. Chaque cellule de la matrice représente le nombre d'observations pour lesquelles le modèle a prédit une classe spécifique (colonnes) par rapport à la classe réelle (lignes). Par exemple, si nous considérons la première ligne de la matrice, elle indique que le modèle a correctement classé 19 échantillons comme étant de la classe 'Alaskan', sans aucune erreur de classification pour les autres classes.
+
+L'exactitude (accuracy) est une mesure globale de la performance du modèle, calculée comme le rapport entre le nombre total de prédictions correctes et le nombre total d'observations dans le jeu de test. Une exactitude élevée, comme celle observée ici à environ 85.4%, indique que le modèle a réussi à prédire correctement la grande majorité des échantillons.
+
+Le rappel (recall) est une mesure de la capacité du modèle à identifier correctement les observations positives parmi toutes les observations réellement positives. Il est calculé comme le rapport entre le nombre de vrais positifs et la somme des vrais positifs et des faux négatifs. Un rappel élevé, tel que celui observé ici à environ 89.2%, indique que le modèle a une bonne capacité à rappeler les vraies observations positives.
+
+Le score F1 est une mesure combinée de la précision et du rappel du modèle, calculée comme la moyenne harmonique de ces deux métriques. Il tient compte à la fois des faux positifs et des faux négatifs. Un score F1 élevé, comme celui obtenu ici à environ 80.9%, suggère un bon équilibre entre la précision et le rappel du modèle.
+
+En conclusion, les résultats de la matrice de confusion, de l'exactitude, du rappel et du score F1 indiquent que le modèle PLS-DA a des performances solides sur les données de test, avec une capacité satisfaisante à prédire correctement les classes des échantillons.
+
+## Interprétation du modèle ajusté
+
+L'analyse de l'interprétation du modèle PLS-DA révèle les éléments chimiques les plus pertinents pour la discrimination entre les différentes classes. Ces éléments sont classés en fonction de leur importance maximale à travers les différentes classes. Par exemple, le lithium (Li) est identifié comme étant le plus important pour discriminer la classe 'Alaskan', tandis que le bore (B) est crucial pour la classe 'Iceland-F'. Les valeurs attribuées à chaque élément indiquent leur contribution relative à la discrimination des classes, les valeurs plus élevées reflétant une contribution plus significative. Le graphique représente visuellement cette importance des variables pour chaque classe, où les barres plus hautes correspondent à une plus grande importance dans la discrimination de la classe correspondante.
+
+Cette analyse permet ainsi d'identifier les éléments chimiques clés influençant la classification des saumons entre sauvage et d'élevage, fournissant ainsi de précieuses informations pour comprendre les compositions permettant la différenciation des échantillons.
