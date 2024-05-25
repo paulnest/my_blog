@@ -2,9 +2,10 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/post-with-code5/UntitledQMD.html",
       "/posts/post-with-code/olympicsWeather.html",
       "/posts/post-with-code3/Projet travel-times.html",
-      "/posts/post_with_code4/ShinyApp1.html",
+      "/posts/post-with-code4/ShinyApp1.html",
       "/posts/post-with-code2/EAF.html",
       "/posts/welcome/bienvenue.html"
     ]

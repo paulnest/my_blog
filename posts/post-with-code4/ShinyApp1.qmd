@@ -1,0 +1,71 @@
+---
+title: "App : analyse de marché"
+author: "Paul Nestour"
+date: "2024-01-16"
+categories: [ShinyApp]
+---
+
+### Analyse du marché de l'emploi dans le domaine de la Data
+
+Ceci est ma première application ShinyApp réalisé pour mon évaluation de Dataviz : RShiny.
+
+Vous pouvez accéder à mon application Shiny pour analyser le marché de l'emploi dans le domaine de la data science en cliquant sur le lien ci-dessous :
+
+[Accéder à l'Application Shiny](https://analysedumarchedata.shinyapps.io/analyse_marche_data/)
+
+Cette application vous permet de visualiser différentes caractéristiques de l'emploi dans le domaine de la data science, telles que la répartition géographique des offres d'emploi, les caractéristiques générales des entreprises recrutant des data scientists, et la divergence salariale en fonction de différents paramètres.
+
+L'application est plutôt simpliste mais mes compétences en Dataviz se sont développées depuis. La version non déployée de l'app contient également une carte des opportunités d'emploi. Code ci-après :
+
+#### Interface utilisateur : ui
+
+```{r}
+#'    tabPanel("Carte",
+#'             highchartOutput("mapChart")),
+```
+
+#### Comportement et logique : server
+
+```{r}
+#'  output$mapChart <- renderHighchart({
+#'    highchart() %>%
+#'      hc_add_series_map(
+#'        worldgeojson,
+#'        df = salaries,
+#'        joinBy = c("name", "Name"),
+#'        value = "count"
+#'      ) %>%
+#'      hc_colorAxis(minColor = "lightblue", maxColor = "darkblue") %>%
+#'      hc_title(text = "Nombre d'Offres d'Emploi par Pays") %>%
+#'      hc_mapNavigation(enable = TRUE, enableMouseWheelZoom = TRUE)
+#'  })
+```
+
+#### Base et traitement
+
+```{r}
+#'#IMPORTATION
+#'link <- "https://ai-jobs.net/salaries/download/salaries.csv"
+#'salaries <- read.csv(link, sep = ",", header = TRUE)
+#'link2 = "https://github.com/datasets/country-list/blob/master/data.csv"
+#'iso_mapping = read.csv(link2, sep = ",", header = TRUE)
+
+#'#salaries <- read_csv("data/salaries.csv")
+
+#'# TRAITEMENT DE LA BASE
+
+#'ajout du nom des pays avec le code iso. colonne "name"
+#'iso_mapping <- read_csv("data/data.csv")
+
+#'salaries <- left_join(salaries, iso_mapping, by = c("company_location" = "Code"))
+
+#'# ajout du nbr d'offre/pays. colonne "count"
+#'grouped_data <- salaries |>  
+#'  group_by(Name) |> 
+#'  summarize(count = n())
+#'salaries <- dplyr::left_join(salaries, grouped_data, by = "Name")
+
+#'# Détails "name"
+#'salaries <- salaries %>%
+#'  mutate(Name = ifelse(Name == "United States", "United States of America", #'Name))
+```

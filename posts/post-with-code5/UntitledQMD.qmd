@@ -1,0 +1,173 @@
+---
+title: "Analyse comparative de la spectrométrie du saumon de consommation et de son lieu de production"
+author: "Paul Nestour"
+date: "2024-05-16"
+categories: [Dossier]
+abstract: "Ce dossier a été rédigé dans le cadre du cours 'Modélisation avec des variables latentes' pendant notre première année de Master ECA."
+---
+
+## Introduction et démarche
+
+L'étude initiale, issue de la publication "Data fusion and multivariate analysis for food authenticity analysis", avait pour objectif d'établir un modèle permettant de déterminer l'authenticité du saumon en fonction de son origine géographique et de son mode d'élevage. Pour ce faire, les chercheurs se sont appuyés sur une base de données constituée de 521 échantillons de saumon provenant de fournisseurs de quatre pays différents (Alaska, Écosse, Norvège et Islande), avec des méthodes de production sauvage ou d'élevage, chaque pays ayant ses spécificités propres.
+
+Ainsi, les chercheurs ont utilisé la spectrométrie de masse à plasma à couplage inductif (ICP-MS), une des techniques spectrométriques les plus importantes. Sa sensibilité extrêmement élevée et une large plage dynamique linéaire permettent l'analyse simultanée des composants principaux et des ultra-traces. Cette technique est capable d'analyser des éléments de Li à U et peut être appliquée aux solutions et aux solides. Son utilisation permet donc l’analyse quantitative d'éléments mineurs et est utilisée dans un large panel de processus industriels et agroalimentaires : qualification des matières premières, sécurité des produits, recherche et développement, contrôle de la production, analyse des défaillances, etc.
+
+La démarche suivie dans cette analyse a été méthodique, impliquant plusieurs étapes clés pour aboutir à une interprétation cohérente des résultats. Tout d'abord, une analyse descriptive du jeu de données partiel a été réalisée, comprenant 20 éléments chimiques au lieu des 37 initiaux. Les variables des éléments chimiques ont été renommées et normalisées entre 0 et 1. Cette première analyse consistait en la visualisation des statistiques de base des variables (Min, Q1, médiane, Q3, max et moyenne), de leurs valeurs atypiques ou des potentielles valeurs manquantes, ainsi qu’à l’observation des corrélations entre les variables. Les résultats ont été interprétés pour identifier les tendances et les relations entre les variables.
+
+Ensuite, le jeu de données a été divisé en deux ensembles : un ensemble d'apprentissage et un ensemble de test, en fonction de la variable de classe, et le jeu de test est réservé exclusivement à l'évaluation de la performance du modèle. On a procédé à l'ajustement d'un modèle de prédiction. En parallèle, un modèle PLS-DA a été ajusté en utilisant la méthode des moindres carrés partiels avec une validation croisée à 5 plis. Les résultats de la validation croisée ont été minutieusement analysés pour sélectionner le nombre optimal de composantes latentes. La performance du modèle a été évaluée en termes d'exactitude, de kappa et d'autres métriques, tandis que sa qualité prédictive a été évaluée en utilisant la matrice de confusion, la précision, le rappel et le score F1 sur l'ensemble de test. De plus, les variables importantes pour la discrimination entre les classes ont été identifiées à partir de l'importance des variables dans le modèle PLS-DA. Tous ces résultats ont ensuite été visualisés pour faciliter leur interprétation.
+
+En conclusion, cette approche méthodique et exhaustive a permis d'explorer et d'analyser en profondeur les données ICP-MS Raw, en mettant en lumière les modèles, les tendances et les relations entre les variables. Les conclusions tirées fournissent une base solide pour comprendre et interpréter les mécanismes sous-jacents ainsi que les facteurs influençant les différentes classes présentes dans les données.
+
+```{r, eval=TRUE}
+# Chargement des packages nécessaires
+install.packages("lattice")
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(caret)
+library(pls)
+
+# Lecture du fichier CSV
+ICPMS_Raw_data <- read_csv("./ICPMS.csv")
+
+# Conversion de la variable 'Class' en facteur
+ICPMS_Raw_data$Class <- as.factor(ICPMS_Raw_data$Class)
+
+# Sélection des 20 éléments restants
+selected_elements <- c("7  Li  [ No Gas ]", "11  B  [ No Gas ]", "27  Al  [ He ]", "51  V  [ He ]", "52  Cr  [ He ]", "55  Mn  [ He ]", "56  Fe  [ He ]", "59  Co  [ He ]", "60  Ni  [ He ]", "63  Cu  [ He ]", "66  Zn  [ He ]", "75  As  [ He ]", "78  Se  [ He ]", "85  Rb  [ He ]", "88  Sr  [ He ]", "93  Nb  [ He ]", "95  Mo  [ He ]", "111  Cd  [ He ]", "133  Cs  [ He ]", "181  Ta  [ He ]")
+
+# Sélectionner les colonnes spécifiées
+selected_data <- ICPMS_Raw_data[, c("Class", selected_elements)]
+
+# Renommer les colonnes
+names(selected_data)[-1] <- c("Li", "B", "Al", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "As", "Se", "Rb", "Sr", "Nb", "Mo", "Cd", "Cs", "Ta")
+
+# Sélection des colonnes
+selected_data <- ICPMS_Raw_data %>%
+  select(Class, all_of(selected_elements)) %>% 
+  rename(
+    Li = `7  Li  [ No Gas ]`,
+    B = `11  B  [ No Gas ]`,
+    Al = `27  Al  [ He ]`,
+    V = `51  V  [ He ]`,
+    Cr = `52  Cr  [ He ]`,
+    Mn = `55  Mn  [ He ]`,
+    Fe = `56  Fe  [ He ]`,
+    Co = `59  Co  [ He ]`,
+    Ni = `60  Ni  [ He ]`,
+    Cu = `63  Cu  [ He ]`,
+    Zn = `66  Zn  [ He ]`,
+    As = `75  As  [ He ]`,
+    Se = `78  Se  [ He ]`,
+    Rb = `85  Rb  [ He ]`,
+    Sr = `88  Sr  [ He ]`,
+    Nb = `93  Nb  [ He ]`,
+    Mo = `95  Mo  [ He ]`,
+    Cd = `111  Cd  [ He ]`,
+    Cs = `133  Cs  [ He ]`,
+    Ta = `181  Ta  [ He ]`
+  )
+
+# Sélection des colonnes à normaliser
+columns_to_normalize <- c("Li", "B", "Al", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "As", "Se", "Rb", "Sr", "Nb", "Mo", "Cd", "Cs", "Ta")
+
+# Création d'une fonction pour la normalisation min-max
+min_max_normalize <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+
+# Appliquer la fonction de normalisation min-max à chaque colonne sélectionnée
+normalized_data <- selected_data %>%
+  mutate(across(all_of(columns_to_normalize), min_max_normalize))
+
+
+# Nettoyage des données (exemple : supprimer les lignes avec des valeurs manquantes)
+clean_data <- na.omit(normalized_data)
+
+head(clean_data)
+```
+
+```{r}
+#Statistiques récapitulatives
+summary(clean_data)
+```
+
+```{r}
+#Corrélations entre les variables
+cor_matrix <- cor(clean_data[, -1]) # Exclure la variable de classe
+corrplot::corrplot(cor_matrix, method = "circle")
+```
+
+```{r}
+# Sélectionner les corrélations supérieures à 0.8
+high_corr <- which(cor_matrix > 0.8 & cor_matrix < 1, arr.ind = TRUE)
+
+# Afficher les paires de variables corrélées
+high_corr_pairs <- data.frame(row = rownames(cor_matrix)[high_corr[,1]],
+                              col = colnames(cor_matrix)[high_corr[,2]],
+                              corr_value = cor_matrix[high_corr])
+high_corr_pairs
+```
+
+```{r}
+# Distribution de la variable Class
+table(clean_data$Class)
+
+# Définition de la variable de classe
+classe_variable <- "Class"
+
+# Création de l'ensemble d'apprentissage et de l'ensemble de test
+set.seed(123) # Pour la reproductibilité
+index <- createDataPartition(clean_data[[classe_variable]], p = 0.8, list = FALSE)
+data_train <- clean_data[index, ]
+data_test <- clean_data[-index, ]
+
+# Définition du contrôle de la validation croisée
+train_control <- trainControl(method = "cv", number = 5)  # Validation croisée à 5 plis
+
+# Ajustement du modèle PLS-DA
+pls_model <- train(Class ~ ., data = data_train, method = "pls", trControl = train_control, preProc = c("center", "scale"))
+```
+
+```{r}
+# Affichage des résultats
+print(pls_model)
+```
+
+```{r}
+# Visualisation de la performance du modèle
+plot(pls_model)
+
+model=pls_model
+
+# Prédictions sur les données de test
+predictions <- predict(model, newdata = data_test)
+
+# Matrice de confusion
+conf_matrix <- table(predictions, data_test$Class)
+print(conf_matrix)
+
+# Calcul de la précision
+accuracy <- sum(diag(conf_matrix)) / sum(conf_matrix)
+print(paste("Accuracy:", accuracy))
+
+# Calcul du rappel (recall)
+recall <- ifelse(rowSums(conf_matrix) == 0, 0, diag(conf_matrix) / rowSums(conf_matrix))
+print(paste("Recall:", mean(recall)))
+
+# Calcul du score F1
+precision <- ifelse(colSums(conf_matrix) == 0, 0, diag(conf_matrix) / colSums(conf_matrix))
+f1_score <- 2 * precision * recall / (precision + recall)
+f1_score <- ifelse(is.nan(f1_score), 0, f1_score)
+print(paste("F1 Score:", mean(f1_score)))
+
+
+
+# Identification des variables importantes
+importance <- varImp(model)
+print(importance)
+
+# Visualisation de l'importance des variables
+plot(importance)
+
+```
